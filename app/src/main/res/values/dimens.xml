@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+  <dimen name="design_bottom_navigation_text_size" tools:override="true">12dp</dimen>
+  <dimen name="design_bottom_navigation_active_text_size" tools:override="true">12dp</dimen>
+
+  <dimen name="height_toolbar">56dp</dimen>
+  <dimen name="elevation_toolbar">2dp</dimen>
+  <dimen name="elevation_bnv">4dp</dimen>
+  <dimen name="margin_normal">16dp</dimen>
+  <dimen name="margin_micro">4dp</dimen>
+  <dimen name="padding_layout_form">24dp</dimen>
+  <dimen name="padding_normal">8dp</dimen>
+  <dimen name="width_divider">1dp</dimen>
+
+
+</resources>

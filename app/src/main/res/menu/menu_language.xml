@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+  <item
+    android:id="@+id/btn_lang_uz"
+    android:icon="@drawable/ic_flag_uz"
+    android:title="@string/uzbek"/>
+  <item
+    android:id="@+id/btn_lang_ru"
+    android:icon="@drawable/ic_flag_ru"
+    android:title="@string/russian"/>
+  <item
+    android:id="@+id/btn_lang_tr"
+    android:icon="@drawable/ic_flag_tr"
+    android:title="@string/turkish"/>
+  <item
+    android:id="@+id/btn_lang_en"
+    android:icon="@drawable/ic_flag_uk"
+    android:title="@string/english"/>
+
+</menu>

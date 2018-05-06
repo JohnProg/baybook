@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <!--Light theme-->
+  <style name="AppTheme.Light" parent="Theme.AppCompat.Light.NoActionBar">
+    <item name="colorPrimaryDark">@color/primary_dark</item>
+    <item name="colorAccent">@color/accent</item>
+    <item name="colorControlActivated">@color/accent</item>
+    <item name="colorControlNormal">?attr/textColorSecondary</item>
+
+    <item name="textColorPrimary">@color/text_primary</item>
+    <item name="textColorSecondary">@color/text_secondary</item>
+    <item name="textColorDisabled">@color/text_disabled</item>
+    <item name="textColorSelected">@color/text_selected</item>
+    <item name="iconColorActive">@color/icon_active</item>
+    <item name="iconColorInactive">@color/icon_inactive</item>
+    <item name="iconColorChecked">@color/icon_checked</item>
+    <item name="backgroundColor">@color/background</item>
+    <item name="toolbarColor">@color/toolbar</item>
+    <item name="viewColor">@color/view</item>
+  </style>
+
+  <!--Dark theme-->
+  <style name="AppTheme.Dark" parent="Theme.AppCompat.NoActionBar">
+    <item name="colorPrimaryDark">@color/primary_dark</item>
+    <item name="colorAccent">@color/accent</item>
+    <item name="colorControlActivated">@color/accent</item>
+    <item name="colorControlNormal">?attr/textColorSecondary</item>
+
+    <item name="textColorPrimary">@color/text_primary_dark</item>
+    <item name="textColorSecondary">@color/text_secondary_dark</item>
+    <item name="textColorDisabled">@color/text_disabled_dark</item>
+    <item name="textColorSelected">@color/text_selected_dark</item>
+    <item name="iconColorActive">@color/icon_active_dark</item>
+    <item name="iconColorInactive">@color/icon_inactive_dark</item>
+    <item name="iconColorChecked">@color/icon_checked_dark</item>
+    <item name="backgroundColor">@color/background_dark</item>
+    <item name="viewColor">@color/view_dark</item>
+    <item name="toolbarColor">@color/toolbar_dark</item>
+    <item name="dividerColor">@color/divider_dark</item>
+  </style>
+
+  <style name="PrimaryButton" parent="Widget.AppCompat.Button.Colored">
+    <item name="colorButtonNormal">@color/accent</item>
+    <item name="android:textColor">@color/white</item>
+  </style>
+
+  <style name="FlatButton" parent="Widget.AppCompat.Button.Borderless.Colored">
+    <item name="android:textColor">@color/accent</item>
+  </style>
+
+  <style name="BorderlessButton" parent="Widget.AppCompat.Button.Borderless">
+    <item name="android:textColor">?attr/textColorPrimary</item>
+  </style>
+
+
+</resources>

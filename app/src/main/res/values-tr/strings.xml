@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="filter">Филтер</string>
+  <string name="all">Все</string>
+  <string name="downloaded">Downloaded</string>
+  <string name="empty_library">Library is empty. You can purchase books from store.</string>
+  <string name="library">Library</string>
+  <string name="store">Store</string>
+  <string name="profile">Профиль</string>
+  <string name="password">Парол</string>
+  <string name="login">Log in</string>
+  <string name="forgot_password">Forgot password</string>
+  <string name="skip">Log in later</string>
+  <string name="title_login">Вход в Kitobim</string>
+  <string name="title_change_password">Сменить парол</string>
+  <string name="title_register">Welcome to Kitobim</string>
+  <string name="create_account">Create account</string>
+  <string name="cancel">Cancel</string>
+  <string name="username">Username</string>
+  <string name="repeat_password">Repeat password</string>
+  <string name="link_to_store">Go to store</string>
+  <string name="dark">Тёмный</string>
+  <string name="settings">Настройки</string>
+  <string name="language">Язык</string>
+  <string name="help">Помощь</string>
+  <string name="about_us">О нас</string>
+  <string name="feedback">Feedback</string>
+  <string name="my_account">Мой аккоунт</string>
+  <string name="logout">Выход</string>
+  <string name="payment">Платеж</string>
+</resources>

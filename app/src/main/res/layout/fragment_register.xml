@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:paddingStart="24dp"
+  android:paddingEnd="24dp"
+  android:background="?attr/backgroundColor"
+  android:focusableInTouchMode="true">
+
+  <TextView
+    android:id="@+id/title_register"
+    android:textStyle="bold"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="32dp"
+    android:fontFamily="sans-serif-light"
+    android:text="@string/title_register"
+    android:textColor="?attr/textColorPrimary"
+    android:textSize="24sp"
+    app:layout_constraintBottom_toTopOf="@id/label_username_register"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintVertical_bias="0.0"
+    app:layout_constraintVertical_chainStyle="packed"/>
+
+  <android.support.design.widget.TextInputLayout
+    android:id="@+id/label_username_register"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="16dp"
+    app:layout_constraintBottom_toTopOf="@id/label_email_register"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/title_register">
+
+    <android.support.design.widget.TextInputEditText
+      android:id="@+id/field_username_register"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:hint="@string/username"
+      android:inputType="textEmailAddress"
+      android:selectAllOnFocus="true"/>
+  </android.support.design.widget.TextInputLayout>
+
+  <android.support.design.widget.TextInputLayout
+    android:id="@+id/label_email_register"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    app:layout_constraintBottom_toTopOf="@id/label_password_register"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/label_username_register">
+    <android.support.design.widget.TextInputEditText
+      android:id="@+id/field_email_register"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:hint="@string/email"
+      android:inputType="textEmailAddress"
+      android:selectAllOnFocus="true"/>
+  </android.support.design.widget.TextInputLayout>
+
+  <android.support.design.widget.TextInputLayout
+    android:id="@+id/label_password_register"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/label_email_register"
+    app:passwordToggleDrawable="@drawable/asl_password_visibility"
+    app:passwordToggleEnabled="true"
+    app:passwordToggleTint="?attr/iconColorInactive">
+
+    <android.support.design.widget.TextInputEditText
+      android:id="@+id/field_repeat_password_register"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:hint="@string/password"
+      android:inputType="textPassword"
+      android:selectAllOnFocus="true"/>
+
+  </android.support.design.widget.TextInputLayout>
+
+  <android.support.design.widget.TextInputLayout
+    android:id="@+id/label_repeat_password_register"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/label_password_register"
+    app:passwordToggleDrawable="@drawable/asl_password_visibility"
+    app:passwordToggleEnabled="true"
+    app:passwordToggleTint="?attr/iconColorInactive">
+
+    <android.support.design.widget.TextInputEditText
+      android:id="@+id/field_password_register"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:hint="@string/repeat_password"
+      android:inputType="textPassword"
+      android:selectAllOnFocus="true"/>
+
+  </android.support.design.widget.TextInputLayout>
+
+  <Button
+    android:id="@+id/btn_login_register"
+    android:layout_width="wrap_content"
+    android:layout_height="48dp"
+    android:layout_marginTop="24dp"
+    android:layout_marginBottom="8dp"
+    android:text="@string/create_account"
+    android:theme="@style/PrimaryButton"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/label_repeat_password_register"
+    app:layout_constraintVertical_bias="1.0"/>
+
+  <Button
+    android:id="@+id/btn_cancel_register"
+    style="@style/BorderlessButton"
+    android:layout_width="wrap_content"
+    android:layout_height="48dp"
+    android:paddingStart="8dp"
+    android:paddingEnd="8dp"
+    android:text="@string/cancel"
+    android:textAllCaps="true"
+    android:textColor="@color/accent"
+    app:layout_constraintBottom_toBottomOf="@id/btn_login_register"
+    app:layout_constraintEnd_toStartOf="@id/btn_login_register"
+    app:layout_constraintTop_toTopOf="@id/btn_login_register"/>
+
+
+</android.support.constraint.ConstraintLayout>

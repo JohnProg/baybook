@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="filter">Filter</string>
+  <string name="all">Barcha</string>
+  <string name="downloaded">Yulkab olingan</string>
+  <string name="empty_library">Kutubxona bo\'sh. Kitoblarni do\'kondan yuklab olish mumkin.</string>
+  <string name="library">Kutubxona</string>
+  <string name="store">Do\'kon</string>
+  <string name="profile">Profil</string>
+  <string name="password">Parol</string>
+  <string name="login">Ro\'yxatdan o\'tish</string>
+  <string name="forgot_password">Parolni unutdim</string>
+  <string name="skip">Keyinroq</string>
+  <string name="title_login">Kitobim kirish</string>
+  <string name="title_change_password">Parolni yangilash</string>
+  <string name="title_register">Kitobimga xush kelibsiz</string>
+  <string name="create_account">Akkount yaratish</string>
+  <string name="cancel">Bekor qilish</string>
+  <string name="username">Ism Familiya</string>
+  <string name="repeat_password">Repeat password</string>
+  <string name="link_to_store">Go to store</string>
+  <string name="dark">Qora</string>
+  <string name="settings">Sozlamalar</string>
+  <string name="language">Tillar</string>
+  <string name="help">Yordam</string>
+  <string name="about_us">Biz haqimizda</string>
+  <string name="feedback">Feedback</string>
+  <string name="my_account">Mening akkountim</string>
+  <string name="logout">Chiqish</string>
+  <string name="payment">To\'lov</string>
+</resources>

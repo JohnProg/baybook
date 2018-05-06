@@ -1,0 +1,43 @@
+<resources>
+  <string name="app_name">Kitobim</string>
+  <string name="sample_text" translatable="false">Sample text</string>
+  <string name="filter">Filter</string>
+  <string name="list" translatable="false">List</string>
+  <string name="grid" translatable="false">Grid</string>
+  <string name="all">All</string>
+  <string name="downloaded" translatable="false">Downloaded</string>
+  <string name="empty_library">Library is empty. You can purchase books from store.</string>
+  <string name="library">Library</string>
+  <string name="store">Store</string>
+  <string name="profile">Profile</string>
+  <string name="password">Password</string>
+  <string name="email" translatable="false">Email</string>
+  <string name="login">Log in</string>
+  <string name="forgot_password">Forgot password</string>
+  <string name="empty" translatable="false"> </string>
+  <string name="skip">Log in later</string>
+  <string name="title_login">Log in to Kitobim</string>
+  <string name="title_change_password">Change password</string>
+  <string name="title_register">Welcome to Kitobim</string>
+  <string name="create_account">Create account</string>
+  <string name="cancel">Cancel</string>
+  <string name="username">Username</string>
+  <string name="repeat_password">Repeat password</string>
+  <string name="link_to_store">Go to store</string>
+  <string name="light">Light</string>
+  <string name="dark">Dark</string>
+  <string name="theme_color">Theme color</string>
+  <string name="language">Language</string>
+  <string name="help">Help</string>
+  <string name="about_us">About us</string>
+  <string name="feedback">Feedback</string>
+  <string name="notification">Notification</string>
+  <string name="payment">Payment</string>
+  <string name="my_account">My account</string>
+  <string name="logout">Log out</string>
+  <string name="settings">Settings</string>
+  <string name="turkish" translatable="false">Turkce</string>
+  <string name="russian" translatable="false">Русский</string>
+  <string name="uzbek" translatable="false">O\'zbekcha</string>
+  <string name="english" translatable="false">English</string>
+</resources>

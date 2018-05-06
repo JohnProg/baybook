@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+  <item
+    android:id="@+id/btn_account"
+    android:icon="@drawable/ic_person_outline"
+    android:title="@string/my_account"/>
+
+  <item
+    android:id="@+id/btn_payment"
+    android:icon="@drawable/ic_payment"
+    android:title="@string/payment"/>
+
+  <item
+    android:id="@+id/btn_notification"
+    android:icon="@drawable/ic_notifications"
+    android:title="@string/notification"/>
+
+  <item
+    android:id="@+id/btn_feedback"
+    android:icon="@drawable/ic_feedback"
+    android:title="@string/feedback"/>
+
+  <item
+    android:id="@+id/btn_logout"
+    android:icon="@drawable/ic_exit"
+    android:title="@string/logout"/>
+</menu>
