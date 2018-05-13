@@ -13,4 +13,5 @@ object Constants {
     const val THEME_LIGHT = 0
     const val THEME_DARK = 1
     const val THEME_SEPIA = 2
+    const val PASSWORD_MIN_LENGTH = 6
 }

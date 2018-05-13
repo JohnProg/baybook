@@ -1,11 +1,11 @@
 <resources>
-  <string name="app_name">Kitobim</string>
+  <string name="app_name" translatable="false">Kitobim</string>
   <string name="sample_text" translatable="false">Sample text</string>
   <string name="filter">Filter</string>
   <string name="list" translatable="false">List</string>
   <string name="grid" translatable="false">Grid</string>
   <string name="all">All</string>
-  <string name="downloaded" translatable="false">Downloaded</string>
+  <string name="downloaded">Downloaded</string>
   <string name="empty_library">Library is empty. You can purchase books from store.</string>
   <string name="library">Library</string>
   <string name="store">Store</string>
@@ -17,7 +17,7 @@
   <string name="empty" translatable="false"> </string>
   <string name="skip">Log in later</string>
   <string name="title_login">Log in to Kitobim</string>
-  <string name="title_change_password">Change password</string>
+  <string name="title_restore_password">Forgot your password?</string>
   <string name="title_register">Welcome to Kitobim</string>
   <string name="create_account">Create account</string>
   <string name="cancel">Cancel</string>
@@ -40,4 +40,14 @@
   <string name="russian" translatable="false">Русский</string>
   <string name="uzbek" translatable="false">O\'zbekcha</string>
   <string name="english" translatable="false">English</string>
+  <string name="error_invalid_email">Invalid email address</string>
+  <string name="error_empty_field">Field is empty</string>
+  <string name="empty_profile">In order get full access you should log in</string>
+  <string name="link_to_login">Let\'s log in</string>
+  <string name="subtitle_restore_password">Enter your mail to find your account</string>
+  <string name="error_password">At least 6 characters</string>
+  <string name="title_welcome">Welcome to Kitobim</string>
+  <string name="continue_with_facebook">Continue with Facebook</string>
+  <string name="continue_with_google">Continue with Google</string>
+  <string name="term_of_use">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto consequatur dignissimos doloribus dolorum.</string>
 </resources>

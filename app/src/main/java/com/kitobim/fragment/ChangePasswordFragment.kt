@@ -16,20 +16,22 @@ class ChangePasswordFragment @SuppressLint("ValidFragment") private constructor(
         fun newInstance(): Fragment = ChangePasswordFragment()
     }
 
-    private lateinit var parent: View
+    private val TOOLBAR_NAVIGATION_ID = -1
+    private lateinit var mView: View
     private var mFragment: Fragment? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, state: Bundle?): View? {
-        parent = inflater.inflate(R.layout.fragment_change_password, container, false)
+        mView = inflater.inflate(R.layout.fragment_change_password, container, false)
 
-        parent.btn_change_password.setOnClickListener(this)
+        mView.fab_send_request.setOnClickListener(this)
+        mView.toolbar_change_password.setNavigationOnClickListener(this)
 
-        return parent
+        return mView
     }
 
     override fun onClick(v: View) {
         when (v.id) {
-
+            TOOLBAR_NAVIGATION_ID -> activity!!.onBackPressed()
         }
     }
 

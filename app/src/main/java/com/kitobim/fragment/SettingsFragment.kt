@@ -37,13 +37,16 @@ class SettingsFragment @SuppressLint("ValidFragment") private constructor() : Fr
             else -> null
         }
 
+        addFragment()
+        return true
+    }
+
+    private fun addFragment() {
         if (mFragment != null) {
             parentFragment!!.fragmentManager!!.beginTransaction()
                     .add(R.id.fragment_container, mFragment)
                     .addToBackStack(null)
                     .commit()
         }
-        return true
     }
-
 }

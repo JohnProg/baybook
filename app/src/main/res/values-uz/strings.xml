@@ -9,10 +9,10 @@
   <string name="profile">Profil</string>
   <string name="password">Parol</string>
   <string name="login">Ro\'yxatdan o\'tish</string>
-  <string name="forgot_password">Parolni unutdim</string>
+  <string name="forgot_password">Parolni unutdingizmi</string>
   <string name="skip">Keyinroq</string>
   <string name="title_login">Kitobim kirish</string>
-  <string name="title_change_password">Parolni yangilash</string>
+  <string name="title_restore_password">Parolni tiklash</string>
   <string name="title_register">Kitobimga xush kelibsiz</string>
   <string name="create_account">Akkount yaratish</string>
   <string name="cancel">Bekor qilish</string>

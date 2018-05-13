@@ -24,7 +24,7 @@ object LocaleHelper {
         prefs[Constants.LANGUAGE] = language
     }
 
-    fun updateResources(context: Context, language: String): Context {
+    private fun updateResources(context: Context, language: String): Context {
 
         val locale = Locale(language)
         Locale.setDefault(locale)

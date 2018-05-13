@@ -26,6 +26,7 @@ class MainFragment @SuppressLint("ValidFragment") private constructor() : Fragme
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, state: Bundle?): View? {
         mView = inflater.inflate(R.layout.fragment_main, container, false)
 
+
         BottomNavigationViewHelper.disableShiftMode(mView.bottom_navigation)
         mView.bottom_navigation.setOnNavigationItemSelectedListener(this)
         mView.bottom_navigation.selectedItemId = R.id.btn_library
@@ -44,12 +45,15 @@ class MainFragment @SuppressLint("ValidFragment") private constructor() : Fragme
             else -> null
         }
 
+        replaceFragment()
+        return true
+    }
+
+    private fun replaceFragment(){
         if (mFragment != null) {
             val transaction = childFragmentManager.beginTransaction()
             transaction.replace(R.id.fragment_container_child, mFragment)
             transaction.commit()
         }
-
-        return true
     }
 }

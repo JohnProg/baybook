@@ -8,12 +8,11 @@
   <string name="store">Store</string>
   <string name="profile">Профиль</string>
   <string name="password">Парол</string>
-  <string name="email">Email</string>
   <string name="login">Log in</string>
   <string name="forgot_password">Forgot password</string>
   <string name="skip">Log in later</string>
   <string name="title_login">Вход в Kitobim</string>
-  <string name="title_change_password">Сменить парол</string>
+  <string name="title_restore_password">Сменить парол</string>
   <string name="title_register">Welcome to Kitobim</string>
   <string name="create_account">Create account</string>
   <string name="cancel">Cancel</string>
