@@ -5,6 +5,7 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.support.design.widget.NavigationView
 import android.support.v4.app.Fragment
+import android.support.v4.app.FragmentTransaction
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
@@ -44,7 +45,9 @@ class ProfileFragment @SuppressLint("ValidFragment") private constructor() : Fra
 
         mView.btn_profile_empty.setOnClickListener {
             mFragment = WelcomeFragment.newInstance()
-            replaceFragment()
+            changeFragment {
+                replace(R.id.fragment_container, mFragment)
+            }
         }
         mView.nav_view_profile.setNavigationItemSelectedListener(this)
         return mView
@@ -62,24 +65,18 @@ class ProfileFragment @SuppressLint("ValidFragment") private constructor() : Fra
             }
             else -> null
         }
-        addFragment()
+        changeFragment {
+            add(R.id.fragment_container, mFragment).addToBackStack(null)
+        }
+
         return true
     }
 
-    private fun addFragment() {
+    private inline fun changeFragment(code: FragmentTransaction.() -> Unit) {
         if (mFragment != null) {
-            parentFragment!!.fragmentManager!!.beginTransaction()
-                    .add(R.id.fragment_container, mFragment)
-                    .addToBackStack(null)
-                    .commit()
-        }
-    }
-
-    private fun replaceFragment() {
-        if (mFragment != null) {
-            parentFragment!!.fragmentManager!!.beginTransaction()
-                    .replace(R.id.fragment_container, mFragment)
-                    .commit()
+            val transaction = parentFragment!!.fragmentManager!!.beginTransaction()
+            transaction.code()
+            transaction.commit()
         }
     }
 
@@ -87,6 +84,8 @@ class ProfileFragment @SuppressLint("ValidFragment") private constructor() : Fra
         mPreference[Constants.IS_ACTIVE] = false
         mPreference[Constants.TOKEN] = ""
         mFragment = WelcomeFragment.newInstance()
-        replaceFragment()
+        changeFragment {
+            replace(R.id.fragment_container, mFragment)
+        }
     }
 }

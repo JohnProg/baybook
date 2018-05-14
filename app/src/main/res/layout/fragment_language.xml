@@ -24,6 +24,7 @@
     android:id="@+id/nav_view_language"
     android:layout_width="0dp"
     android:layout_height="wrap_content"
+    android:background="@color/transparent"
     app:elevation="0dp"
     app:itemTextColor="?attr/textColorPrimary"
     app:layout_constraintEnd_toEndOf="parent"

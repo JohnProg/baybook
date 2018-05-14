@@ -46,7 +46,7 @@
     android:layout_marginBottom="8dp"
     android:gravity="center"
     android:includeFontPadding="false"
-    android:textColor="@color/accent"
+    android:textColor="@color/primary"
     android:textSize="12sp"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="@id/card_title"

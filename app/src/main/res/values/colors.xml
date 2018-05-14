@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <color name="primary">#3F51B5</color>
-  <color name="primary_dark">#303F9F</color>
-  <color name="accent">#40A9FF</color>
+  <color name="primary">#40A9FF</color>
+  <color name="accent">#F44336</color>
   <color name="error">#F44336</color>
 
   <color name="grey100">#FAFAFA</color>
@@ -14,10 +13,10 @@
   <color name="text_primary">#CC000000</color>
   <color name="text_secondary">#8A000000</color>
   <color name="text_disabled">#61000000</color>
-  <color name="text_selected">#40A9FF</color>
+  <color name="text_selected">@color/primary</color>
   <color name="icon_active">#8A000000</color>
   <color name="icon_inactive">#61000000</color>
-  <color name="icon_checked">#40A9FF</color>
+  <color name="icon_checked">@color/primary</color>
   <color name="background">#FFFFFF</color> <!--#FAFAFA-->
   <color name="toolbar">#FFFFFF</color>
   <color name="view">#F5F5F5</color>
@@ -26,10 +25,10 @@
   <color name="text_primary_dark">#FFFFFFFF</color>
   <color name="text_secondary_dark">#B2FFFFFF</color>
   <color name="text_disabled_dark">#80FFFFFF</color>
-  <color name="text_selected_dark">#40A9FF</color>
+  <color name="text_selected_dark">@color/primary</color>
   <color name="icon_active_dark">#FFFFFFFF</color>
   <color name="icon_inactive_dark">#808080</color>
-  <color name="icon_checked_dark">#40A9FF</color>
+  <color name="icon_checked_dark">@color/primary</color>
   <color name="background_dark">#212121</color> <!--#303030-->
   <color name="toolbar_dark">#212121</color>
   <color name="view_dark">#424242</color>

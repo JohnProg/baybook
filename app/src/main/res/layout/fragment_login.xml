@@ -3,6 +3,7 @@
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
+  android:theme="@style/AppTheme.Light"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
   android:background="@color/background"
@@ -51,7 +52,6 @@
     app:layout_constraintStart_toEndOf="@id/guideline_begin_login"
     app:layout_constraintTop_toBottomOf="@id/title_login">
     <android.support.v7.widget.AppCompatEditText
-      style="@style/LightEditText"
       android:id="@+id/field_email_login"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
@@ -73,7 +73,6 @@
     app:passwordToggleEnabled="true"
     app:passwordToggleTint="@color/icon_inactive">
     <android.support.v7.widget.AppCompatEditText
-      style="@style/LightEditText"
       android:id="@+id/field_password_login"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
@@ -90,11 +89,12 @@
     android:layout_marginBottom="16dp"
     android:layout_marginEnd="16dp"
     android:src="@drawable/ic_chevron_right"
+    android:clickable="false"
     app:elevation="@dimen/no_elevation"
     app:fabSize="mini"
-    android:clickable="false"
     app:backgroundTint="@color/grey300"
     app:borderWidth="0dp"
+    app:pressedTranslationZ="@dimen/no_elevation"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"/>
 

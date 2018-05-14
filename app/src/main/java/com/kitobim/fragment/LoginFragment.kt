@@ -1,10 +1,11 @@
 package com.kitobim.fragment
 
 import android.annotation.SuppressLint
-import android.content.Context.INPUT_METHOD_SERVICE
+import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v4.app.FragmentTransaction
 import android.support.v4.content.ContextCompat
 import android.text.Editable
 import android.text.TextWatcher
@@ -93,10 +94,13 @@ class LoginFragment @SuppressLint("ValidFragment") private constructor() : Fragm
 
             R.id.btn_forgot_password -> {
                 mFragment = ChangePasswordFragment.newInstance()
-                addFragment()
+                changeFragment {
+                    add(R.id.fragment_container, mFragment).addToBackStack(null)
+                }
             }
 
             TOOLBAR_NAVIGATION_ID -> {
+                hideSoftKeyboard()
                 activity!!.onBackPressed()
             }
         }
@@ -131,7 +135,7 @@ class LoginFragment @SuppressLint("ValidFragment") private constructor() : Fragm
         if (isValidEmail && isValidPassword) {
             mView.fab_login.apply {
                 isClickable = true
-                backgroundTintList = ContextCompat.getColorStateList(context!!,R.color.accent)
+                backgroundTintList = ContextCompat.getColorStateList(context!!,R.color.primary)
             }
         } else {
             mView.fab_login.apply {
@@ -141,60 +145,46 @@ class LoginFragment @SuppressLint("ValidFragment") private constructor() : Fragm
         }
     }
 
-    private fun addFragment() {
+    private inline fun changeFragment(code: FragmentTransaction.() -> Unit) {
         if (mFragment != null) {
-
-            fragmentManager!!
-                    .beginTransaction()
-                    .add(R.id.fragment_container, mFragment)
-                    .addToBackStack(null)
-                    .commit()
-
-            hideSoftKeyboard()
+            val transaction = fragmentManager!!.beginTransaction()
+            transaction.code()
+            transaction.commit()
         }
-    }
-
-    private fun replaceFragment() {
-        if (mFragment != null) {
-
-            fragmentManager!!
-                    .beginTransaction()
-                    .replace(R.id.fragment_container, mFragment)
-                    .commit()
-
-            hideSoftKeyboard()
-        }
+        hideSoftKeyboard()
     }
 
     private fun login() {
-        if (isValidEmail && isValidPassword) {
-            val login = Login(mEmail, mPassword)
-            val result = mService.login(login)
+        val login = Login(mEmail, mPassword)
+        val result = mService.login(login)
 
-            result.enqueue(object : Callback<User> {
-                override fun onResponse(call: Call<User>, response: Response<User>) {
-                    if (response.isSuccessful) {
-                        val token = response.body()?.token
+        result.enqueue(object : Callback<User> {
+            override fun onResponse(call: Call<User>, response: Response<User>) {
+                if (response.isSuccessful) {
+                    val token = response.body()?.token
 
-                        mPreference[Constants.TOKEN] = token
-                        mPreference[Constants.USERNAME] = mEmail
-                        mPreference[Constants.PASSWORD] = mPassword
-                        mPreference[Constants.IS_ACTIVE] = true
+                    mPreference[Constants.TOKEN] = token
+                    mPreference[Constants.USERNAME] = mEmail
+                    mPreference[Constants.PASSWORD] = mPassword
+                    mPreference[Constants.IS_ACTIVE] = true
 
-                        mFragment = MainFragment.newInstance()
+                    mFragment = MainFragment.newInstance()
 
-                        replaceFragment()
+                    changeFragment {
+                        replace(R.id.fragment_container, mFragment)
                     }
                 }
-                override fun onFailure(call: Call<User>, t: Throwable) { }
-            })
-        }
+            }
+            override fun onFailure(call: Call<User>, t: Throwable) { }
+        })
     }
 
     private fun hideSoftKeyboard() {
         if (activity!!.currentFocus != null) {
-            val inputMethodManager = activity!!.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+            val inputMethodManager = activity!!
+                    .getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             inputMethodManager.hideSoftInputFromWindow(activity!!.currentFocus.windowToken, 0)
         }
     }
 }
+

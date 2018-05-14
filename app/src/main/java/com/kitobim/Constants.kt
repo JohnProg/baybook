@@ -1,6 +1,9 @@
 package com.kitobim
 
 object Constants {
+
+    const val CONTAINER_ID = R.id.fragment_container
+    const val CHILD_CONTAINER_ID = R.id.fragment_container_child
     const val PREFS_NAME = "prefs_kitobim"
     const val IS_ACTIVE = "is_active"
     const val USERNAME = "username"

@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.support.design.widget.NavigationView
 import android.support.v4.app.Fragment
+import android.support.v4.app.FragmentTransaction
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
@@ -37,16 +38,18 @@ class SettingsFragment @SuppressLint("ValidFragment") private constructor() : Fr
             else -> null
         }
 
-        addFragment()
+        changeFragment {
+            add(R.id.fragment_container, mFragment).addToBackStack(null)
+        }
+
         return true
     }
 
-    private fun addFragment() {
+    private inline fun changeFragment(code: FragmentTransaction.() -> Unit) {
         if (mFragment != null) {
-            parentFragment!!.fragmentManager!!.beginTransaction()
-                    .add(R.id.fragment_container, mFragment)
-                    .addToBackStack(null)
-                    .commit()
+            val transaction =  parentFragment!!.fragmentManager!!.beginTransaction()
+            transaction.code()
+            transaction.commit()
         }
     }
 }

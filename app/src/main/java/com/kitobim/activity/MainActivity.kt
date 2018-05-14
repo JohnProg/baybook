@@ -6,6 +6,7 @@ import android.os.Build
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
+import android.support.v4.app.FragmentTransaction
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.view.View
@@ -59,8 +60,8 @@ class MainActivity : AppCompatActivity() {
 
     private var mFragment: Fragment? = null
 
-    override fun onCreate(state: Bundle?) {
-        super.onCreate(state)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
 
         sContext = this
         sWindow = window
@@ -75,17 +76,25 @@ class MainActivity : AppCompatActivity() {
         setTheme(theme)
         setContentView(R.layout.activity_main)
 
-        mFragment =
-                if (isActive) MainFragment.newInstance()
-                else WelcomeFragment.newInstance()
+        if (savedInstanceState == null) {
+            val fragment = fragmentManager.findFragmentById(R.id.fragment_container)
+            if (fragment == null) {
+                mFragment =
+                        if (isActive) MainFragment.newInstance()
+                        else WelcomeFragment.newInstance()
 
-        replaceFragment()
+                changeFragment{
+                    replace(R.id.fragment_container, mFragment)
+                }
+
+            }
+        }
     }
 
-    private fun replaceFragment() {
+    private inline fun changeFragment(code: FragmentTransaction.() -> Unit) {
         if (mFragment != null) {
             val transaction = supportFragmentManager.beginTransaction()
-            transaction.replace(R.id.fragment_container, mFragment)
+            transaction.code()
             transaction.commit()
         }
     }

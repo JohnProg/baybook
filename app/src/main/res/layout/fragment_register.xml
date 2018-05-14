@@ -5,6 +5,7 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
+  android:theme="@style/AppTheme.Light"
   android:background="@color/background">
 
   <android.support.v7.widget.Toolbar
@@ -105,9 +106,10 @@
     app:backgroundTint="@color/grey300"
     app:elevation="@dimen/no_elevation"
     app:fabSize="mini"
+    app:borderWidth="0dp"
+    app:pressedTranslationZ="@dimen/no_elevation"
     app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:pressedTranslationZ="4dp"/>
+    app:layout_constraintEnd_toEndOf="parent"/>
 
   <android.support.constraint.Guideline
     android:id="@+id/guideline_begin_register"
