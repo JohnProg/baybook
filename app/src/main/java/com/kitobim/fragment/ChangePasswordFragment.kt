@@ -57,17 +57,15 @@ class ChangePasswordFragment @SuppressLint("ValidFragment") private constructor(
 
     override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
         mEmail = s.toString()
-        isValidEmail = TextValidator.isValidEmail(mEmail)
+        isValidEmail = TextValidator.isEmail(mEmail)
         if (isValidEmail) {
-            mView.fab_login.apply {
-                isClickable = true
-                backgroundTintList = ContextCompat.getColorStateList(context!!,R.color.primary)
-            }
+            mView.fab_login.backgroundTintList =
+                    ContextCompat.getColorStateList(context!!,R.color.icon_active_dark)
+
         } else {
-            mView.fab_login.apply {
-                isClickable = false
-                backgroundTintList = ContextCompat.getColorStateList(context!!,R.color.grey300)
-            }
+            mView.fab_login.backgroundTintList =
+                    ContextCompat.getColorStateList(context!!,R.color.icon_inactive_dark)
+
         }
     }
 

@@ -19,40 +19,74 @@
     app:title="@string/theme_color"
     tools:targetApi="lollipop"/>
 
+  <ImageView
+    android:id="@+id/img_theme_light"
+    android:layout_width="0dp"
+    android:layout_height="148dp"
+    android:layout_marginTop="@dimen/margin_normal"
+    android:layout_marginEnd="32dp"
+    android:src="@drawable/phone"
+    app:layout_constraintDimensionRatio="1:2"
+    app:layout_constraintEnd_toStartOf="@id/img_theme_dark"
+    app:layout_constraintHorizontal_chainStyle="packed"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/toolbar_theme"/>
+
+  <ImageView
+    android:id="@+id/img_theme_dark"
+    android:layout_width="0dp"
+    android:layout_height="150dp"
+    android:layout_marginStart="32dp"
+    android:src="@drawable/phone"
+    app:layout_constraintDimensionRatio="1:2"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toEndOf="@id/img_theme_light"
+    app:layout_constraintTop_toTopOf="@+id/img_theme_light"/>
+
   <Button
     android:id="@+id/btn_theme_light"
     style="@style/FlatButton"
-    android:layout_width="0dp"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginStart="@dimen/margin_normal"
+    android:layout_marginTop="8dp"
     android:text="@string/light"
-    android:textSize="24sp"
-    app:layout_constraintEnd_toStartOf="@id/btn_theme_dark"
-    app:layout_constraintHorizontal_bias="0.5"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@id/toolbar_theme"/>
+    app:layout_constraintEnd_toEndOf="@+id/img_theme_light"
+    app:layout_constraintStart_toStartOf="@+id/img_theme_light"
+    app:layout_constraintTop_toBottomOf="@id/img_theme_light"/>
 
   <Button
     android:id="@+id/btn_theme_dark"
     style="@style/FlatButton"
-    android:layout_width="0dp"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginEnd="@dimen/margin_normal"
+    android:layout_marginTop="8dp"
+    android:layout_marginEnd="8dp"
     android:text="@string/dark"
-    android:textSize="24sp"
-    app:layout_constraintBottom_toBottomOf="@id/btn_theme_light"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintHorizontal_bias="0.5"
-    app:layout_constraintStart_toEndOf="@id/btn_theme_light"
-    app:layout_constraintTop_toTopOf="@id/btn_theme_light"/>
+    app:layout_constraintEnd_toEndOf="@+id/img_theme_dark"
+    app:layout_constraintStart_toStartOf="@+id/img_theme_dark"
+    app:layout_constraintTop_toBottomOf="@+id/img_theme_dark"/>
 
   <View
+    android:id="@+id/divider_theme"
     android:layout_width="0dp"
     android:layout_height="@dimen/width_divider"
-    android:layout_marginTop="16dp"
+    android:layout_marginStart="@dimen/margin_normal"
+    android:layout_marginEnd="@dimen/margin_normal"
+    android:layout_marginTop="8dp"
     android:background="?attr/dividerColor"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toBottomOf="@id/btn_theme_light"/>
+
+  <TextView
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_margin="16dp"
+    android:text="@string/description_theme"
+    android:textSize="12sp"
+    android:textColor="?attr/textColorSecondary"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/divider_theme"/>
 
 </android.support.constraint.ConstraintLayout>

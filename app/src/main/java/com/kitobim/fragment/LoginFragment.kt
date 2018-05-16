@@ -2,6 +2,7 @@ package com.kitobim.fragment
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -19,6 +20,7 @@ import com.kitobim.PreferenceHelper
 import com.kitobim.PreferenceHelper.set
 import com.kitobim.R
 import com.kitobim.TextValidator
+import com.kitobim.activity.MainActivity
 import com.kitobim.data.model.Login
 import com.kitobim.data.model.User
 import com.kitobim.data.remote.ApiService
@@ -76,7 +78,7 @@ class LoginFragment @SuppressLint("ValidFragment") private constructor() : Fragm
             if (hasFocus || isValidEmail) {
                 mView.til_email_login.error = null
                 mView.field_email_login.setTextColor(ContextCompat
-                        .getColor(context!!,R.color.text_primary))
+                        .getColor(context!!,R.color.text_primary_dark))
             }
             else {
                 mView.til_email_login.error = resources.getString(R.string.error_invalid_email)
@@ -95,7 +97,7 @@ class LoginFragment @SuppressLint("ValidFragment") private constructor() : Fragm
             R.id.btn_forgot_password -> {
                 mFragment = ChangePasswordFragment.newInstance()
                 changeFragment {
-                    add(R.id.fragment_container, mFragment).addToBackStack(null)
+                    add(R.id.fragment_container_auth, mFragment).addToBackStack(null)
                 }
             }
 
@@ -113,17 +115,17 @@ class LoginFragment @SuppressLint("ValidFragment") private constructor() : Fragm
     override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
         if (mView.field_email_login.isFocused) {
             mEmail = s.toString()
-            isValidEmail = TextValidator.isValidEmail(mEmail)
+            isValidEmail = TextValidator.isEmail(mEmail)
         }
 
         else if (mView.field_password_login.isFocused) {
             mPassword = s.toString()
-            isValidPassword = TextValidator.isValidPassword(mPassword)
+            isValidPassword = TextValidator.isPassword(mPassword)
 
             if (isValidPassword) {
                 mView.til_password_login.error = null
                 mView.field_password_login.setTextColor(ContextCompat
-                        .getColor(context!!,R.color.text_primary))
+                        .getColor(context!!,R.color.text_primary_dark))
             }
             else {
                 mView.til_password_login.error = resources.getString(R.string.error_password)
@@ -133,15 +135,12 @@ class LoginFragment @SuppressLint("ValidFragment") private constructor() : Fragm
         }
 
         if (isValidEmail && isValidPassword) {
-            mView.fab_login.apply {
-                isClickable = true
-                backgroundTintList = ContextCompat.getColorStateList(context!!,R.color.primary)
-            }
+            mView.fab_login.backgroundTintList =
+                    ContextCompat.getColorStateList(context!!,R.color.icon_active_dark)
+
         } else {
-            mView.fab_login.apply {
-                isClickable = false
-                backgroundTintList = ContextCompat.getColorStateList(context!!,R.color.grey300)
-            }
+            mView.fab_login.backgroundTintList =
+                    ContextCompat.getColorStateList(context!!,R.color.icon_inactive_dark)
         }
     }
 
@@ -155,28 +154,29 @@ class LoginFragment @SuppressLint("ValidFragment") private constructor() : Fragm
     }
 
     private fun login() {
-        val login = Login(mEmail, mPassword)
-        val result = mService.login(login)
+        if (isValidEmail && isValidPassword) {
+            val login = Login(mEmail, mPassword)
+            val result = mService.login(login)
 
-        result.enqueue(object : Callback<User> {
-            override fun onResponse(call: Call<User>, response: Response<User>) {
-                if (response.isSuccessful) {
-                    val token = response.body()?.token
+            result.enqueue(object : Callback<User> {
+                override fun onResponse(call: Call<User>, response: Response<User>) {
+                    if (response.isSuccessful) {
+                        val token = response.body()?.token
 
-                    mPreference[Constants.TOKEN] = token
-                    mPreference[Constants.USERNAME] = mEmail
-                    mPreference[Constants.PASSWORD] = mPassword
-                    mPreference[Constants.IS_ACTIVE] = true
+                        mPreference[Constants.TOKEN] = token
+                        mPreference[Constants.USERNAME] = mEmail
+                        mPreference[Constants.PASSWORD] = mPassword
+                        mPreference[Constants.IS_ACTIVE] = true
 
-                    mFragment = MainFragment.newInstance()
-
-                    changeFragment {
-                        replace(R.id.fragment_container, mFragment)
+                        val intent = Intent(activity, MainActivity::class.java)
+                        startActivity(intent)
+                        activity!!.finish()
                     }
                 }
-            }
-            override fun onFailure(call: Call<User>, t: Throwable) { }
-        })
+
+                override fun onFailure(call: Call<User>, t: Throwable) {}
+            })
+        }
     }
 
     private fun hideSoftKeyboard() {

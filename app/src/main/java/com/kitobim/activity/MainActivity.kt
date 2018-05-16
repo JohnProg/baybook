@@ -2,6 +2,7 @@ package com.kitobim.activity
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -13,13 +14,13 @@ import android.view.View
 import android.view.Window
 import android.view.WindowManager
 import com.kitobim.Constants.IS_ACTIVE
+import com.kitobim.Constants.IS_NEWBIE
 import com.kitobim.Constants.THEME
 import com.kitobim.Constants.THEME_LIGHT
 import com.kitobim.PreferenceHelper
 import com.kitobim.PreferenceHelper.get
 import com.kitobim.R
 import com.kitobim.fragment.MainFragment
-import com.kitobim.fragment.WelcomeFragment
 
 
 class MainActivity : AppCompatActivity() {
@@ -68,7 +69,6 @@ class MainActivity : AppCompatActivity() {
         sFragmentManager = supportFragmentManager
 
         val prefs = PreferenceHelper.defaultPrefs(this)
-        val isActive: Boolean = prefs[IS_ACTIVE, false]
         val theme =
                 if (prefs[THEME, THEME_LIGHT] == THEME_LIGHT) R.style.AppTheme_Light
                 else R.style.AppTheme_Dark
@@ -76,19 +76,21 @@ class MainActivity : AppCompatActivity() {
         setTheme(theme)
         setContentView(R.layout.activity_main)
 
-        if (savedInstanceState == null) {
-            val fragment = fragmentManager.findFragmentById(R.id.fragment_container)
-            if (fragment == null) {
-                mFragment =
-                        if (isActive) MainFragment.newInstance()
-                        else WelcomeFragment.newInstance()
+        val isNewbie = prefs[IS_NEWBIE, true]
+        val isActive = prefs[IS_ACTIVE, false]
 
-                changeFragment{
-                    replace(R.id.fragment_container, mFragment)
-                }
-
+        if (!isActive || isNewbie) {
+            val intent = Intent(this, AuthenticationActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+        else if (savedInstanceState == null) {
+            mFragment = MainFragment.newInstance()
+            changeFragment{
+                replace(R.id.fragment_container, mFragment)
             }
         }
+
     }
 
     private inline fun changeFragment(code: FragmentTransaction.() -> Unit) {

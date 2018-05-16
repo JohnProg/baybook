@@ -3,10 +3,10 @@
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
-  android:theme="@style/AppTheme.Light"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  android:background="@color/background"
+  android:background="@drawable/background_auth"
+  android:paddingTop="@dimen/height_status_bar"
   android:focusableInTouchMode="true">
 
   <android.support.v7.widget.Toolbar
@@ -14,20 +14,21 @@
     android:layout_width="0dp"
     android:layout_height="@dimen/height_toolbar"
     android:background="@color/transparent"
-    app:navigationIcon="@drawable/ic_arrow_black"
     android:elevation="@dimen/no_elevation"
+    app:navigationIcon="@drawable/ic_arrow_white"
     tools:targetApi="lollipop">
     <RelativeLayout
       android:layout_width="match_parent"
       android:layout_height="match_parent">
       <Button
         android:id="@+id/btn_forgot_password"
-        style="@style/FlatButton"
+        style="?android:attr/borderlessButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_marginEnd="@dimen/margin_normal"
         android:layout_alignParentEnd="true"
         android:text="@string/forgot_password"
+        android:textColor="@color/white"
         android:textAllCaps="false"
         android:textSize="16sp"/>
     </RelativeLayout>
@@ -40,6 +41,7 @@
     android:layout_marginTop="16dp"
     android:text="@string/login"
     android:textSize="24sp"
+    android:textColor="@color/white"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toBottomOf="@id/toolbar_login"/>
@@ -56,7 +58,6 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:hint="@string/email"
-      android:fontFamily="sans-serif-light"
       android:nextFocusDown="@id/field_password_login"
       android:imeOptions="actionNext"
       android:inputType="textEmailAddress"/>
@@ -71,7 +72,7 @@
     app:layout_constraintTop_toBottomOf="@id/til_email_login"
     app:passwordToggleDrawable="@drawable/asl_password_visibility"
     app:passwordToggleEnabled="true"
-    app:passwordToggleTint="@color/icon_inactive">
+    app:passwordToggleTint="@color/icon_inactive_dark">
     <android.support.v7.widget.AppCompatEditText
       android:id="@+id/field_password_login"
       android:layout_width="match_parent"
@@ -92,9 +93,9 @@
     android:clickable="false"
     app:elevation="@dimen/no_elevation"
     app:fabSize="mini"
-    app:backgroundTint="@color/grey300"
     app:borderWidth="0dp"
     app:pressedTranslationZ="@dimen/no_elevation"
+    app:backgroundTint="@color/icon_inactive_dark"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"/>
 
@@ -111,6 +112,5 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     app:layout_constraintGuide_end="24dp"/>
-
 
 </android.support.constraint.ConstraintLayout>

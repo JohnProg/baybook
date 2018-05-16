@@ -5,10 +5,10 @@
     <item name="colorPrimary">@color/primary</item>
     <item name="colorAccent">@color/accent</item>
     <item name="colorControlActivated">@color/primary</item>
-    <item name="colorControlNormal">?attr/textColorSecondary</item>
+    <item name="colorControlNormal">@color/text_secondary</item>
 
     <item name="android:windowLightStatusBar">true</item>
-    <item name="android:statusBarColor">?attr/toolbarColor</item>
+    <item name="android:statusBarColor">@color/toolbar</item>
     <item name="android:homeAsUpIndicator">@drawable/ic_arrow_black</item>
 
     <item name="textColorPrimary">@color/text_primary</item>
@@ -29,12 +29,11 @@
     <item name="colorPrimary">@color/primary</item>
     <item name="colorAccent">@color/accent</item>
     <item name="colorControlActivated">@color/primary</item>
-    <item name="colorControlNormal">?attr/textColorSecondary</item>
+    <item name="colorControlNormal">@color/text_secondary_dark</item>
 
     <item name="android:windowLightStatusBar">false</item>
-    <item name="android:statusBarColor">?attr/toolbarColor</item>
+    <item name="android:statusBarColor">@color/toolbar_dark</item>
     <item name="android:homeAsUpIndicator">@drawable/ic_arrow_white</item>
-
 
     <item name="textColorPrimary">@color/text_primary_dark</item>
     <item name="textColorSecondary">@color/text_secondary_dark</item>
@@ -48,5 +47,6 @@
     <item name="toolbarColor">@color/toolbar_dark</item>
     <item name="dividerColor">@color/divider_dark</item>
   </style>
+
 
 </resources>

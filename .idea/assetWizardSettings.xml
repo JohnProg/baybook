@@ -16,25 +16,9 @@
                             <entry key="launcher">
                               <value>
                                 <PersistentState>
-                                  <option name="children">
-                                    <map>
-                                      <entry key="foregroundImage">
-                                        <value>
-                                          <PersistentState>
-                                            <option name="values">
-                                              <map>
-                                                <entry key="scalingPercent" value="74" />
-                                              </map>
-                                            </option>
-                                          </PersistentState>
-                                        </value>
-                                      </entry>
-                                    </map>
-                                  </option>
                                   <option name="values">
                                     <map>
-                                      <entry key="backgroundColor" value="3585c2" />
-                                      <entry key="backgroundImage" value="D:\AndroidProjects\Kitobim\app\src\main\res\drawable\ic_launcher_background.xml" />
+                                      <entry key="backgroundImage" value="D:\AndroidProjects\Kitobim\app\src\main\res\drawable-v24\ic_launcher_background.xml" />
                                       <entry key="foregroundImage" value="D:\AndroidProjects\Kitobim\app\src\main\res\drawable\ic_launcher_foreground.xml" />
                                     </map>
                                   </option>
@@ -63,7 +47,6 @@
                                     <map>
                                       <entry key="assetType" value="IMAGE" />
                                       <entry key="cropped" value="true" />
-                                      <entry key="iconShape" value="CIRCLE" />
                                       <entry key="imageAsset" value="C:\Users\sulto\Desktop\png copy\kitobim ava icon logo-6.png" />
                                       <entry key="outputName" value="ic_launcher_round" />
                                     </map>
@@ -108,11 +91,11 @@
                           <map>
                             <entry key="assetSourceType" value="FILE" />
                             <entry key="color" value="ffffff" />
-                            <entry key="height" value="108" />
-                            <entry key="outputName" value="ic_launcher_background" />
+                            <entry key="height" value="297" />
+                            <entry key="outputName" value="blue_background" />
                             <entry key="overrideSize" value="true" />
                             <entry key="sourceFile" value="C:\Users\sulto\Desktop\requested files\Kitobim LOGO background square.svg" />
-                            <entry key="width" value="108" />
+                            <entry key="width" value="297" />
                           </map>
                         </option>
                       </PersistentState>
