@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.fragment_change_password.view.*
 import kotlinx.android.synthetic.main.fragment_login.view.*
 
 class ChangePasswordFragment @SuppressLint("ValidFragment") private constructor() : Fragment(),
-        View.OnClickListener, TextWatcher {
+        TextWatcher {
 
     companion object {
         fun newInstance(): Fragment = ChangePasswordFragment()
@@ -33,8 +33,8 @@ class ChangePasswordFragment @SuppressLint("ValidFragment") private constructor(
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, state: Bundle?): View? {
         mView = inflater.inflate(R.layout.fragment_change_password, container, false)
 
-        mView.fab_send_request.setOnClickListener(this)
-        mView.toolbar_change_password.setNavigationOnClickListener(this)
+        mView.fab_send_request.setOnClickListener{ sendRequest() }
+        mView.toolbar_change_password.setNavigationOnClickListener{ activity?.onBackPressed() }
         mView.field_email_change_password.addTextChangedListener(this)
 
         mView.field_email_change_password.setOnEditorActionListener { _, actionId, _ ->
@@ -44,12 +44,6 @@ class ChangePasswordFragment @SuppressLint("ValidFragment") private constructor(
         return mView
     }
 
-    override fun onClick(v: View) {
-        when (v.id) {
-            R.id.fab_send_request -> sendRequest()
-            TOOLBAR_NAVIGATION_ID -> activity!!.onBackPressed()
-        }
-    }
 
     override fun afterTextChanged(s: Editable?) {}
 

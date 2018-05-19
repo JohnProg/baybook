@@ -31,7 +31,7 @@ class SettingsFragment @SuppressLint("ValidFragment") private constructor() : Fr
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         mFragment = when (item.itemId) {
-            R.id.btn_theme_color -> ThemeColorFragment.newInstance()
+            R.id.btn_theme_color -> ThemeFragment.newInstance()
             R.id.btn_language -> LanguageFragment.newInstance()
             R.id.btn_help -> HelpFragment.newInstance()
             R.id.btn_about_us -> AboutUsFragment.newInstance()

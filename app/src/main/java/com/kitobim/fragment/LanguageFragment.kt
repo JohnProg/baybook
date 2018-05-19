@@ -1,6 +1,7 @@
 package com.kitobim.fragment
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.NavigationView
 import android.support.v4.app.Fragment
@@ -11,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.kitobim.LocaleHelper
 import com.kitobim.R
+import com.kitobim.activity.MainActivity
 import kotlinx.android.synthetic.main.fragment_language.*
 import kotlinx.android.synthetic.main.fragment_language.view.*
 
@@ -51,19 +53,28 @@ class LanguageFragment @SuppressLint("ValidFragment") private constructor() : Fr
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        val language = when (item.itemId) {
+        val currentLanguage = LocaleHelper.getLanguage(context!!)
+
+        val newLanguage = when (item.itemId) {
             R.id.btn_lang_uz -> "uz"
             R.id.btn_lang_ru -> "ru"
             R.id.btn_lang_en -> "en"
             R.id.btn_lang_tr -> "tr"
-            else -> LocaleHelper.getLanguage(context!!)
+            else -> currentLanguage
         }
 
-        for (i in 0..3) {
-            mView.nav_view_language.menu.getItem(i).actionView = null
+        if (currentLanguage != newLanguage) {
+            LocaleHelper.persistLanguage(context!!, newLanguage)
+
+            activity!!.overridePendingTransition(0, 0)
+            activity!!.finish()
+            activity!!.overridePendingTransition(0, 0)
+
+            val intent = Intent(activity, MainActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+            startActivity(intent)
         }
 
-        item.setActionView(R.layout.image_selected_row)
         return true
     }
 

@@ -9,9 +9,9 @@ import java.util.*
 
 object LocaleHelper {
 
-    fun setLocale(c: Context, language: String) {
+    fun setLocale(c: Context, language: String = getLanguage(c)): Context {
         persistLanguage(c, language)
-        updateResources(c, language)
+        return updateResources(c, language)
     }
 
     fun getLanguage(c: Context): String {
@@ -19,13 +19,12 @@ object LocaleHelper {
         return prefs[Constants.LANGUAGE, "uz"]
     }
 
-    private fun persistLanguage(c: Context, language: String) {
+    fun persistLanguage(c: Context, language: String) {
         val prefs = PreferenceHelper.defaultPrefs(c)
         prefs[Constants.LANGUAGE] = language
     }
 
     private fun updateResources(context: Context, language: String): Context {
-
         val locale = Locale(language)
         Locale.setDefault(locale)
 

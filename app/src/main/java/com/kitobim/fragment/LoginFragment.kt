@@ -2,7 +2,6 @@ package com.kitobim.fragment
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -10,25 +9,22 @@ import android.support.v4.app.FragmentTransaction
 import android.support.v4.content.ContextCompat
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
-import com.kitobim.Constants
+import com.kitobim.AuthenticationListener
 import com.kitobim.PreferenceHelper
-import com.kitobim.PreferenceHelper.set
 import com.kitobim.R
 import com.kitobim.TextValidator
-import com.kitobim.activity.MainActivity
 import com.kitobim.data.model.Login
-import com.kitobim.data.model.User
 import com.kitobim.data.remote.ApiService
 import com.kitobim.data.remote.RetrofitClient
 import kotlinx.android.synthetic.main.fragment_login.view.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+
+
 
 
 
@@ -103,7 +99,7 @@ class LoginFragment @SuppressLint("ValidFragment") private constructor() : Fragm
 
             TOOLBAR_NAVIGATION_ID -> {
                 hideSoftKeyboard()
-                activity!!.onBackPressed()
+                activity?.onBackPressed()
             }
         }
     }
@@ -156,26 +152,11 @@ class LoginFragment @SuppressLint("ValidFragment") private constructor() : Fragm
     private fun login() {
         if (isValidEmail && isValidPassword) {
             val login = Login(mEmail, mPassword)
-            val result = mService.login(login)
 
-            result.enqueue(object : Callback<User> {
-                override fun onResponse(call: Call<User>, response: Response<User>) {
-                    if (response.isSuccessful) {
-                        val token = response.body()?.token
+            val listener: AuthenticationListener = activity!! as AuthenticationListener
+            listener.onLogin(login)
 
-                        mPreference[Constants.TOKEN] = token
-                        mPreference[Constants.USERNAME] = mEmail
-                        mPreference[Constants.PASSWORD] = mPassword
-                        mPreference[Constants.IS_ACTIVE] = true
-
-                        val intent = Intent(activity, MainActivity::class.java)
-                        startActivity(intent)
-                        activity!!.finish()
-                    }
-                }
-
-                override fun onFailure(call: Call<User>, t: Throwable) {}
-            })
+            Log.i("tag", "login clicked")
         }
     }
 
