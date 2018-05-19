@@ -8,30 +8,30 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitClient {
 
-    fun getAuthService(token: String): ApiService {
+    fun getService(token: String? = null): ApiService {
 
-        val client = OkHttpClient.Builder().addInterceptor { chain ->
-            val newRequest = chain.request().newBuilder()
-                    .addHeader("Authorization", "Token $token")
+        val retrofit: Retrofit
+
+        if (token != "") {
+            val client = OkHttpClient.Builder().addInterceptor { chain ->
+                val newRequest = chain.request().newBuilder()
+                        .addHeader("Authorization", "Token $token")
+                        .build()
+                chain.proceed(newRequest)
+            }.build()
+
+            retrofit = Retrofit.Builder()
+                    .baseUrl(ApiUtils.BASE_URL)
+                    .client(client)
+                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                    .addConverterFactory(GsonConverterFactory.create())
                     .build()
-            chain.proceed(newRequest)
-        }.build()
-
-        val retrofit = Retrofit.Builder()
-                .baseUrl(ApiUtils.BASE_URL)
-                .client(client)
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .addConverterFactory(GsonConverterFactory.create())
-                .build()
-
-        return retrofit.create(ApiService::class.java)
-    }
-
-    fun getService(): ApiService {
-        val retrofit = Retrofit.Builder()
-                .baseUrl(ApiUtils.BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build()
+        } else {
+            retrofit = Retrofit.Builder()
+                    .baseUrl(ApiUtils.BASE_URL)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build()
+        }
 
         return retrofit.create(ApiService::class.java)
     }

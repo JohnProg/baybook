@@ -24,6 +24,7 @@
     <activity
       android:name=".activity.AuthenticationActivity"
       android:theme="@style/AppTheme.Dark.Authentication"
+      android:windowSoftInputMode="adjustResize"
       android:screenOrientation="portrait"/>
 
   </application>

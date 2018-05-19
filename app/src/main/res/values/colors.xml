@@ -2,7 +2,7 @@
 <resources>
   <color name="primary">#40A9FF</color>
   <color name="accent">#F44336</color>
-  <color name="error">#F44336</color>
+  <color name="error">#FF5A60</color>
   <color name="facebook">#4D6FA9</color>
 
   <color name="grey100">#FAFAFA</color>

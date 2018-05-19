@@ -9,7 +9,7 @@
   android:background="@drawable/background_auth">
 
   <android.support.v7.widget.Toolbar
-    android:id="@+id/toolbar_register"
+    android:id="@+id/toolbar_register_optional"
     android:layout_width="0dp"
     android:layout_height="@dimen/height_toolbar"
     android:background="@color/transparent"
@@ -21,7 +21,7 @@
     app:layout_constraintTop_toTopOf="parent"/>
 
   <TextView
-    android:id="@+id/title_register"
+    android:id="@+id/title_register_optional"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:text="@string/create_account"
@@ -29,104 +29,80 @@
     android:textSize="24sp"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@id/toolbar_register"/>
+    app:layout_constraintTop_toBottomOf="@id/toolbar_register_optional"/>
+
 
   <TextView
-    android:id="@+id/txt_step_register"
+    android:id="@+id/subtitle_register_optional"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:text="Step 1 of 2"
+    android:text="Step 2 of 2"
     android:textColor="@color/text_secondary_dark"
     android:textSize="18sp"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@id/title_register"/>
+    app:layout_constraintTop_toBottomOf="@id/title_register_optional"/>
 
   <android.support.design.widget.TextInputLayout
-    android:id="@+id/label_username_register"
+    android:id="@+id/label_date_register_optional"
     android:layout_width="0dp"
     android:layout_height="wrap_content"
-    app:layout_constraintBottom_toTopOf="@id/label_email_register"
-    app:layout_constraintEnd_toStartOf="@id/guideline_end_register"
-    app:layout_constraintStart_toEndOf="@id/guideline_begin_register"
-    app:layout_constraintTop_toBottomOf="@id/txt_step_register">
+    app:layout_constraintStart_toEndOf="@id/guideline_begin_register_optional"
+    app:layout_constraintEnd_toStartOf="@id/guideline_end_register_optional"
+    app:layout_constraintTop_toBottomOf="@id/subtitle_register_optional">
     <android.support.v7.widget.AppCompatEditText
-      android:id="@+id/field_username_register"
+      android:id="@+id/field_date_register_optional"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:hint="@string/username"
-      android:inputType="text"
+      android:hint="@string/date_of_birth"
+      android:inputType="date"
       android:imeOptions="actionNext"
-      android:nextFocusDown="@id/field_email_register"/>
+      android:nextFocusDown="@id/field_location_register_optional"/>
   </android.support.design.widget.TextInputLayout>
 
   <android.support.design.widget.TextInputLayout
-    android:id="@+id/label_email_register"
+    android:id="@+id/label_location_register_optional"
     android:layout_width="0dp"
     android:layout_height="wrap_content"
-    app:layout_constraintBottom_toTopOf="@id/label_password_register"
-    app:layout_constraintEnd_toStartOf="@id/guideline_end_register"
-    app:layout_constraintStart_toEndOf="@id/guideline_begin_register"
-    app:layout_constraintTop_toBottomOf="@id/label_username_register">
+    app:layout_constraintStart_toEndOf="@id/guideline_begin_register_optional"
+    app:layout_constraintEnd_toStartOf="@id/guideline_end_register_optional"
+    app:layout_constraintTop_toBottomOf="@id/label_date_register_optional">
     <android.support.v7.widget.AppCompatEditText
-      android:id="@+id/field_email_register"
+      android:id="@+id/field_location_register_optional"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:hint="@string/email"
-      android:inputType="textEmailAddress"
-      android:nextFocusDown="@id/field_password_register"
-      android:imeOptions="actionNext"/>
-  </android.support.design.widget.TextInputLayout>
-
-  <android.support.design.widget.TextInputLayout
-    android:id="@+id/label_password_register"
-    android:layout_width="0dp"
-    android:layout_height="wrap_content"
-    app:layout_constraintEnd_toStartOf="@id/guideline_end_register"
-    app:layout_constraintStart_toEndOf="@id/guideline_begin_register"
-    app:layout_constraintTop_toBottomOf="@id/label_email_register"
-    app:passwordToggleDrawable="@drawable/asl_password_visibility"
-    app:passwordToggleEnabled="true"
-    app:passwordToggleTint="@color/icon_inactive_dark">
-    <android.support.v7.widget.AppCompatEditText
-      android:id="@+id/field_password_register"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:hint="@string/password"
-      android:inputType="textPassword"
-      android:selectAllOnFocus="true"
+      android:hint="@string/location"
+      android:inputType="text"
       android:imeOptions="actionGo"/>
   </android.support.design.widget.TextInputLayout>
 
   <android.support.design.widget.FloatingActionButton
-    android:id="@+id/fab_register"
+    android:id="@+id/fab_register_optional"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginBottom="16dp"
     android:layout_marginEnd="16dp"
-    android:clickable="false"
     android:src="@drawable/ic_chevron_right"
-    app:backgroundTint="@color/icon_inactive_dark"
-    app:elevation="@dimen/no_elevation"
     app:fabSize="mini"
     app:borderWidth="0dp"
+    app:elevation="@dimen/no_elevation"
     app:pressedTranslationZ="@dimen/no_elevation"
+    app:backgroundTint="@color/icon_active_dark"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"/>
 
   <android.support.constraint.Guideline
-    android:id="@+id/guideline_begin_register"
+    android:id="@+id/guideline_begin_register_optional"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical"
     app:layout_constraintGuide_begin="@dimen/margin_guideline_auth"/>
 
   <android.support.constraint.Guideline
-    android:id="@+id/guideline_end_register"
+    android:id="@+id/guideline_end_register_optional"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical"
     app:layout_constraintGuide_end="@dimen/margin_guideline_auth"/>
-
 
 </android.support.constraint.ConstraintLayout>

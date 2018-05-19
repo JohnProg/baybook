@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:theme="@style/AppTheme.Dark.Authentication"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:background="@drawable/background_auth"
+  android:paddingTop="@dimen/height_status_bar">
+
+  <Button
+    android:id="@+id/btn_login_welcome"
+    style="?android:attr/borderlessButtonStyle"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="8dp"
+    android:text="@string/login"
+    android:textAllCaps="false"
+    android:textColor="@color/white"
+    android:textSize="16sp"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintTop_toTopOf="parent"/>
+
+  <ImageView
+    android:id="@+id/logo_welcome"
+    android:layout_width="56dp"
+    android:layout_height="56dp"
+    android:layout_marginTop="@dimen/height_toolbar"
+    android:src="@drawable/ic_kitobim_white"
+    app:layout_constraintDimensionRatio=""
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    android:contentDescription="@string/kitobim_logo"/>
+
+  <TextView
+    android:id="@+id/title_welcome"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="@string/title_welcome"
+    android:textColor="@color/white"
+    android:textSize="24sp"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/logo_welcome"/>
+
+  <Button
+    style="?android:attr/borderlessButtonStyle"
+    android:id="@+id/btn_register_welcome"
+    android:layout_width="0dp"
+    android:layout_height="48dp"
+    android:layout_marginTop="8dp"
+    android:text="@string/create_account"
+    android:textColor="@color/white"
+    android:theme="@style/WelcomeButton"
+    android:background="@drawable/rounded_btn_transparent"
+    app:layout_constraintBottom_toTopOf="@id/btn_google_welcome"
+    app:layout_constraintEnd_toStartOf="@id/guideline_end_welcome"
+    app:layout_constraintHorizontal_bias="0.5"
+    app:layout_constraintStart_toEndOf="@id/guideline_begin_welcome"
+    app:layout_constraintTop_toBottomOf="@id/title_welcome"
+    app:layout_constraintVertical_chainStyle="packed"/>
+
+  <Button
+    style="?android:attr/borderlessButtonStyle"
+    android:id="@+id/btn_google_welcome"
+    android:layout_width="0dp"
+    android:layout_height="48dp"
+    android:layout_marginTop="8dp"
+    android:text="@string/continue_with_google"
+    android:textColor="@color/text_primary"
+    android:theme="@style/WelcomeButton"
+    android:background="@drawable/rounded_btn_white"
+    android:drawableStart="@drawable/ic_google"
+    app:layout_constraintBottom_toTopOf="@id/btn_facebook_welcome"
+    app:layout_constraintEnd_toStartOf="@id/guideline_end_welcome"
+    app:layout_constraintHorizontal_bias="0.5"
+    app:layout_constraintStart_toEndOf="@id/guideline_begin_welcome"
+    app:layout_constraintTop_toBottomOf="@id/btn_register_welcome"/>
+
+  <Button
+    style="?android:attr/borderlessButtonStyle"
+    android:id="@+id/btn_facebook_welcome"
+    android:layout_width="0dp"
+    android:layout_height="48dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginBottom="8dp"
+    android:text="@string/continue_with_facebook"
+    android:textColor="@color/white"
+    android:theme="@style/WelcomeButton"
+    android:background="@drawable/rounded_btn_blue"
+    android:drawableStart="@drawable/ic_facebook"
+    app:layout_constraintBottom_toTopOf="@id/txt_term_of_use"
+    app:layout_constraintEnd_toStartOf="@id/guideline_end_welcome"
+    app:layout_constraintHorizontal_bias="0.5"
+    app:layout_constraintStart_toEndOf="@id/guideline_begin_welcome"
+    app:layout_constraintTop_toBottomOf="@id/btn_google_welcome"/>
+
+  <TextView
+    android:id="@+id/txt_term_of_use"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/margin_normal"
+    android:gravity="center_horizontal"
+    android:text="@string/term_of_use"
+    android:textSize="12sp"
+    android:textColor="@color/text_secondary_dark"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toStartOf="@id/guideline_end_welcome"
+    app:layout_constraintStart_toEndOf="@id/guideline_begin_welcome"/>
+
+  <android.support.constraint.Guideline
+    android:id="@+id/guideline_begin_welcome"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    app:layout_constraintGuide_begin="@dimen/margin_guideline_auth"/>
+
+  <android.support.constraint.Guideline
+    android:id="@+id/guideline_end_welcome"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    app:layout_constraintGuide_end="@dimen/margin_guideline_auth"/>
+
+</android.support.constraint.ConstraintLayout>

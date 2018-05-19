@@ -49,8 +49,11 @@
   <string name="title_welcome">Welcome to Kitobim</string>
   <string name="continue_with_facebook">Continue with Facebook</string>
   <string name="continue_with_google">Continue with Google</string>
-  <string name="term_of_use">Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-    Architecto consequatur dignissimos doloribus dolorum.</string>
+  <string name="term_of_use">By tapping Continue and Create Account,
+      I agree with Kitobim\'s Term of Service, Payment Term of Service and Privacy Policy</string>
   <string name="description_theme">Color theme changes do not effect your reading experience.
     \n\nTo change the color while reading, select Aa menu in the toolbar from inside book</string>
+  <string name="kitobim_logo" translatable="false">kitobim logo</string>
+  <string name="date_of_birth">Date of birth</string>
+  <string name="location">Location</string>
 </resources>

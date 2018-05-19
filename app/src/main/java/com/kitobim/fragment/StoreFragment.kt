@@ -50,7 +50,7 @@ class StoreFragment @SuppressLint("ValidFragment") private constructor()
         parent = inflater.inflate(R.layout.fragment_store, container, false)
 
         val prefs = PreferenceHelper.defaultPrefs(context!!)
-        mService = RetrofitClient.getAuthService(prefs[Constants.TOKEN, " "])
+        mService = RetrofitClient.getService(prefs[Constants.TOKEN, " "])
 
         initToolbar()
         initRecyclerView()
