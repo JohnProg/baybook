@@ -3,6 +3,7 @@
 <android.support.design.widget.CoordinatorLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
   android:background="?attr/backgroundColor"
@@ -11,122 +12,161 @@
   <android.support.design.widget.AppBarLayout
     android:id="@+id/appbar_layout"
     android:layout_width="match_parent"
-    android:layout_height="240dp"
-    android:fitsSystemWindows="true"
-    android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
-
-    <android.support.design.widget.CollapsingToolbarLayout
-      android:id="@+id/collapsing_toolbar"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:fitsSystemWindows="true"
-      app:contentScrim="?attr/toolbarColor"
-      app:expandedTitleMarginEnd="64dp"
-      app:expandedTitleMarginStart="48dp"
-      app:layout_scrollFlags="scroll|exitUntilCollapsed"
-      app:titleEnabled="false">
-
-
-      <android.support.constraint.ConstraintLayout
-        android:id="@+id/title_container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_collapseMode="parallax">
-
-        <View
-          android:id="@+id/layer_blur"
-          android:layout_width="0dp"
-          android:layout_height="0dp"
-          app:layout_constraintBottom_toBottomOf="parent"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toTopOf="parent"/>
-
-
-        <com.kitobim.CoverView
-          android:id="@+id/card_cover"
-          android:layout_width="0dp"
-          android:layout_height="140dp"
-          android:layout_marginStart="@dimen/margin_normal"
-          android:background="?attr/viewColor"
-          app:layout_constraintBottom_toBottomOf="parent"
-          app:layout_constraintDimensionRatio="w,5.5:8.5"
-          app:layout_constraintStart_toStartOf="parent"
-          app:layout_constraintTop_toTopOf="parent"/>
-
-        <TextView
-          android:id="@+id/card_title"
-          android:textStyle="bold"
-          android:layout_width="0dp"
-          android:layout_height="wrap_content"
-          android:layout_marginTop="16dp"
-          android:ellipsize="end"
-          android:maxLines="2"
-          android:text="@string/sample_text"
-          android:textColor="@color/text_primary_dark"
-          android:textSize="18sp"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintHorizontal_weight="1"
-          app:layout_constraintStart_toEndOf="@id/card_cover"
-          app:layout_constraintStart_toStartOf="@+id/card_subtitle"
-          app:layout_constraintTop_toTopOf="@+id/card_cover"/>
-
-        <TextView
-          android:id="@+id/card_subtitle"
-          android:layout_width="0dp"
-          android:layout_height="wrap_content"
-          android:layout_marginTop="8dp"
-          android:text="@string/sample_text"
-          android:textColor="@color/text_secondary_dark"
-          android:textSize="16sp"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintStart_toStartOf="@+id/card_price"
-          app:layout_constraintTop_toBottomOf="@+id/card_title"/>
-
-        <TextView
-          android:id="@+id/card_price"
-          android:textStyle="bold"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_marginTop="8dp"
-          android:layout_marginStart="8dp"
-          android:text="@string/sample_text"
-          android:textColor="@color/text_primary_dark"
-          android:textSize="16sp"
-          app:layout_constraintStart_toEndOf="@+id/card_cover"
-          app:layout_constraintTop_toBottomOf="@+id/card_subtitle"/>
-
-      </android.support.constraint.ConstraintLayout>
-
-      <android.support.v7.widget.Toolbar
-        android:id="@+id/main.toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/height_toolbar"
-        app:layout_collapseMode="pin"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
-
-    </android.support.design.widget.CollapsingToolbarLayout>
-  </android.support.design.widget.AppBarLayout>
-
-
-  <android.support.design.widget.FloatingActionButton
-    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/margin_normal"
-    android:src="@drawable/ic_language"
-    app:fabSize="normal"
-    app:layout_anchor="@id/appbar_layout"
-    app:layout_anchorGravity="bottom|right|end"
-    />
+    android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+    <android.support.v7.widget.Toolbar
+      android:id="@+id/main.toolbar"
+      android:layout_width="match_parent"
+      android:layout_height="@dimen/height_toolbar"
+      android:background="?attr/toolbarColor"
+      android:elevation="@dimen/elevation_toolbar"
+      app:layout_scrollFlags="scroll|enterAlways"
+      app:popupTheme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+      tools:targetApi="lollipop"/>
+  </android.support.design.widget.AppBarLayout>
 
   <android.support.v4.widget.NestedScrollView
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
-    <TextView
+    <android.support.constraint.ConstraintLayout
       android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:text="@string/sample_text"
-      android:textColor="?attr/textColorPrimary"/>
+      android:layout_height="match_parent">
+
+      <com.kitobim.CoverView
+        android:id="@+id/cover_book_info"
+        android:layout_width="0dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/rounded_view"
+        app:layout_constraintDimensionRatio="w,1:1.5"
+        app:layout_constraintStart_toEndOf="@id/guideline_begin_book_info"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+      <TextView
+        android:id="@+id/title_book_info"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="@dimen/margin_normal"
+        android:layout_marginEnd="8dp"
+        android:textColor="?attr/textColorPrimary"
+        android:textSize="16dp"
+        app:layout_constraintEnd_toStartOf="@id/guideline_end_book_info"
+        app:layout_constraintStart_toEndOf="@id/cover_book_info"
+        app:layout_constraintTop_toTopOf="@+id/cover_book_info"/>
+
+      <TextView
+        android:id="@+id/author_book_info"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:textColor="?attr/textColorSecondary"
+        android:textSize="14dp"
+        app:layout_constraintEnd_toEndOf="@id/title_book_info"
+        app:layout_constraintStart_toStartOf="@id/title_book_info"
+        app:layout_constraintTop_toBottomOf="@id/title_book_info"/>
+
+
+      <TextView
+        android:id="@+id/price_book_info"
+        android:textStyle="bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:layout_marginEnd="8dp"
+        android:textColor="@color/primary"
+        android:textSize="14dp"
+        app:layout_constraintBottom_toTopOf="@+id/btn_purchase_book_info"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_end_book_info"/>
+
+      <Button
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:id="@+id/btn_purchase_book_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:minWidth="100dp"
+        android:text="@string/purchase"
+        app:layout_constraintEnd_toStartOf="@id/guideline_end_book_info"
+        app:layout_constraintTop_toBottomOf="@+id/cover_book_info"/>
+
+      <View
+        android:id="@+id/divider_book_info"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="8dp"
+        android:background="?attr/dividerColor"
+        app:layout_constraintEnd_toStartOf="@id/guideline_end_book_info"
+        app:layout_constraintStart_toEndOf="@id/guideline_begin_book_info"
+        app:layout_constraintTop_toBottomOf="@+id/btn_purchase_book_info"/>
+
+      <ImageView
+        android:id="@+id/img_wishlist_book_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_bookmark_border"
+        android:tint="?attr/iconColorActive"
+        android:layout_marginTop="12dp"
+        app:layout_constraintTop_toTopOf="@id/btn_wishlist_book_info"
+        app:layout_constraintStart_toStartOf="@id/btn_wishlist_book_info"
+        app:layout_constraintEnd_toEndOf="@id/btn_wishlist_book_info"/>
+
+      <Button
+        style="@style/BorderlessButton"
+        android:id="@+id/btn_wishlist_book_info"
+        android:layout_width="0dp"
+        android:layout_height="72dp"
+        android:paddingTop="36dp"
+        android:text="@string/wishlist"
+        android:textColor="?attr/textColorPrimary"
+        android:textAllCaps="false"
+        android:textSize="16dp"
+        app:layout_constraintTop_toBottomOf="@id/divider_book_info"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/btn_share_book_info"
+        />
+
+      <ImageView
+        android:id="@+id/img_share_book_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_share"
+        android:tint="?attr/iconColorActive"
+        android:layout_marginTop="12dp"
+        app:layout_constraintTop_toTopOf="@id/btn_share_book_info"
+        app:layout_constraintStart_toStartOf="@id/btn_share_book_info"
+        app:layout_constraintEnd_toEndOf="@id/btn_share_book_info"/>
+
+      <Button
+        style="@style/BorderlessButton"
+        android:id="@+id/btn_share_book_info"
+        android:layout_width="0dp"
+        android:layout_height="72dp"
+        android:paddingTop="36dp"
+        android:text="@string/share"
+        android:textColor="?attr/textColorPrimary"
+        android:textAllCaps="false"
+        android:textSize="16dp"
+        app:layout_constraintTop_toBottomOf="@id/divider_book_info"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/btn_wishlist_book_info"/>
+
+      <android.support.constraint.Guideline
+        android:id="@+id/guideline_begin_book_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="@dimen/margin_normal"/>
+
+      <android.support.constraint.Guideline
+        android:id="@+id/guideline_end_book_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="@dimen/margin_normal"/>
+
+    </android.support.constraint.ConstraintLayout>
   </android.support.v4.widget.NestedScrollView>
 </android.support.design.widget.CoordinatorLayout>

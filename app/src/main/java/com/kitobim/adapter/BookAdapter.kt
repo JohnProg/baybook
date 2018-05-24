@@ -37,12 +37,21 @@ class BookAdapter(private val context: Context,
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val book = list[position]
+        val currency = context.resources.getString(R.string.sum)
+        val authors = TextUtils.join(", ", book.authors)
+//
+        if (authors.isNotEmpty()) holder.author.text = authors
+        else holder.author.visibility = View.GONE
 
         holder.title.text = book.title
-        holder.author.text = book.authors.toString()
-        holder.price.text = book.price
+        holder.price.text = if (book.price == 0) {
+            "${(book.price)} $currency"
+        }
+        else {
+            context.resources.getString(R.string.free)
+        }
 
-        holder.coverImage.setImageUrl(book.cover)
+        if (book.cover != null) holder.coverImage.setImageUrl(book.cover)
     }
 
     override fun getItemCount(): Int = list.size

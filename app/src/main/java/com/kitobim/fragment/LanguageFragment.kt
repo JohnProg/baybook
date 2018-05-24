@@ -25,12 +25,26 @@ class LanguageFragment @SuppressLint("ValidFragment") private constructor() : Fr
     }
 
     private lateinit var mView: View
+    private lateinit var mLanguage: String
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, state: Bundle?): View? {
         mView = inflater.inflate(R.layout.fragment_language, container, false)
 
         mView.nav_view_language.setNavigationItemSelectedListener(this)
         mView.nav_view_language.itemIconTintList = null
+
+        mLanguage = LocaleHelper.getLanguage(context!!)
+        val index = when (mLanguage) {
+            "uz" -> 0
+            "ru" -> 1
+            "en" -> 2
+            "tr" -> 3
+            else -> -1
+        }
+
+        if (index != -1) {
+            mView.nav_view_language.menu.getItem(index).setActionView(R.layout.image_selected_row)
+        }
 
         setHasOptionsMenu(true)
         return mView
@@ -53,17 +67,16 @@ class LanguageFragment @SuppressLint("ValidFragment") private constructor() : Fr
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        val currentLanguage = LocaleHelper.getLanguage(context!!)
 
         val newLanguage = when (item.itemId) {
             R.id.btn_lang_uz -> "uz"
             R.id.btn_lang_ru -> "ru"
             R.id.btn_lang_en -> "en"
             R.id.btn_lang_tr -> "tr"
-            else -> currentLanguage
+            else -> mLanguage
         }
 
-        if (currentLanguage != newLanguage) {
+        if (mLanguage != newLanguage) {
             LocaleHelper.persistLanguage(context!!, newLanguage)
 
             activity!!.overridePendingTransition(0, 0)

@@ -12,8 +12,10 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import com.kitobim.Constants
+import com.kitobim.Constants.IS_ACTIVE
 import com.kitobim.PreferenceHelper
 import com.kitobim.PreferenceHelper.get
+import com.kitobim.PreferenceHelper.set
 import com.kitobim.R
 import com.kitobim.activity.AuthenticationActivity
 import kotlinx.android.synthetic.main.fragment_profile.view.*
@@ -32,7 +34,7 @@ class ProfileFragment @SuppressLint("ValidFragment") private constructor() : Fra
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, state: Bundle?): View? {
         mView = inflater.inflate(R.layout.fragment_profile, container, false)
         mPreference = PreferenceHelper.defaultPrefs(context!!)
-        val isActive = mPreference[Constants.IS_ACTIVE, false]
+        val isActive = mPreference[IS_ACTIVE, false]
 
         if (!isActive) {
             mView.nav_view_profile.visibility = View.GONE
@@ -75,6 +77,10 @@ class ProfileFragment @SuppressLint("ValidFragment") private constructor() : Fra
     }
 
     private fun logout() {
+        mPreference[IS_ACTIVE] = false
+        mPreference[Constants.USERNAME] = ""
+        mPreference[Constants.PASSWORD] = ""
+        mPreference[Constants.TOKEN] = ""
         val intent = Intent(activity, AuthenticationActivity::class.java)
         startActivity(intent)
         activity!!.finish()

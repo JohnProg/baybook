@@ -16,7 +16,10 @@
     <item name="iconColorInactive">@color/icon_inactive</item>
     <item name="iconColorChecked">@color/icon_checked</item>
     <item name="toolbarColor">@color/toolbar</item>
+    <item name="cardColor">@color/card</item>
     <item name="viewColor">@color/view</item>
+    <item name="dividerColor">@color/divider</item>
+    <item name="starBarColor">@color/icon_active</item>
   </style>
 
   <!--Dark theme-->
@@ -34,9 +37,11 @@
     <item name="iconColorInactive">@color/icon_inactive_dark</item>
     <item name="iconColorChecked">@color/icon_checked_dark</item>
     <item name="backgroundColor">@color/background_dark</item>
+    <item name="cardColor">@color/card_dark</item>
     <item name="viewColor">@color/view_dark</item>
     <item name="toolbarColor">@color/toolbar_dark</item>
     <item name="dividerColor">@color/divider_dark</item>
+    <item name="starBarColor">@color/icon_active_dark</item>
   </style>
 
   <style name="AppTheme.Dark.Authentication" parent="Theme.AppCompat.NoActionBar">
@@ -51,13 +56,21 @@
     <item name="android:paddingEnd">16dp</item>
   </style>
 
-
   <style name="FlatButton" parent="Widget.AppCompat.Button.Borderless.Colored">
     <item name="android:textColor">@color/primary</item>
   </style>
 
   <style name="BorderlessButton" parent="Widget.AppCompat.Button.Borderless">
     <item name="android:textColor">?attr/textColorPrimary</item>
+  </style>
+
+  <style name="RatingBar" parent="Theme.AppCompat">
+    <item name="colorControlNormal">?attr/starBarColor</item>
+    <item name="colorControlActivated">@color/orange500</item>
+  </style>
+
+  <style name="NavigationView">
+    <item name="android:overScrollMode">never</item>
   </style>
 
 </resources>

@@ -56,4 +56,9 @@
   <string name="kitobim_logo" translatable="false">kitobim logo</string>
   <string name="date_of_birth">Date of birth</string>
   <string name="location">Location</string>
+  <string name="sum">sums</string>
+  <string name="free">FREE</string>
+  <string name="wishlist">Wishlist</string>
+  <string name="share">Share</string>
+  <string name="purchase">Purchase</string>
 </resources>

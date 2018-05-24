@@ -9,12 +9,11 @@
     android:icon="@drawable/ic_flag_ru"
     android:title="@string/russian"/>
   <item
-    android:id="@+id/btn_lang_tr"
-    android:icon="@drawable/ic_flag_tr"
-    android:title="@string/turkish"/>
-  <item
     android:id="@+id/btn_lang_en"
     android:icon="@drawable/ic_flag_uk"
     android:title="@string/english"/>
-
+  <item
+    android:id="@+id/btn_lang_tr"
+    android:icon="@drawable/ic_flag_tr"
+    android:title="@string/turkish"/>
 </menu>

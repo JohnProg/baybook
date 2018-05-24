@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <color name="primary">#40A9FF</color>
-  <color name="accent">#F44336</color>
+  <color name="accent">@color/primary</color>
   <color name="error">#FF5A60</color>
   <color name="facebook">#4D6FA9</color>
 
@@ -9,6 +9,8 @@
   <color name="grey200">#EAEAEA</color>
   <color name="grey300">#CACACA</color>
   <color name="white">#FFFFFF</color>
+  <color name="black">#000000</color>
+  <color name="orange500">#F9AA33</color> <!--FED430-->
   <color name="transparent">#00FFFFFF</color>
 
   <color name="text_primary">#CC000000</color>
@@ -20,7 +22,8 @@
   <color name="icon_checked">@color/primary</color>
   <color name="background">#FFFFFF</color> <!--#FAFAFA-->
   <color name="toolbar">#FFFFFF</color>
-  <color name="view">#F5F5F5</color>
+  <color name="card">#FFFFFF</color>
+  <color name="view">#EDF0F2</color>
   <color name="divider">#20000000</color>
 
   <color name="text_primary_dark">#FFFFFFFF</color>
@@ -30,9 +33,10 @@
   <color name="icon_active_dark">#FFFFFFFF</color>
   <color name="icon_inactive_dark">#80FFFFFF</color>
   <color name="icon_checked_dark">@color/primary</color>
-  <color name="background_dark">#212121</color> <!--#303030-->
-  <color name="toolbar_dark">#212121</color>
-  <color name="view_dark">#424242</color>
+  <color name="background_dark">#1B1B1B</color>
+  <color name="toolbar_dark">#141414</color>
+  <color name="card_dark">#1B1B1B</color>
+  <color name="view_dark">#232323</color>
   <color name="divider_dark">#20FFFFFF</color>
 
 </resources>

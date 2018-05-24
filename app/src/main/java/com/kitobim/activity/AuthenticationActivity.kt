@@ -5,10 +5,12 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.View
 import com.kitobim.*
 import com.kitobim.PreferenceHelper.set
 import com.kitobim.data.model.Login
+import com.kitobim.data.model.Register
 import com.kitobim.data.model.User
 import com.kitobim.data.remote.ApiService
 import com.kitobim.data.remote.RetrofitClient
@@ -52,11 +54,13 @@ class AuthenticationActivity : AppCompatActivity(), AuthenticationListener {
 
         call.enqueue(object : Callback<User> {
             override fun onResponse(call: Call<User>, response: Response<User>) {
+                Log.i("tag", "login response: ${response.code()}")
                 if (response.isSuccessful) {
                     val token = response.body()?.token
+                    Log.i("tag", "login token: $token")
 
-                    mPreference[Constants.TOKEN] = token
-                    mPreference[Constants.USERNAME] = login.email_phone
+                    mPreference[Constants.TOKEN] = token ?: ""
+                    mPreference[Constants.USERNAME] = login.email
                     mPreference[Constants.PASSWORD] = login.password
                     mPreference[Constants.IS_ACTIVE] = true
 
@@ -67,11 +71,37 @@ class AuthenticationActivity : AppCompatActivity(), AuthenticationListener {
                 }
             }
 
-            override fun onFailure(call: Call<User>, t: Throwable) {}
+            override fun onFailure(call: Call<User>, t: Throwable) {
+                Log.i("tag", "login failure")
+            }
         })
     }
 
-    override fun onRegister() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun onRegister(register: Register) {
+        val call = mService.register(register)
+
+        call.enqueue(object : Callback<User> {
+            override fun onResponse(call: Call<User>, response: Response<User>) {
+                Log.i("tag", "register response: ${response.code()}")
+                if (response.isSuccessful) {
+                    val token = response.body()?.token
+                    Log.i("tag", "register token: $token")
+
+                    mPreference[Constants.TOKEN] = token ?: ""
+                    mPreference[Constants.USERNAME] = register.email
+                    mPreference[Constants.PASSWORD] = register.password
+                    mPreference[Constants.IS_ACTIVE] = true
+
+                    val intent = Intent(this@AuthenticationActivity, MainActivity::class.java)
+                    startActivity(intent)
+
+                    finish()
+                }
+            }
+
+            override fun onFailure(call: Call<User>, t: Throwable) {
+                Log.i("tag", "register failure")
+            }
+        })
     }
 }

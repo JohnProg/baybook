@@ -10,8 +10,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
+import com.kitobim.AuthenticationListener
 import com.kitobim.R
 import com.kitobim.TextValidator
+import com.kitobim.data.model.Register
 import kotlinx.android.synthetic.main.fragment_register.view.*
 
 class RegisterFragment @SuppressLint("ValidFragment") private constructor() : Fragment(), TextWatcher {
@@ -31,13 +33,13 @@ class RegisterFragment @SuppressLint("ValidFragment") private constructor() : Fr
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, state: Bundle?): View? {
         mView = inflater.inflate(R.layout.fragment_register, container, false)
 
-        mView.fab_register.setOnClickListener { goNextStep() }
+        mView.fab_register.setOnClickListener { register() }
         mView.toolbar_register.setNavigationOnClickListener { activity!!.onBackPressed() }
 
         getTextEditors().forEach { it.addTextChangedListener(this) }
 
         mView.field_password_register.setOnEditorActionListener { _, actionId, _ ->
-            if (actionId == EditorInfo.IME_ACTION_GO) goNextStep()
+            if (actionId == EditorInfo.IME_ACTION_GO) register()
             EditorInfo.IME_ACTION_GO == actionId
         }
 
@@ -76,14 +78,10 @@ class RegisterFragment @SuppressLint("ValidFragment") private constructor() : Fr
     private fun getTextEditors()  = arrayOf(mView.field_username_register,
             mView.field_email_register, mView.field_password_register)
 
-    private fun goNextStep() {
+    private fun register() {
         if (isValidUsername && isValidEmail && isValidPassword) {
-
-            val fragment = RegisterOptionalFragment.newInstance()
-            val transaction = fragmentManager!!.beginTransaction()
-            transaction.add(R.id.fragment_container_auth,fragment)
-            transaction.addToBackStack(null)
-            transaction.commit()
+            val register = Register(mUsername, mEmail, mPassword, mPassword)
+            (activity as AuthenticationListener).onRegister(register)
         }
     }
 

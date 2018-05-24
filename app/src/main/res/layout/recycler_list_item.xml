@@ -4,81 +4,108 @@
   xmlns:app="http://schemas.android.com/apk/res-auto"
   android:id="@+id/layout_store"
   android:layout_width="match_parent"
-  android:layout_height="wrap_content"
-  android:background="?attr/backgroundColor">
+  android:layout_height="150dp"
+  android:background="?attr/viewColor">
 
-  <android.support.constraint.ConstraintLayout
-    android:id="@+id/inner_layout"
+  <android.support.v7.widget.CardView
+    android:id="@+id/cardView"
     android:layout_width="0dp"
-    android:layout_height="120dp"
-    android:layout_marginTop="16dp"
-    android:layout_marginBottom="16dp"
-    android:layout_marginStart="16dp"
-    android:layout_marginEnd="16dp"
+    android:layout_height="0dp"
+    android:layout_marginTop="2dp"
+    android:layout_marginBottom="2dp"
+    android:layout_marginStart="@dimen/margin_micro"
+    android:layout_marginEnd="@dimen/margin_micro"
+    app:cardBackgroundColor="?attr/cardColor"
+    app:cardCornerRadius="2dp"
+    app:cardElevation="@dimen/no_elevation"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent">
+  </android.support.v7.widget.CardView>
 
-    <com.kitobim.CoverView
-      android:id="@+id/card_cover"
-      android:layout_width="0dp"
-      android:layout_height="0dp"
-      android:background="?attr/viewColor"
-      app:layout_constraintBottom_toBottomOf="@id/inner_layout"
-      app:layout_constraintDimensionRatio="w,5.5:8.5"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="@id/inner_layout"/>
-
-    <TextView
-      android:id="@+id/card_title"
-      android:layout_width="0dp"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="8dp"
-      android:ellipsize="end"
-      android:maxLines="2"
-      android:textColor="?attr/textColorPrimary"
-      android:textSize="16sp"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintHorizontal_weight="1"
-      app:layout_constraintStart_toEndOf="@id/card_cover"
-      app:layout_constraintStart_toStartOf="@+id/card_subtitle"
-      app:layout_constraintTop_toTopOf="parent"/>
-
-    <TextView
-      android:id="@+id/card_subtitle"
-      android:layout_width="0dp"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="8dp"
-      android:maxLines="1"
-      android:textColor="?attr/textColorSecondary"
-      android:textSize="14sp"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="@+id/card_price"
-      app:layout_constraintTop_toBottomOf="@+id/card_title"/>
-
-    <TextView
-      android:id="@+id/card_price"
-      android:textStyle="bold"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="8dp"
-      android:layout_marginStart="16dp"
-      android:textColor="@color/primary"
-      android:textSize="14sp"
-      app:layout_constraintStart_toEndOf="@+id/card_cover"
-      app:layout_constraintTop_toBottomOf="@+id/card_subtitle"
-      />
-
-  </android.support.constraint.ConstraintLayout>
-
-  <View
+  <com.kitobim.CoverView
+    android:id="@+id/card_cover"
     android:layout_width="0dp"
-    android:layout_height="1dp"
-    android:layout_marginEnd="16dp"
-    android:background="?attr/dividerColor"
+    android:layout_height="0dp"
+    android:layout_marginTop="6dp"
+    android:layout_marginBottom="6dp"
+    android:layout_marginStart="8dp"
+    android:background="@drawable/rounded_view"
     app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="@id/inner_layout"/>
+    app:layout_constraintDimensionRatio="w,1:1.5"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"/>
+
+  <TextView
+    android:id="@+id/card_title"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/margin_normal"
+    android:layout_marginStart="@dimen/margin_normal"
+    android:layout_marginEnd="8dp"
+    android:ellipsize="end"
+    android:maxLines="2"
+    android:textColor="?attr/textColorPrimary"
+    android:textSize="16dp"
+    app:layout_constraintBottom_toTopOf="@id/card_subtitle"
+    app:layout_constraintEnd_toEndOf="@id/cardView"
+    app:layout_constraintHorizontal_bias="0.5"
+    app:layout_constraintStart_toEndOf="@id/card_cover"
+    app:layout_constraintTop_toTopOf="@id/cardView"
+    app:layout_constraintVertical_chainStyle="packed"/>
+
+  <TextView
+    android:id="@+id/card_subtitle"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/margin_micro"
+    android:maxLines="1"
+    android:ellipsize="end"
+    android:textColor="?attr/textColorSecondary"
+    android:textSize="14dp"
+    app:layout_constraintBottom_toTopOf="@id/rating_bar"
+    app:layout_constraintEnd_toEndOf="@id/card_title"
+    app:layout_constraintHorizontal_bias="0.5"
+    app:layout_constraintStart_toStartOf="@id/card_title"
+    app:layout_constraintTop_toBottomOf="@id/card_title"/>
+
+  <android.support.v7.widget.AppCompatRatingBar
+    android:id="@+id/rating_bar"
+    style="@style/Widget.AppCompat.RatingBar.Small"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/margin_micro"
+    android:numStars="5"
+    android:rating="4.1"
+    android:stepSize="0.1"
+    android:theme="@style/RatingBar"
+    app:layout_constraintBottom_toTopOf="@id/card_price"
+    app:layout_constraintStart_toStartOf="@id/card_title"
+    app:layout_constraintTop_toBottomOf="@id/card_subtitle"/>
+
+  <TextView
+    android:id="@+id/txt_rating"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="8dp"
+    android:text="4.5"
+    android:textSize="12dp"
+    android:textColor="?attr/textColorDisabled"
+    app:layout_constraintStart_toEndOf="@id/rating_bar"
+    app:layout_constraintTop_toTopOf="@id/rating_bar"
+    app:layout_constraintBottom_toBottomOf="@id/rating_bar"/>
+
+  <TextView
+    android:id="@+id/card_price"
+    android:textStyle="bold"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/margin_micro"
+    android:textColor="@color/primary"
+    android:textSize="14dp"
+    app:layout_constraintStart_toStartOf="@id/card_title"
+    app:layout_constraintTop_toBottomOf="@id/rating_bar"/>
 
 </android.support.constraint.ConstraintLayout>
+

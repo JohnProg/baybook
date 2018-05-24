@@ -9,6 +9,8 @@
   <attr format="reference|color" name="iconColorChecked"/>
   <attr format="reference|color" name="backgroundColor"/>
   <attr format="reference|color" name="toolbarColor"/>
+  <attr format="reference|color" name="cardColor"/>
   <attr format="reference|color" name="viewColor"/>
   <attr format="reference|color" name="dividerColor"/>
+  <attr format="reference|color" name="starBarColor"/>
 </resources>

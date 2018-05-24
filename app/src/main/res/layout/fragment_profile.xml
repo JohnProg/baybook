@@ -6,8 +6,7 @@
   android:layout_width="match_parent"
   android:layout_height="match_parent"
   android:background="?attr/backgroundColor"
-  android:clickable="true"
-  android:focusable="true">
+  android:theme="@style/NavigationView">
 
   <android.support.v7.widget.Toolbar
     android:id="@+id/toolbar_profile"
@@ -26,7 +25,7 @@
     android:id="@+id/nav_view_profile"
     android:layout_width="0dp"
     android:layout_height="wrap_content"
-    android:background="?attr/backgroundColor"
+    android:background="@color/transparent"
     app:elevation="0dp"
     app:itemIconTint="?attr/iconColorActive"
     app:itemTextColor="?attr/textColorPrimary"

@@ -19,7 +19,7 @@ class MainFragment @SuppressLint("ValidFragment") private constructor() : Fragme
         fun newInstance(): Fragment = MainFragment()
     }
 
-    private val mUrl = "http://kitobim.uz/media/books/2018/01/27/Tahorat_kitobi1-500x750.jpg.100x133_q85_crop.jpg"
+    private val mUrl = "http://development.baysoftware.ru/storage/covers/XSp5ntQO7s8pxyv6O9V4X5qnykbQ8DuoUnBO0EaV.jpeg"
     private lateinit var mView: View
     private var mFragment: Fragment? = null
 
