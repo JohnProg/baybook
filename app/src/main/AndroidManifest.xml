@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
   package="com.kitobim">
 
+  <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
   <uses-permission android:name="android.permission.INTERNET"/>
 
   <application
@@ -13,19 +14,24 @@
     android:theme="@style/AppTheme.Light">
 
     <activity
-      android:name=".activity.MainActivity"
+      android:name="com.kitobim.ui.activity.MainActivity"
       android:screenOrientation="portrait">
       <intent-filter>
         <action android:name="android.intent.action.MAIN"/>
         <category android:name="android.intent.category.LAUNCHER"/>
+        <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
       </intent-filter>
     </activity>
 
     <activity
-      android:name=".activity.AuthenticationActivity"
+      android:name="com.kitobim.ui.activity.AuthenticationActivity"
       android:theme="@style/AppTheme.Dark.Authentication"
       android:windowSoftInputMode="adjustResize"
-      android:screenOrientation="portrait"/>
+      android:screenOrientation="portrait">
+      <intent-filter>
+        <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+      </intent-filter>
+    </activity>
 
   </application>
 

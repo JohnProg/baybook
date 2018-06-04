@@ -13,7 +13,8 @@
     style="?android:attr/borderlessButtonStyle"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginEnd="8dp"
+    android:layout_marginEnd="16dp"
+    android:layout_marginTop="@dimen/margin_micro"
     android:text="@string/login"
     android:textAllCaps="false"
     android:textColor="@color/white"
@@ -25,13 +26,13 @@
     android:id="@+id/logo_welcome"
     android:layout_width="56dp"
     android:layout_height="56dp"
-    android:layout_marginTop="@dimen/height_toolbar"
+    android:layout_marginTop="72dp"
+    android:contentDescription="@string/kitobim_logo"
     android:src="@drawable/ic_kitobim_white"
     app:layout_constraintDimensionRatio=""
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent"
-    android:contentDescription="@string/kitobim_logo"/>
+    app:layout_constraintTop_toTopOf="parent"/>
 
   <TextView
     android:id="@+id/title_welcome"
@@ -45,15 +46,14 @@
     app:layout_constraintTop_toBottomOf="@id/logo_welcome"/>
 
   <Button
-    style="?android:attr/borderlessButtonStyle"
     android:id="@+id/btn_register_welcome"
+    style="?android:attr/borderlessButtonStyle"
     android:layout_width="0dp"
     android:layout_height="48dp"
-    android:layout_marginTop="8dp"
+    android:background="@drawable/rounded_btn_transparent"
     android:text="@string/create_account"
     android:textColor="@color/white"
     android:theme="@style/WelcomeButton"
-    android:background="@drawable/rounded_btn_transparent"
     app:layout_constraintBottom_toTopOf="@id/btn_google_welcome"
     app:layout_constraintEnd_toStartOf="@id/guideline_end_welcome"
     app:layout_constraintHorizontal_bias="0.5"
@@ -79,17 +79,16 @@
     app:layout_constraintTop_toBottomOf="@id/btn_register_welcome"/>
 
   <Button
-    style="?android:attr/borderlessButtonStyle"
     android:id="@+id/btn_facebook_welcome"
+    style="?android:attr/borderlessButtonStyle"
     android:layout_width="0dp"
     android:layout_height="48dp"
     android:layout_marginTop="8dp"
-    android:layout_marginBottom="8dp"
+    android:background="@drawable/rounded_btn_blue"
+    android:drawableStart="@drawable/ic_facebook"
     android:text="@string/continue_with_facebook"
     android:textColor="@color/white"
     android:theme="@style/WelcomeButton"
-    android:background="@drawable/rounded_btn_blue"
-    android:drawableStart="@drawable/ic_facebook"
     app:layout_constraintBottom_toTopOf="@id/txt_term_of_use"
     app:layout_constraintEnd_toStartOf="@id/guideline_end_welcome"
     app:layout_constraintHorizontal_bias="0.5"

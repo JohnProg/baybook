@@ -31,32 +31,22 @@
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toBottomOf="@id/toolbar_register"/>
 
-  <TextView
-    android:id="@+id/txt_step_register"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="Step 1 of 2"
-    android:textColor="@color/text_secondary_dark"
-    android:textSize="18sp"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@id/title_register"/>
-
   <android.support.design.widget.TextInputLayout
     android:id="@+id/label_username_register"
     android:layout_width="0dp"
     android:layout_height="wrap_content"
+    app:layout_constraintTop_toBottomOf="@id/title_register"
     app:layout_constraintBottom_toTopOf="@id/label_email_register"
     app:layout_constraintEnd_toStartOf="@id/guideline_end_register"
     app:layout_constraintStart_toEndOf="@id/guideline_begin_register"
-    app:layout_constraintTop_toBottomOf="@id/txt_step_register">
+    >
     <android.support.v7.widget.AppCompatEditText
       android:id="@+id/field_username_register"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:hint="@string/username"
-      android:inputType="text"
       android:imeOptions="actionNext"
+      android:inputType="text"
       android:nextFocusDown="@id/field_email_register"/>
   </android.support.design.widget.TextInputLayout>
 

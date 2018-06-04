@@ -1,31 +1,201 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+
+<android.support.v4.widget.DrawerLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/drawer_layout_store"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  android:background="?attr/backgroundColor">
+  tools:openDrawer="start">
 
-  <android.support.v7.widget.Toolbar
-    android:id="@+id/toolbar_store"
-    android:layout_width="0dp"
-    android:layout_height="@dimen/height_toolbar"
-    android:background="?attr/toolbarColor"
-    android:elevation="@dimen/elevation_toolbar"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent"
-    app:navigationIcon="@drawable/ic_menu"
-    tools:targetApi="lollipop"/>
+  <android.support.constraint.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/backgroundColor"
+    android:orientation="vertical">
 
-  <android.support.v7.widget.RecyclerView
-    android:id="@+id/recycler_view"
-    android:layout_width="0dp"
-    android:layout_height="0dp"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@id/toolbar_store"/>
+    <android.support.v7.widget.Toolbar
+      android:id="@+id/toolbar_store"
+      android:layout_width="0dp"
+      android:layout_height="@dimen/height_toolbar"
+      android:background="?attr/toolbarColor"
+      android:elevation="@dimen/elevation_toolbar"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      tools:targetApi="lollipop"/>
 
-</android.support.constraint.ConstraintLayout>
+    <android.support.v4.widget.NestedScrollView
+      android:layout_width="0dp"
+      android:layout_height="0dp"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/toolbar_store"
+      app:layout_constraintBottom_toBottomOf="parent">
+
+      <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+          android:id="@+id/txt_front1"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="@dimen/margin_normal"
+          android:layout_marginTop="32dp"
+          android:text="@string/recommended_books"
+          android:textSize="16sp"
+          android:textColor="?attr/textColorPrimary"
+          app:layout_constraintTop_toTopOf="parent"
+          app:layout_constraintStart_toStartOf="parent"/>
+
+        <Button
+          android:id="@+id/btn_front1"
+          style="@style/Widget.AppCompat.Button.Borderless.Colored"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="@string/more"
+          app:layout_constraintEnd_toEndOf="parent"
+          android:layout_marginEnd="@dimen/margin_small"
+          app:layout_constraintBaseline_toBaselineOf="@id/txt_front1"/>
+
+        <android.support.v7.widget.RecyclerView
+          android:id="@+id/rv_front1"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/margin_small"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/txt_front1"/>
+
+        <TextView
+          android:id="@+id/txt_front2"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="@dimen/margin_normal"
+          android:layout_marginTop="16dp"
+          android:text="@string/authors"
+          android:textSize="16sp"
+          android:textColor="?attr/textColorPrimary"
+          app:layout_constraintTop_toBottomOf="@id/rv_front1"
+          app:layout_constraintStart_toStartOf="parent"/>
+
+        <Button
+          android:id="@+id/btn_front2"
+          style="@style/Widget.AppCompat.Button.Borderless.Colored"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="@string/more"
+          app:layout_constraintEnd_toEndOf="parent"
+          android:layout_marginEnd="@dimen/margin_small"
+          app:layout_constraintBaseline_toBaselineOf="@id/txt_front2"/>
+
+        <android.support.v7.widget.RecyclerView
+          android:id="@+id/rv_front2"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/margin_small"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/txt_front2"/>
+
+        <TextView
+          android:id="@+id/txt_front3"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="@dimen/margin_normal"
+          android:layout_marginTop="16dp"
+          android:text="@string/picks_of_month"
+          android:textSize="16sp"
+          android:textColor="?attr/textColorPrimary"
+          app:layout_constraintTop_toBottomOf="@id/rv_front2"
+          app:layout_constraintStart_toStartOf="parent"/>
+
+        <android.support.v7.widget.RecyclerView
+          android:id="@+id/rv_front3"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/margin_small"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/txt_front3"/>
+
+        <TextView
+          android:id="@+id/txt_front4"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="@dimen/margin_normal"
+          android:layout_marginTop="16dp"
+          android:text="@string/genres"
+          android:textSize="16sp"
+          android:textColor="?attr/textColorPrimary"
+          app:layout_constraintTop_toBottomOf="@id/rv_front3"
+          app:layout_constraintStart_toStartOf="parent"/>
+
+        <Button
+          android:id="@+id/btn_front4"
+          style="@style/Widget.AppCompat.Button.Borderless.Colored"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="@string/more"
+          app:layout_constraintEnd_toEndOf="parent"
+          android:layout_marginEnd="@dimen/margin_small"
+          app:layout_constraintBaseline_toBaselineOf="@id/txt_front4"/>
+
+        <android.support.v7.widget.RecyclerView
+          android:id="@+id/rv_front4"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/margin_small"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/txt_front4"/>
+
+        <TextView
+          android:id="@+id/txt_front5"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="@dimen/margin_normal"
+          android:layout_marginTop="16dp"
+          android:text="May you like"
+          android:textSize="16sp"
+          android:textColor="?attr/textColorPrimary"
+          app:layout_constraintTop_toBottomOf="@id/rv_front4"
+          app:layout_constraintStart_toStartOf="parent"/>
+
+        <android.support.v7.widget.RecyclerView
+          android:id="@+id/rv_front5"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/margin_small"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/txt_front5"/>
+
+      </android.support.constraint.ConstraintLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+    <FrameLayout
+      android:id="@+id/fragment_container_store"
+      android:layout_width="0dp"
+      android:layout_height="0dp"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/toolbar_store"
+      app:layout_constraintBottom_toBottomOf="parent"/>
+
+  </android.support.constraint.ConstraintLayout>
+
+  <!-- Container for contents of drawer - use NavigationView to make configuration easier -->
+  <android.support.design.widget.NavigationView
+    android:id="@+id/nav_view_store"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:layout_gravity="start"
+    android:background="?backgroundColor"
+    app:itemIconTint="?attr/iconColorInactive"
+    app:elevation="@dimen/no_elevation"
+    app:menu="@menu/menu_store"/>
+
+</android.support.v4.widget.DrawerLayout>

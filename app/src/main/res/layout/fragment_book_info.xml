@@ -6,8 +6,7 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  android:background="?attr/backgroundColor"
-  android:fitsSystemWindows="true">
+  android:background="?attr/backgroundColor">
 
   <android.support.design.widget.AppBarLayout
     android:id="@+id/appbar_layout"
@@ -33,7 +32,7 @@
       android:layout_width="match_parent"
       android:layout_height="match_parent">
 
-      <com.kitobim.CoverView
+      <com.kitobim.ui.custom.CoverView
         android:id="@+id/cover_book_info"
         android:layout_width="0dp"
         android:layout_height="150dp"
@@ -107,6 +106,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_bookmark_border"
+        android:tintMode="src_in"
         android:tint="?attr/iconColorActive"
         android:layout_marginTop="12dp"
         app:layout_constraintTop_toTopOf="@id/btn_wishlist_book_info"
@@ -133,11 +133,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_share"
+        android:tintMode="src_in"
         android:tint="?attr/iconColorActive"
         android:layout_marginTop="12dp"
         app:layout_constraintTop_toTopOf="@id/btn_share_book_info"
         app:layout_constraintStart_toStartOf="@id/btn_share_book_info"
-        app:layout_constraintEnd_toEndOf="@id/btn_share_book_info"/>
+        app:layout_constraintEnd_toEndOf="@id/btn_share_book_info"
+        tools:targetApi="lollipop"/>
 
       <Button
         style="@style/BorderlessButton"

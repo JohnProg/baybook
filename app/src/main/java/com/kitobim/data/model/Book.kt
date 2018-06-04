@@ -1,17 +1,20 @@
 package com.kitobim.data.model
 
-class Book(
-        val id: String,
+
+open class Book(
+        val id: Int,
         val title: String,
-        val cover: String?,
+        val thumbnail: String?,
+        val cover: String? = null,
         val price: Int,
-        val rating: Float,
-        val year: String,
-        val annotation: String,
+        val rating: Float = 0F,
+        val year: String? = null,
+        val annotation: String = "",
         val authors: List<String>,
-        val genres: List<String>,
-        val isbn: String?,
-        val in_wishlist: Boolean,
-        val has_sample: Boolean,
-        val is_purchased: Boolean
+        val genres: List<String> = emptyList(),
+        val isbn: String? = null,
+        val in_wishlist: Boolean = false,
+        val has_sample: Boolean = false,
+        val is_purchased: Boolean = false
 )
+

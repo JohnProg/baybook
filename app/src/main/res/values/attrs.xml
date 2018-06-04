@@ -3,10 +3,8 @@
   <attr format="reference|color" name="textColorPrimary"/>
   <attr format="reference|color" name="textColorSecondary"/>
   <attr format="reference|color" name="textColorDisabled"/>
-  <attr format="reference|color" name="textColorSelected"/>
   <attr format="reference|color" name="iconColorActive"/>
   <attr format="reference|color" name="iconColorInactive"/>
-  <attr format="reference|color" name="iconColorChecked"/>
   <attr format="reference|color" name="backgroundColor"/>
   <attr format="reference|color" name="toolbarColor"/>
   <attr format="reference|color" name="cardColor"/>

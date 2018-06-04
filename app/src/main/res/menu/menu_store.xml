@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+  <group android:id="@+id/nav_group_types"
+    android:checkableBehavior="single">
+    <item android:id="@+id/nav_authors"
+      android:icon="@drawable/ic_edit"
+      android:title="@string/authors"/>
+    <item android:id="@+id/nav_publishers"
+      android:icon="@drawable/ic_publisher"
+      android:title="@string/publishers"/>
+    <item android:id="@+id/nav_genres"
+      android:icon="@drawable/ic_genre"
+      android:title="@string/genres"/>
+    <item android:id="@+id/nav_collections"
+      android:icon="@drawable/ic_collections"
+      android:title="@string/collections"/>
+    <item android:id="@+id/nav_my_wishlist"
+      android:icon="@drawable/ic_bookmark"
+      android:title="@string/my_wishlist"/>
+  </group>
+
+  <group android:id="@+id/nav_group_books"
+    android:checkableBehavior="single">
+    <item android:id="@+id/nav_recommended_books"
+      android:title="@string/recommended_books"/>
+    <item android:id="@+id/nav_new_books"
+      android:title="@string/new_released_books"/>
+    <item android:id="@+id/nav_paid_books"
+      android:title="@string/top_paid_books"/>
+    <item android:id="@+id/nav_rated_books"
+      android:title="@string/top_rated_books"/>
+    <item android:id="@+id/nav_free_books"
+      android:title="@string/top_free_books"/>
+  </group>
+
+</menu>

@@ -10,7 +10,7 @@
   <color name="grey300">#CACACA</color>
   <color name="white">#FFFFFF</color>
   <color name="black">#000000</color>
-  <color name="orange500">#F9AA33</color> <!--FED430-->
+  <color name="orange500">#FFBB33</color> <!--FED430-->
   <color name="transparent">#00FFFFFF</color>
 
   <color name="text_primary">#CC000000</color>
@@ -25,19 +25,20 @@
   <color name="card">#FFFFFF</color>
   <color name="view">#EDF0F2</color>
   <color name="divider">#20000000</color>
+  <color name="scrim">#AAFFFFFF</color>
 
   <color name="text_primary_dark">#FFFFFFFF</color>
   <color name="text_secondary_dark">#B2FFFFFF</color>
   <color name="text_disabled_dark">#80FFFFFF</color>
-  <color name="text_selected_dark">@color/primary</color>
   <color name="icon_active_dark">#FFFFFFFF</color>
   <color name="icon_inactive_dark">#80FFFFFF</color>
-  <color name="icon_checked_dark">@color/primary</color>
   <color name="background_dark">#1B1B1B</color>
   <color name="toolbar_dark">#141414</color>
   <color name="card_dark">#1B1B1B</color>
   <color name="view_dark">#232323</color>
   <color name="divider_dark">#20FFFFFF</color>
+  <color name="scrim_dark">#AA000000</color>
+  <color name="scrim_card">#60000000</color>
 
 </resources>
 

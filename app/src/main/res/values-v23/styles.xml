@@ -10,14 +10,13 @@
     <item name="android:windowLightStatusBar">true</item>
     <item name="android:statusBarColor">@color/toolbar</item>
     <item name="android:homeAsUpIndicator">@drawable/ic_arrow_black</item>
+    <item name="android:includeFontPadding">false</item>
 
     <item name="textColorPrimary">@color/text_primary</item>
     <item name="textColorSecondary">@color/text_secondary</item>
     <item name="textColorDisabled">@color/text_disabled</item>
-    <item name="textColorSelected">@color/text_selected</item>
     <item name="iconColorActive">@color/icon_active</item>
     <item name="iconColorInactive">@color/icon_inactive</item>
-    <item name="iconColorChecked">@color/icon_checked</item>
     <item name="backgroundColor">@color/background</item>
     <item name="toolbarColor">@color/toolbar</item>
     <item name="cardColor">@color/card</item>
@@ -35,14 +34,13 @@
     <item name="android:windowLightStatusBar">false</item>
     <item name="android:statusBarColor">@color/toolbar_dark</item>
     <item name="android:homeAsUpIndicator">@drawable/ic_arrow_white</item>
+    <item name="android:includeFontPadding">false</item>
 
     <item name="textColorPrimary">@color/text_primary_dark</item>
     <item name="textColorSecondary">@color/text_secondary_dark</item>
     <item name="textColorDisabled">@color/text_disabled_dark</item>
-    <item name="textColorSelected">@color/text_selected_dark</item>
     <item name="iconColorActive">@color/icon_active_dark</item>
     <item name="iconColorInactive">@color/icon_inactive_dark</item>
-    <item name="iconColorChecked">@color/icon_checked_dark</item>
     <item name="backgroundColor">@color/background_dark</item>
     <item name="cardColor">@color/card_dark</item>
     <item name="viewColor">@color/view_dark</item>
@@ -50,6 +48,7 @@
     <item name="dividerColor">@color/divider_dark</item>
     <item name="starBarColor">@color/icon_active_dark</item>
   </style>
+
 
 
 </resources>

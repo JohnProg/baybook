@@ -25,9 +25,10 @@
         android:id="@+id/btn_forgot_password"
         style="?android:attr/borderlessButtonStyle"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/margin_normal"
         android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
         android:text="@string/forgot_password"
         android:textColor="@color/white"
         android:textAllCaps="false"
@@ -48,7 +49,7 @@
     app:layout_constraintTop_toBottomOf="@id/toolbar_login"/>
 
   <android.support.design.widget.TextInputLayout
-    android:id="@+id/til_email_login"
+    android:id="@+id/label_email_login"
     android:layout_width="0dp"
     android:layout_height="wrap_content"
     app:layout_constraintEnd_toStartOf="@+id/guideline_end_login"
@@ -65,12 +66,12 @@
   </android.support.design.widget.TextInputLayout>
 
   <android.support.design.widget.TextInputLayout
-    android:id="@+id/til_password_login"
+    android:id="@+id/label_password_login"
     android:layout_width="0dp"
     android:layout_height="wrap_content"
     app:layout_constraintEnd_toStartOf="@id/guideline_end_login"
     app:layout_constraintStart_toEndOf="@id/guideline_begin_login"
-    app:layout_constraintTop_toBottomOf="@id/til_email_login"
+    app:layout_constraintTop_toBottomOf="@id/label_email_login"
     app:passwordToggleDrawable="@drawable/asl_password_visibility"
     app:passwordToggleEnabled="true"
     app:passwordToggleTint="@color/icon_inactive_dark">
@@ -97,6 +98,17 @@
     app:pressedTranslationZ="@dimen/no_elevation"
     app:backgroundTint="@color/icon_inactive_dark"
     app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"/>
+
+  <ImageView
+    android:id="@+id/img_warning_login"
+    android:layout_width="48dp"
+    android:layout_height="48dp"
+    android:layout_marginTop="32dp"
+    android:src="@drawable/ic_warning"
+    android:visibility="gone"
+    app:layout_constraintTop_toBottomOf="@id/label_password_login"
+    app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintEnd_toEndOf="parent"/>
 
   <android.support.constraint.Guideline

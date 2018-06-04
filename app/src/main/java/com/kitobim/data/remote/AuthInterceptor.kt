@@ -2,9 +2,9 @@ package com.kitobim.data.remote
 
 import android.content.Context
 import android.util.Log
-import com.kitobim.Constants
-import com.kitobim.PreferenceHelper
-import com.kitobim.PreferenceHelper.get
+import com.kitobim.util.Constants
+import com.kitobim.data.local.preference.PreferenceHelper
+import com.kitobim.data.local.preference.PreferenceHelper.get
 import okhttp3.Interceptor
 import okhttp3.Response
 

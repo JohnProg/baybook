@@ -61,4 +61,18 @@
   <string name="wishlist">Wishlist</string>
   <string name="share">Share</string>
   <string name="purchase">Purchase</string>
+  <string name="genres">Genres</string>
+  <string name="authors">Authors</string>
+  <string name="publishers">Publishers</string>
+  <string name="collections">Collections</string>
+  <string name="new_books">New released books</string>
+  <string name="recommended_books">Recommended books</string>
+  <string name="my_wishlist">My wishlist</string>
+  <string name="available_books">Available books count:</string>
+  <string name="top_free_books">Top free books</string>
+  <string name="new_released_books">New released books</string>
+  <string name="top_paid_books">Top paid books</string>
+  <string name="top_rated_books">Top rated books</string>
+  <string name="more">More</string>
+  <string name="picks_of_month">Picks of month</string>
 </resources>

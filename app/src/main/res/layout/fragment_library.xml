@@ -5,70 +5,84 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  android:background="?backgroundColor">
+  android:background="?attr/viewColor">
 
-  <android.support.constraint.ConstraintLayout
+  <android.support.v7.widget.Toolbar
     android:id="@+id/toolbar_library"
     android:layout_width="0dp"
-    android:layout_height="48dp"
+    android:layout_height="@dimen/height_toolbar"
+    app:contentInsetStart="0dp"
     android:background="?attr/toolbarColor"
     android:elevation="@dimen/elevation_toolbar"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
     tools:targetApi="lollipop">
 
-    <Button
-      android:id="@+id/btn_all_toolbar"
-      style="@style/BorderlessButton"
-      android:layout_width="wrap_content"
-      android:layout_height="0dp"
-      android:layout_marginStart="8dp"
-      android:minWidth="0dp"
-      android:text="@string/all"
-      android:textSize="16dp"
-      app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent"/>
+    <android.support.constraint.ConstraintLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent">
 
-    <View
-      android:id="@+id/separator_toolbar"
-      android:layout_width="@dimen/width_divider"
-      android:layout_height="0dp"
-      android:layout_marginTop="16dp"
-      android:layout_marginBottom="16dp"
-      android:background="?attr/textColorPrimary"
-      app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintStart_toEndOf="@id/btn_all_toolbar"
-      app:layout_constraintTop_toTopOf="parent"/>
+      <Button
+        android:id="@+id/btn_all_toolbar"
+        style="@style/BorderlessButton"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:minWidth="0dp"
+        android:text="@string/all"
+        android:textSize="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
 
-    <Button
-      android:id="@+id/btn_downloaded_toolbar"
-      style="@style/BorderlessButton"
-      android:layout_width="wrap_content"
-      android:layout_height="0dp"
-      android:minWidth="0dp"
-      android:text="@string/downloaded"
-      android:textSize="16dp"
-      app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintStart_toEndOf="@id/separator_toolbar"
-      app:layout_constraintTop_toTopOf="parent"/>
+      <View
+        android:id="@+id/separator_toolbar"
+        android:layout_width="@dimen/width_divider"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="?attr/textColorPrimary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/btn_all_toolbar"
+        app:layout_constraintTop_toTopOf="parent"/>
 
+      <Button
+        android:id="@+id/btn_downloaded_toolbar"
+        style="@style/BorderlessButton"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:minWidth="0dp"
+        android:text="@string/downloaded"
+        android:textSize="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/separator_toolbar"
+        app:layout_constraintTop_toTopOf="parent"/>
 
-    <ImageButton
-      android:id="@+id/menu_item_grid"
-      style="@style/BorderlessButton"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginEnd="8dp"
-      android:minWidth="0dp"
-      android:src="@drawable/ic_sort"
-      android:tint="?attr/iconColorActive"
-      app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintTop_toTopOf="parent"/>
+      <ImageButton
+        android:id="@+id/btn_add_library"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:minWidth="0dp"
+        android:src="@drawable/ic_sort"
+        android:tint="?attr/iconColorActive"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
 
-  </android.support.constraint.ConstraintLayout>
+    </android.support.constraint.ConstraintLayout>
+  </android.support.v7.widget.Toolbar>
+
+  <android.support.v7.widget.RecyclerView
+    android:id="@+id/recycler_view_library"
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/toolbar_library"
+    app:layout_constraintBottom_toBottomOf="parent"/>
 
   <TextView
     android:id="@+id/txt_library_empty"
@@ -77,6 +91,7 @@
     android:gravity="center_horizontal"
     android:text="@string/empty_library"
     android:textColor="?attr/textColorSecondary"
+    android:visibility="gone"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintHorizontal_bias="0.5"
@@ -90,6 +105,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:text="@string/link_to_store"
+    android:visibility="gone"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintHorizontal_bias="0.5"
     app:layout_constraintStart_toStartOf="parent"
