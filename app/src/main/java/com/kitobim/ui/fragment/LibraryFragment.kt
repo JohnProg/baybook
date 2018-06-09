@@ -39,6 +39,11 @@ class LibraryFragment @SuppressLint("ValidFragment") private constructor()
 
         mLibraryViewModel.getAllBooks().observe(this, Observer {
             mAdapter.updateBooks(it!!)
+            if (mAdapter.itemCount > 0) {
+                mView.btn_go_to_store.visibility = View.GONE
+                mView.txt_library_empty.visibility = View.GONE
+                mView.recycler_view_library.visibility = View.VISIBLE
+            }
         })
 
         return mView
@@ -46,7 +51,7 @@ class LibraryFragment @SuppressLint("ValidFragment") private constructor()
 
     override fun onClick(v: View) {
         when (v) {
-            btn_library_empty -> {
+            btn_go_to_store -> {
                 val fragment = StoreFragment.newInstance()
 
                 fragmentManager!!
@@ -76,7 +81,7 @@ class LibraryFragment @SuppressLint("ValidFragment") private constructor()
         mRepository = LibraryRepository.getInstance(activity!!.application)
         mView.btn_add_library.setOnClickListener {
 
-            val book = LibraryEntity(1,40001,true)
+            val book = LibraryEntity(40001,true)
             mLibraryViewModel.insertBook(book)
         }
     }

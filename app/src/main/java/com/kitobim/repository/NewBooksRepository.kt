@@ -12,8 +12,10 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
 class NewBooksRepository private constructor(application: Application) {
-    private val mBookDao: NewBooksDao
+    private val mNewBooksDao: NewBooksDao
     private val mService: ApiService
+    private val mBookRepo: BookRepository
+    private var mLastPage = 1
 
     companion object {
         private var sInstance: NewBooksRepository? = null
@@ -28,41 +30,48 @@ class NewBooksRepository private constructor(application: Application) {
 
     init {
         val database = AppDatabase.getDatabase(application)
-        mBookDao = database.newBookDao()
+        mNewBooksDao = database.newBooksDao()
         mService = RetrofitClient.getAuthService(application)
+        mBookRepo = BookRepository.getInstance(application)
     }
 
-    fun loadAllBooks() = mBookDao.loadAllBooks()
+    fun loadAllBooks() = mNewBooksDao.loadAllBooks()
 
     fun insertAll(page: Int) {
-        val existedPage = mBookDao.getNumberOfThisPage(page) > 0
+        val result = mNewBooksDao.getRowCountOfPage(page)
 
-        if (!existedPage)
-        mService.getBooks(page)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        {
-                            onSuccess ->
-                            Log.i("tag", "onSuccess")
-                            val list = onSuccess.data
-                            for (item in list) {
-                                val book = NewBooksEntity(0, item.id, page)
-                                insert(book)
-                            }
-                        },
-                        {
-                            onFailure -> Log.i("tag", "Failure ${onFailure.message}")
-                        }
-                )
+        if (mLastPage >= page) {
+            result.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe { rowCount ->
+                if (rowCount == 0) {
+                    mService.getNewBooks(page)
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe(
+                                    { onSuccess ->
+                                        val list = onSuccess.data
+                                        mLastPage = onSuccess.meta.last_page
+                                        for (item in list) {
+                                            mBookRepo.insert(item)
+                                            val book = NewBooksEntity(item.id, page)
+                                            insert(book)
+                                        }
+                                    },
+                                    { onFailure ->
+                                        Log.i("tag", "Failure new books ${onFailure.message}")
+                                    }
+                            )
+
+                }
+            }
+        }
     }
 
     fun deleteAll() {
-        mBookDao.deleteAll()
+        mNewBooksDao.deleteAll()
     }
 
     private fun insert(book: NewBooksEntity) {
-        InsertAsyncTask(mBookDao).execute(book)
+        InsertAsyncTask(mNewBooksDao).execute(book)
     }
 
     private class InsertAsyncTask internal constructor(private val mAsyncTaskDao: NewBooksDao)

@@ -7,6 +7,6 @@ import android.arch.persistence.room.PrimaryKey
 class CollectionEntity (
     @PrimaryKey
     val id: Int,
-    val title: String,
+    val name: String,
     val books: Int
 )

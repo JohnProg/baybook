@@ -6,11 +6,10 @@ import com.kitobim.repository.NewBooksRepository
 
 
 class NewBookViewModel(application: Application) : AndroidViewModel(application) {
-
     private val repository = NewBooksRepository.getInstance(application)
-    private var mObservableBook = repository.loadAllBooks()
 
-    fun getAllBooks() = mObservableBook
+    fun getAllBooks() = repository.loadAllBooks()
+
     fun insertAll(page: Int) {
         repository.insertAll(page)
     }

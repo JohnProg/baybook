@@ -79,7 +79,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/content/ic_add_black_24dp.xml" />
+                                      <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/action/ic_search_black_24dp.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -89,9 +89,10 @@
                         </option>
                         <option name="values">
                           <map>
+                            <entry key="assetSourceType" value="FILE" />
                             <entry key="color" value="ffffff" />
-                            <entry key="outputName" value="ic_add_black_24dp" />
-                            <entry key="sourceFile" value="C:\Users\sulto\Desktop\svg copy\new.svg" />
+                            <entry key="outputName" value="ic_edit" />
+                            <entry key="sourceFile" value="C:\Users\sulto\Desktop\outline-edit-24px.svg" />
                           </map>
                         </option>
                       </PersistentState>

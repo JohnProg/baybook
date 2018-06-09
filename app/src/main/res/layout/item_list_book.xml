@@ -8,7 +8,7 @@
   android:background="?attr/viewColor">
 
   <android.support.v7.widget.CardView
-    android:id="@+id/cardView"
+    android:id="@+id/card_list_book"
     android:layout_width="0dp"
     android:layout_height="0dp"
     android:layout_marginTop="2dp"
@@ -24,8 +24,8 @@
     app:layout_constraintTop_toTopOf="parent">
   </android.support.v7.widget.CardView>
 
-  <com.kitobim.ui.custom.CoverView
-    android:id="@+id/card_cover"
+  <ImageView
+    android:id="@+id/img_list_book"
     android:layout_width="0dp"
     android:layout_height="0dp"
     android:layout_marginTop="6dp"
@@ -38,7 +38,7 @@
     app:layout_constraintTop_toTopOf="parent"/>
 
   <TextView
-    android:id="@+id/card_title"
+    android:id="@+id/title_list_book"
     android:layout_width="0dp"
     android:layout_height="wrap_content"
     android:layout_marginTop="@dimen/margin_normal"
@@ -48,15 +48,14 @@
     android:maxLines="2"
     android:textColor="?attr/textColorPrimary"
     android:textSize="16dp"
-    app:layout_constraintBottom_toTopOf="@id/card_subtitle"
-    app:layout_constraintEnd_toEndOf="@id/cardView"
-    app:layout_constraintHorizontal_bias="0.5"
-    app:layout_constraintStart_toEndOf="@id/card_cover"
-    app:layout_constraintTop_toTopOf="@id/cardView"
+    app:layout_constraintBottom_toTopOf="@id/txt_authors_book"
+    app:layout_constraintEnd_toEndOf="@id/card_list_book"
+    app:layout_constraintStart_toEndOf="@id/img_list_book"
+    app:layout_constraintTop_toTopOf="@id/card_list_book"
     app:layout_constraintVertical_chainStyle="packed"/>
 
   <TextView
-    android:id="@+id/card_subtitle"
+    android:id="@+id/txt_authors_book"
     android:layout_width="0dp"
     android:layout_height="wrap_content"
     android:layout_marginTop="@dimen/margin_micro"
@@ -64,48 +63,46 @@
     android:ellipsize="end"
     android:textColor="?attr/textColorSecondary"
     android:textSize="14dp"
-    app:layout_constraintBottom_toTopOf="@id/rating_bar"
-    app:layout_constraintEnd_toEndOf="@id/card_title"
+    app:layout_constraintBottom_toTopOf="@id/rating_bar_list"
+    app:layout_constraintEnd_toEndOf="@id/title_list_book"
     app:layout_constraintHorizontal_bias="0.5"
-    app:layout_constraintStart_toStartOf="@id/card_title"
-    app:layout_constraintTop_toBottomOf="@id/card_title"/>
+    app:layout_constraintStart_toStartOf="@id/title_list_book"
+    app:layout_constraintTop_toBottomOf="@id/title_list_book"/>
 
   <android.support.v7.widget.AppCompatRatingBar
-    android:id="@+id/rating_bar"
+    android:id="@+id/rating_bar_list"
     style="@style/Widget.AppCompat.RatingBar.Small"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginTop="@dimen/margin_micro"
     android:numStars="5"
-    android:rating="4.1"
     android:stepSize="0.1"
     android:theme="@style/RatingBar"
-    app:layout_constraintBottom_toTopOf="@id/card_price"
-    app:layout_constraintStart_toStartOf="@id/card_title"
-    app:layout_constraintTop_toBottomOf="@id/card_subtitle"/>
+    app:layout_constraintBottom_toTopOf="@id/txt_book_price"
+    app:layout_constraintStart_toStartOf="@id/title_list_book"
+    app:layout_constraintTop_toBottomOf="@id/txt_authors_book"/>
 
   <TextView
-    android:id="@+id/txt_rating"
+    android:id="@+id/txt_rating_list"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginStart="8dp"
-    android:text="4.5"
-    android:textSize="12dp"
+    android:textSize="12sp"
     android:textColor="?attr/textColorDisabled"
-    app:layout_constraintStart_toEndOf="@id/rating_bar"
-    app:layout_constraintTop_toTopOf="@id/rating_bar"
-    app:layout_constraintBottom_toBottomOf="@id/rating_bar"/>
+    app:layout_constraintStart_toEndOf="@id/rating_bar_list"
+    app:layout_constraintTop_toTopOf="@id/rating_bar_list"
+    app:layout_constraintBottom_toBottomOf="@id/rating_bar_list"/>
 
   <TextView
-    android:id="@+id/card_price"
+    android:id="@+id/txt_book_price"
     android:textStyle="bold"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginTop="@dimen/margin_micro"
     android:textColor="@color/primary"
     android:textSize="14dp"
-    app:layout_constraintStart_toStartOf="@id/card_title"
-    app:layout_constraintTop_toBottomOf="@id/rating_bar"/>
+    app:layout_constraintStart_toStartOf="@id/title_list_book"
+    app:layout_constraintTop_toBottomOf="@id/rating_bar_list"/>
 
 </android.support.constraint.ConstraintLayout>
 

@@ -27,7 +27,6 @@ class BookRepository private constructor(application: Application) {
         mBookDao = database.bookDao()
     }
 
-
     fun insert(book: BookEntity) {
         InsertAsyncTask(mBookDao).execute(book)
     }

@@ -52,7 +52,7 @@
   <string name="term_of_use">By tapping Continue and Create Account,
       I agree with Kitobim\'s Term of Service, Payment Term of Service and Privacy Policy</string>
   <string name="description_theme">Color theme changes do not effect your reading experience.
-    \n\nTo change the color while reading, select Aa menu in the toolbar from inside book</string>
+    \n\nTo change the color while reading, select Aa menu in the toolbar from inside author</string>
   <string name="kitobim_logo" translatable="false">kitobim logo</string>
   <string name="date_of_birth">Date of birth</string>
   <string name="location">Location</string>
@@ -75,4 +75,7 @@
   <string name="top_rated_books">Top rated books</string>
   <string name="more">More</string>
   <string name="picks_of_month">Picks of month</string>
+  <string name="front_page">Front page</string>
+  <string name="you_might_like">You might like</string>
+  <string name="search">Search</string>
 </resources>

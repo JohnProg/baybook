@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
-  android:layout_width="match_parent"
-  android:layout_height="wrap_content"
   xmlns:app="http://schemas.android.com/apk/res-auto"
-  android:background="@color/transparent">
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content">
 
   <ImageView
-    android:id="@+id/img_thumbnail_author"
+    android:id="@+id/img_list_author"
     android:layout_width="56dp"
     android:layout_height="56dp"
     android:layout_margin="@dimen/margin_small"
@@ -17,28 +16,26 @@
     app:layout_constraintTop_toTopOf="parent"/>
 
   <TextView
-    android:id="@+id/txt_name_author"
+    android:id="@+id/txt_name_list_author"
     android:layout_width="0dp"
     android:layout_height="wrap_content"
     android:layout_marginStart="16dp"
     android:layout_marginEnd="16dp"
-    android:text="Muhammad Sodiq Muhammad Yusuf"
     android:maxLines="2"
     android:ellipsize="end"
     android:textColor="?attr/textColorPrimary"
     android:textSize="16sp"
-    app:layout_constraintStart_toEndOf="@id/img_thumbnail_author"
+    app:layout_constraintStart_toEndOf="@id/img_list_author"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintTop_toTopOf="parent"
     app:layout_constraintVertical_bias="0.5"
     app:layout_constraintBottom_toBottomOf="parent"/>
 
-
   <View
     android:layout_width="0dp"
     android:layout_height="1dp"
     android:background="?attr/dividerColor"
-    app:layout_constraintStart_toStartOf="@id/txt_name_author"
+    app:layout_constraintStart_toStartOf="@id/txt_name_list_author"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintBottom_toBottomOf="parent"/>
 

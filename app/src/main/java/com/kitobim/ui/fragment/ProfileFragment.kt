@@ -54,7 +54,7 @@ class ProfileFragment @SuppressLint("ValidFragment") private constructor() : Fra
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         mFragment = when (item.itemId) {
-            R.id.nav_account -> AccountFragment.newInstance()
+//            R.id.nav_account -> AccountFragment.newInstance()
             R.id.nav_payment -> PaymentFragment.newInstance()
             R.id.nav_notification -> NotificationFragment.newInstance()
             R.id.nav_feedback -> FeedbackFragment.newInstance()

@@ -9,6 +9,9 @@ class BookEntity (
         val id: Int,
         val title: String,
         val thumbnail: String?,
-        val authors: String?,
-        val price: Int
+        val authors: List<AuthorEntity>,
+        val price: Int,
+        val rating: Float? = null,
+        val purchased: Boolean = false,
+        val inwishlist: Boolean = false
 )

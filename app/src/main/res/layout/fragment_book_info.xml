@@ -32,7 +32,7 @@
       android:layout_width="match_parent"
       android:layout_height="match_parent">
 
-      <com.kitobim.ui.custom.CoverView
+      <ImageView
         android:id="@+id/cover_book_info"
         android:layout_width="0dp"
         android:layout_height="150dp"
@@ -108,7 +108,7 @@
         android:src="@drawable/ic_bookmark_border"
         android:tintMode="src_in"
         android:tint="?attr/iconColorActive"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="24dp"
         app:layout_constraintTop_toTopOf="@id/btn_wishlist_book_info"
         app:layout_constraintStart_toStartOf="@id/btn_wishlist_book_info"
         app:layout_constraintEnd_toEndOf="@id/btn_wishlist_book_info"/>
@@ -117,12 +117,12 @@
         style="@style/BorderlessButton"
         android:id="@+id/btn_wishlist_book_info"
         android:layout_width="0dp"
-        android:layout_height="72dp"
-        android:paddingTop="36dp"
+        android:layout_height="96dp"
+        android:paddingTop="48dp"
         android:text="@string/wishlist"
         android:textColor="?attr/textColorPrimary"
         android:textAllCaps="false"
-        android:textSize="16dp"
+        android:textSize="16sp"
         app:layout_constraintTop_toBottomOf="@id/divider_book_info"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/btn_share_book_info"
@@ -135,7 +135,7 @@
         android:src="@drawable/ic_share"
         android:tintMode="src_in"
         android:tint="?attr/iconColorActive"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="24dp"
         app:layout_constraintTop_toTopOf="@id/btn_share_book_info"
         app:layout_constraintStart_toStartOf="@id/btn_share_book_info"
         app:layout_constraintEnd_toEndOf="@id/btn_share_book_info"
@@ -145,15 +145,17 @@
         style="@style/BorderlessButton"
         android:id="@+id/btn_share_book_info"
         android:layout_width="0dp"
-        android:layout_height="72dp"
-        android:paddingTop="36dp"
+        android:layout_height="96dp"
+        android:paddingTop="48dp"
         android:text="@string/share"
         android:textColor="?attr/textColorPrimary"
         android:textAllCaps="false"
-        android:textSize="16dp"
+        android:textSize="16sp"
         app:layout_constraintTop_toBottomOf="@id/divider_book_info"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/btn_wishlist_book_info"/>
+
+
 
       <android.support.constraint.Guideline
         android:id="@+id/guideline_begin_book_info"

@@ -7,7 +7,7 @@ import android.arch.persistence.room.PrimaryKey
 class PublisherEntity (
     @PrimaryKey
     val id: Int,
-    val title: String,
-    val thumbnail: String,
+    val name: String,
+    val logo: String?,
     val books: Int
 )

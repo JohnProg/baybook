@@ -9,15 +9,12 @@ interface BookDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(book: BookEntity)
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll(books: List<BookEntity>)
-
     @Update(onConflict = OnConflictStrategy.REPLACE)
     fun update(book: BookEntity): Int
 
     @Query("DELETE FROM books")
     fun deleteAll()
 
-    @Query("SELECT * FROM books WHERE id= :id")
+    @Query("SELECT * FROM books WHERE id=:id")
     fun getBookById(id: Int): LiveData<BookEntity>
 }

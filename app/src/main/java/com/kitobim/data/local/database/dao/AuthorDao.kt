@@ -10,21 +10,12 @@ interface AuthorDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(author: AuthorEntity)
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll(authors: List<AuthorEntity>)
-
-    @Update
+    @Update(onConflict = OnConflictStrategy.REPLACE)
     fun update(author: AuthorEntity): Int
 
     @Query("DELETE FROM authors")
     fun deleteAll()
 
-    @Query("SELECT COUNT(*) FROM authors")
-    fun getNumberOfRows(): Int
-
-    @Query("SELECT COUNT(page) FROM authors WHERE page = :page")
-    fun getNumberOfThisPage(page: Int): Int
-
-    @Query("SELECT * FROM authors ORDER BY name ASC")
-    fun loadAllAuthors(): LiveData<List<AuthorEntity>>
+    @Query("SELECT * FROM authors WHERE id=:id")
+    fun getAuthorById(id: Int): LiveData<AuthorEntity>
 }

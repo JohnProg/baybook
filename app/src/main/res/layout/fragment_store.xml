@@ -18,7 +18,8 @@
     <android.support.v7.widget.Toolbar
       android:id="@+id/toolbar_store"
       android:layout_width="0dp"
-      android:layout_height="@dimen/height_toolbar"
+      android:layout_height="48dp"
+      app:title="@string/front_page"
       android:background="?attr/toolbarColor"
       android:elevation="@dimen/elevation_toolbar"
       app:layout_constraintStart_toStartOf="parent"
@@ -44,8 +45,9 @@
           android:layout_height="wrap_content"
           android:layout_marginStart="@dimen/margin_normal"
           android:layout_marginTop="32dp"
+          android:textStyle="bold"
           android:text="@string/recommended_books"
-          android:textSize="16sp"
+          android:textSize="18sp"
           android:textColor="?attr/textColorPrimary"
           app:layout_constraintTop_toTopOf="parent"
           app:layout_constraintStart_toStartOf="parent"/>
@@ -64,7 +66,8 @@
           android:id="@+id/rv_front1"
           android:layout_width="0dp"
           android:layout_height="wrap_content"
-          android:layout_marginTop="@dimen/margin_small"
+          android:minHeight="172dp"
+          android:layout_marginTop="@dimen/margin_normal"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintTop_toBottomOf="@id/txt_front1"/>
@@ -74,9 +77,10 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_marginStart="@dimen/margin_normal"
-          android:layout_marginTop="16dp"
+          android:layout_marginTop="32dp"
+          android:textStyle="bold"
           android:text="@string/authors"
-          android:textSize="16sp"
+          android:textSize="18sp"
           android:textColor="?attr/textColorPrimary"
           app:layout_constraintTop_toBottomOf="@id/rv_front1"
           app:layout_constraintStart_toStartOf="parent"/>
@@ -95,7 +99,8 @@
           android:id="@+id/rv_front2"
           android:layout_width="0dp"
           android:layout_height="wrap_content"
-          android:layout_marginTop="@dimen/margin_small"
+          android:minHeight="120dp"
+          android:layout_marginTop="@dimen/margin_normal"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintTop_toBottomOf="@id/txt_front2"/>
@@ -105,9 +110,10 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_marginStart="@dimen/margin_normal"
-          android:layout_marginTop="16dp"
+          android:layout_marginTop="32dp"
+          android:textStyle="bold"
           android:text="@string/picks_of_month"
-          android:textSize="16sp"
+          android:textSize="18sp"
           android:textColor="?attr/textColorPrimary"
           app:layout_constraintTop_toBottomOf="@id/rv_front2"
           app:layout_constraintStart_toStartOf="parent"/>
@@ -116,7 +122,8 @@
           android:id="@+id/rv_front3"
           android:layout_width="0dp"
           android:layout_height="wrap_content"
-          android:layout_marginTop="@dimen/margin_small"
+          android:minHeight="172dp"
+          android:layout_marginTop="@dimen/margin_normal"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintTop_toBottomOf="@id/txt_front3"/>
@@ -126,9 +133,10 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_marginStart="@dimen/margin_normal"
-          android:layout_marginTop="16dp"
+          android:layout_marginTop="32dp"
+          android:textStyle="bold"
           android:text="@string/genres"
-          android:textSize="16sp"
+          android:textSize="18sp"
           android:textColor="?attr/textColorPrimary"
           app:layout_constraintTop_toBottomOf="@id/rv_front3"
           app:layout_constraintStart_toStartOf="parent"/>
@@ -138,8 +146,8 @@
           style="@style/Widget.AppCompat.Button.Borderless.Colored"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:text="@string/more"
           app:layout_constraintEnd_toEndOf="parent"
+          android:text="@string/more"
           android:layout_marginEnd="@dimen/margin_small"
           app:layout_constraintBaseline_toBaselineOf="@id/txt_front4"/>
 
@@ -147,7 +155,8 @@
           android:id="@+id/rv_front4"
           android:layout_width="0dp"
           android:layout_height="wrap_content"
-          android:layout_marginTop="@dimen/margin_small"
+          android:layout_marginTop="@dimen/margin_normal"
+          android:minHeight="150dp"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintTop_toBottomOf="@id/txt_front4"/>
@@ -157,9 +166,10 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_marginStart="@dimen/margin_normal"
-          android:layout_marginTop="16dp"
-          android:text="May you like"
-          android:textSize="16sp"
+          android:layout_marginTop="32dp"
+          android:textStyle="bold"
+          android:text="@string/you_might_like"
+          android:textSize="18sp"
           android:textColor="?attr/textColorPrimary"
           app:layout_constraintTop_toBottomOf="@id/rv_front4"
           app:layout_constraintStart_toStartOf="parent"/>
@@ -168,7 +178,11 @@
           android:id="@+id/rv_front5"
           android:layout_width="0dp"
           android:layout_height="wrap_content"
-          android:layout_marginTop="@dimen/margin_small"
+          android:minHeight="172dp"
+          android:layout_marginTop="@dimen/margin_normal"
+          android:layout_marginBottom="32dp"
+          app:layout_constraintVertical_bias="0.1"
+          app:layout_constraintBottom_toBottomOf="parent"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintTop_toBottomOf="@id/txt_front5"/>
@@ -180,10 +194,12 @@
       android:id="@+id/fragment_container_store"
       android:layout_width="0dp"
       android:layout_height="0dp"
-      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="0.0"
+      app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@id/toolbar_store"
-      app:layout_constraintBottom_toBottomOf="parent"/>
+      app:layout_constraintVertical_bias="0.0"/>
 
   </android.support.constraint.ConstraintLayout>
 
@@ -194,8 +210,9 @@
     android:layout_height="match_parent"
     android:layout_gravity="start"
     android:background="?backgroundColor"
-    app:itemIconTint="?attr/iconColorInactive"
+    app:itemIconTint="@drawable/bnv_icon_tint"
+    app:itemTextColor="@drawable/bnv_text_color"
     app:elevation="@dimen/no_elevation"
-    app:menu="@menu/menu_store"/>
+    app:menu="@menu/menu_store_drawer"/>
 
 </android.support.v4.widget.DrawerLayout>

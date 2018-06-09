@@ -10,7 +10,7 @@
   <android.support.v7.widget.Toolbar
     android:id="@+id/toolbar_library"
     android:layout_width="0dp"
-    android:layout_height="@dimen/height_toolbar"
+    android:layout_height="48dp"
     app:contentInsetStart="0dp"
     android:background="?attr/toolbarColor"
     android:elevation="@dimen/elevation_toolbar"
@@ -75,15 +75,6 @@
     </android.support.constraint.ConstraintLayout>
   </android.support.v7.widget.Toolbar>
 
-  <android.support.v7.widget.RecyclerView
-    android:id="@+id/recycler_view_library"
-    android:layout_width="0dp"
-    android:layout_height="0dp"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintTop_toBottomOf="@id/toolbar_library"
-    app:layout_constraintBottom_toBottomOf="parent"/>
-
   <TextView
     android:id="@+id/txt_library_empty"
     android:layout_width="200dp"
@@ -91,7 +82,7 @@
     android:gravity="center_horizontal"
     android:text="@string/empty_library"
     android:textColor="?attr/textColorSecondary"
-    android:visibility="gone"
+    android:visibility="visible"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintHorizontal_bias="0.5"
@@ -100,15 +91,25 @@
     app:layout_constraintVertical_bias="0.5"/>
 
   <Button
-    android:id="@+id/btn_library_empty"
+    android:id="@+id/btn_go_to_store"
     style="@style/FlatButton"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:text="@string/link_to_store"
-    android:visibility="gone"
+    android:visibility="visible"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintHorizontal_bias="0.5"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toBottomOf="@id/txt_library_empty"/>
+
+  <android.support.v7.widget.RecyclerView
+    android:id="@+id/recycler_view_library"
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    android:visibility="gone"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/toolbar_library"/>
 
 </android.support.constraint.ConstraintLayout>

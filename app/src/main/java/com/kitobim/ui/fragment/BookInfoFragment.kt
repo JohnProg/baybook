@@ -9,9 +9,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.kitobim.R
-import com.kitobim.data.model.Book
+import com.kitobim.data.local.database.entity.BookEntity
 import com.kitobim.data.remote.ApiService
 import com.kitobim.data.remote.RetrofitClient
+import com.kitobim.ui.custom.ImageHelper
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_book_info.view.*
@@ -39,7 +40,7 @@ class BookInfoFragment @SuppressLint("ValidFragment") private constructor(): Fra
                 .subscribe({
                     onSuccess ->
                     Log.i("tag", "onSuccess")
-                    initViews(onSuccess)
+                    initViews(onSuccess.data[0])
                 },
                 {
                     onFailure -> Log.i("tag", "Failure ${onFailure.message}")
@@ -48,8 +49,9 @@ class BookInfoFragment @SuppressLint("ValidFragment") private constructor(): Fra
         return mView
     }
 
-    private fun initViews(book: Book) {
-        if (book.cover != null) mView.cover_book_info.setImageUrl(book.cover)
+    @SuppressLint("SetTextI18n")
+    private fun initViews(book: BookEntity) {
+        if (book.thumbnail != null) ImageHelper.setBookCover(mView.cover_book_info, book.thumbnail)
 
         if (book.price == 0) mView.price_book_info.text = getString(R.string.free)
         else mView.price_book_info.text = "Price: ${book.price} ${getString(R.string.sum)}"
