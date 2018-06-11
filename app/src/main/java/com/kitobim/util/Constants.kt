@@ -4,6 +4,7 @@ package com.kitobim.util
 object Constants {
 
     const val PREFS_NAME = "prefs_kitobim"
+    const val EMAIL_PHONE = "email_phone"
     const val IS_ACTIVE = "is_active"
     const val IS_NEWBIE = "is_newbie"
     const val USERNAME = "username"
@@ -18,4 +19,7 @@ object Constants {
     const val THEME_SEPIA = 2
     const val PASSWORD_MIN_LENGTH = 6
     const val USERNAME_MIN_LENGTH = 5
+    const val AUTHOR_PAGE_THRESHOLD = 25
+    const val BOOK_PAGE_THRESHOLD = 15
+    const val GENRE_PAGE_THRESHOLD = 8
 }

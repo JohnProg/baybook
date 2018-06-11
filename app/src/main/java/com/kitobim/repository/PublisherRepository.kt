@@ -1,6 +1,7 @@
 package com.kitobim.repository
 
 import android.app.Application
+import android.arch.lifecycle.LiveData
 import android.os.AsyncTask
 import android.util.Log
 import com.kitobim.data.local.database.AppDatabase
@@ -32,29 +33,33 @@ class PublisherRepository private constructor(application: Application) {
         mService = RetrofitClient.getAuthService(application)
     }
 
-    fun loadAllPublishers() = mPublisherDao.loadAllPublishers()
-
-    fun insertAll() {
+    fun loadAllPublishers(): LiveData<List<PublisherEntity>> {
         val result = mPublisherDao.getRowCount()
 
-        result.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe {
-            rowCount -> if (rowCount == 0) {
-                mService.getAllPublishers()
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(
-                                { onSuccess ->
-                                    val list = onSuccess.data
-                                    for (item in list) {
-                                        insert(item)
-                                    }
-                                },
-                                { onFailure ->
-                                    Log.i("tag", "Failure publishers ${onFailure.message}")
-                                }
-                        )
+        result.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe { rowCount ->
+            if (rowCount == 0) {
+                fetchData()
             }
         }
+        return mPublisherDao.loadAllPublishers()
+    }
+
+    private fun fetchData() {
+        mService.getAllPublishers()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        { onSuccess ->
+                            val list = onSuccess.data
+                            for (item in list) {
+                                insert(item)
+                            }
+                        },
+                        { onFailure ->
+                            Log.i("tag", "Failure publishers ${onFailure.message}")
+                        }
+                )
+
     }
 
     fun deleteAll() {

@@ -12,7 +12,7 @@ import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import com.kitobim.R
 import com.kitobim.data.model.Register
-import com.kitobim.data.remote.AuthenticationListener
+import com.kitobim.ui.custom.AuthenticationListener
 import com.kitobim.util.TextValidator
 import kotlinx.android.synthetic.main.fragment_register.view.*
 

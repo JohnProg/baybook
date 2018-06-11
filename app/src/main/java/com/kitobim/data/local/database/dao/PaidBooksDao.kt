@@ -15,6 +15,9 @@ interface PaidBooksDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(book: PaidBooksEntity)
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertAll(books: List<PaidBooksEntity>)
+
     @Query("DELETE FROM paid_books")
     fun deleteAll()
 

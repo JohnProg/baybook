@@ -17,25 +17,18 @@ class StoreViewModel(application: Application) : AndroidViewModel(application) {
     private val freeBooksRepo = FreeBooksRepository.getInstance(application)
     private val ratedBooksRepo = RatedBooksRepository.getInstance(application)
 
-    fun getAllAuthors() = authorsRepo.loadAllAuthors()
-    fun getAllGenres() = genresRepo.loadAllGenres()
-    fun getAllPublishers() = publishersRepo.loadAllPublishers()
-    fun getAllCollections() = collectionsRepo.loadAllCollections()
-    fun getAllWishlist() = wishlistRepo.loadAllBooks()
-    fun getAllRecommendedBooks() = recommendedBooksRepo.loadAllBooks()
-    fun getAllNewBooks() = newBooksRepo.loadAllBooks()
-    fun getAllFreeBooks() = freeBooksRepo.loadAllBooks()
-    fun getAllPaidBooks() = paidBooksRepo.loadAllBooks()
-    fun getAllRatedBooks() = ratedBooksRepo.loadAllBooks()
+    fun loadAllAuthors() = authorsRepo.loadAllAuthors()
+    fun loadAuthorsByPage(page: Int) = authorsRepo.loadAuthorsByPage(page)
+    fun loadAllGenres() = genresRepo.loadAllGenres()
+    fun loadGenresByPage(page: Int) = genresRepo.loadGenresByPage(page)
+    fun loadAllPublishers() = publishersRepo.loadAllPublishers()
+    fun loadAllCollections() = collectionsRepo.loadAllCollections()
+    fun loadAllWishlist() = wishlistRepo.loadAllBooks()
+    fun loadRecommendedBooks() = recommendedBooksRepo.loadAllBooks()
+    fun loadAllNewBooks() = newBooksRepo.loadAllNewBooks()
+    fun loadNewBooksByPage(page: Int) = newBooksRepo.loadBookByPage(page)
+    fun loadAllFreeBooks() = freeBooksRepo.loadAllBooks()
+    fun loadAllPaidBooks() = paidBooksRepo.loadAllBooks()
+    fun loadAllRatedBooks() = ratedBooksRepo.loadAllBooks()
 
-    fun insertAllAuthors(page: Int) { authorsRepo.insertAll(page) }
-    fun insertAllGenres(page: Int) { genresRepo.insertAll(page) }
-    fun insertAllNewBooks(page: Int) { newBooksRepo.insertAll(page) }
-    fun insertAllPublishers() { publishersRepo.insertAll() }
-    fun insertAllCollections() { collectionsRepo.insertAll() }
-    fun insertAllWishlist() { wishlistRepo.insertAll() }
-    fun insertAllRecommendedBooks() { recommendedBooksRepo.insertAll() }
-    fun insertAllFreeBooks() { freeBooksRepo.insertAll() }
-    fun insertAllPaidBooks() { paidBooksRepo.insertAll() }
-    fun insertAllRatedBooks() { ratedBooksRepo.insertAll() }
 }

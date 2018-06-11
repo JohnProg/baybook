@@ -6,12 +6,14 @@ import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.kitobim.R
 import com.kitobim.ui.adapter.*
 import com.kitobim.ui.custom.EndlessScrollListener
+import com.kitobim.util.Constants
 import com.kitobim.viewmodel.StoreViewModel
 import kotlinx.android.synthetic.main.fragment_store_inner.view.*
 
@@ -46,111 +48,72 @@ class StoreInnerFragment @SuppressLint("ValidFragment") private constructor() : 
 
     fun changeDirection(id: Int) {
         mCurrentPageId = id
-        mBookAdapter.clearData()
-        mAuthorAdapter.clearData()
         mScrollListener.resetState()
+        mAuthorAdapter.clearData()
+        mGenreAdapter.clearData()
+        mBookAdapter.clearData()
+
+        when (id) {
+            R.id.nav_authors -> mView.rv_inner_store.adapter = mAuthorAdapter
+            R.id.nav_genres -> mView.rv_inner_store.adapter = mGenreAdapter
+            R.id.nav_publishers -> mView.rv_inner_store.adapter = mPublisherAdapter
+            R.id.nav_collections -> mView.rv_inner_store.adapter = mCollectionAdapter
+
+            R.id.nav_wishlist,
+            R.id.nav_recommended_books,
+            R.id.nav_new_books,
+            R.id.nav_paid_books,
+            R.id.nav_rated_books,
+            R.id.nav_free_books -> mView.rv_inner_store.adapter = mBookAdapter
+        }
+
         when (id) {
             R.id.nav_authors -> {
-                mView.rv_inner_store.adapter = mAuthorAdapter
-
-                mStoreViewModel.apply {
-                    getAllAuthors().observe(this@StoreInnerFragment, Observer {
-                        mAuthorAdapter.updateAuthors(it!!)
-                    })
-                    insertAllAuthors(1)
-                }
+                mStoreViewModel.loadAllAuthors().observe(this, Observer {
+                    mAuthorAdapter.updateData(it!!)
+                })
+                loadPage(1)
             }
             R.id.nav_genres -> {
-                mView.rv_inner_store.adapter = mGenreAdapter
-
-                mStoreViewModel.apply {
-                    getAllGenres().observe(this@StoreInnerFragment, Observer {
-                        mGenreAdapter.updateGenres(it!!)
-                    })
-                    insertAllGenres(1)
-                }
-            }
-            R.id.nav_publishers -> {
-                mView.rv_inner_store.adapter = mPublisherAdapter
-
-                mStoreViewModel.apply {
-                    getAllPublishers().observe(this@StoreInnerFragment, Observer {
-                        mPublisherAdapter.updatePublishers(it!!)
-                    })
-                    insertAllPublishers()
-                }
-            }
-            R.id.nav_collections -> {
-                mView.rv_inner_store.adapter = mCollectionAdapter
-
-                mStoreViewModel.apply {
-                    getAllCollections().observe(this@StoreInnerFragment, Observer {
-                        mCollectionAdapter.updateCollections(it!!)
-                    })
-                    insertAllCollections()
-                }
-            }
-            R.id.nav_wishlist -> {
-                mView.rv_inner_store.adapter = mBookAdapter
-
-                mStoreViewModel.apply {
-                    getAllWishlist().observe(this@StoreInnerFragment, Observer {
-                        mBookAdapter.updateBooks(it!!)
-                    })
-                    insertAllWishlist()
-                }
-            }
-            R.id.nav_recommended_books -> {
-                mView.rv_inner_store.adapter = mBookAdapter
-
-
-                mStoreViewModel.apply {
-                    getAllRecommendedBooks().observe(this@StoreInnerFragment, Observer {
-                        mBookAdapter.updateBooks(it!!)
-                    })
-                    insertAllRecommendedBooks()
-                }
+                mStoreViewModel.loadAllGenres().observe(this, Observer {
+                    mGenreAdapter.updateData(it!!)
+                })
+                loadPage(1)
             }
             R.id.nav_new_books -> {
-                mView.rv_inner_store.adapter = mBookAdapter
-
-                mStoreViewModel.apply {
-                    getAllNewBooks().observe(this@StoreInnerFragment, Observer {
-                        mBookAdapter.updateBooks(it!!)
-                    })
-                    insertAllNewBooks(1)
-                }
+                mStoreViewModel.loadAllNewBooks().observe(this, Observer {
+                    mBookAdapter.updateData(it!!)
+                })
+                loadPage(1)
             }
-            R.id.nav_free_books -> {
-                mView.rv_inner_store.adapter = mBookAdapter
-
-                mStoreViewModel.apply {
-                    getAllFreeBooks().observe(this@StoreInnerFragment, Observer {
-                        mBookAdapter.updateBooks(it!!)
+            R.id.nav_publishers ->
+                mStoreViewModel.loadAllPublishers().observe(this@StoreInnerFragment, Observer {
+                        mPublisherAdapter.updateData(it!!)
                     })
-                    insertAllFreeBooks()
-                }
-            }
-            R.id.nav_paid_books -> {
-                mView.rv_inner_store.adapter = mBookAdapter
-
-                mStoreViewModel.apply {
-                    getAllPaidBooks().observe(this@StoreInnerFragment, Observer {
-                        mBookAdapter.updateBooks(it!!)
+            R.id.nav_collections ->
+                mStoreViewModel.loadAllCollections().observe(this@StoreInnerFragment, Observer {
+                        mCollectionAdapter.updateData(it!!)
                     })
-                    insertAllPaidBooks()
-                }
-            }
-            R.id.nav_rated_books -> {
-                mView.rv_inner_store.adapter = mBookAdapter
-
-                mStoreViewModel.apply {
-                    getAllRatedBooks().observe(this@StoreInnerFragment, Observer {
-                        mBookAdapter.updateBooks(it!!)
+            R.id.nav_wishlist ->
+                mStoreViewModel.loadAllWishlist().observe(this@StoreInnerFragment, Observer {
+                        mBookAdapter.updateData(it!!)
                     })
-                    insertAllRatedBooks()
-                }
-            }
+            R.id.nav_recommended_books ->
+                mStoreViewModel.loadRecommendedBooks().observe(this@StoreInnerFragment, Observer {
+                        mBookAdapter.updateData(it!!)
+                    })
+            R.id.nav_paid_books ->
+                mStoreViewModel.loadAllPaidBooks().observe(this@StoreInnerFragment, Observer {
+                        mBookAdapter.updateData(it!!)
+                    })
+            R.id.nav_rated_books ->
+                mStoreViewModel.loadAllRatedBooks().observe(this@StoreInnerFragment, Observer {
+                        mBookAdapter.updateData(it!!)
+                    })
+            R.id.nav_free_books ->
+                mStoreViewModel.loadAllFreeBooks().observe(this@StoreInnerFragment, Observer {
+                    mBookAdapter.updateData(it!!)
+                })
         }
     }
 
@@ -165,7 +128,7 @@ class StoreInnerFragment @SuppressLint("ValidFragment") private constructor() : 
 
         mScrollListener = object : EndlessScrollListener(mLinearLayoutManager) {
             override fun onLoadMore(page: Int, totalItemsCount: Int) {
-                if (page > 1) loadPage(page)
+                loadPage(totalItemsCount)
             }
         }
 
@@ -175,6 +138,8 @@ class StoreInnerFragment @SuppressLint("ValidFragment") private constructor() : 
             addOnScrollListener(mScrollListener)
         }
 
+        val navId = arguments!!.getInt("nav_id")
+        changeDirection(navId)
 
         mBookAdapter.setItemClickListener(object : BookAdapter.OnItemClickListener{
             override fun onItemClick(id: Int) {
@@ -204,16 +169,25 @@ class StoreInnerFragment @SuppressLint("ValidFragment") private constructor() : 
 
             }
         })
-
-        val navId = arguments!!.getInt("nav_id")
-        changeDirection(navId)
     }
 
-    private fun loadPage(page: Int) {
+    private fun loadPage(totalItemCount: Int) {
         when (mCurrentPageId) {
-            R.id.nav_authors -> mStoreViewModel.insertAllAuthors(page)
-            R.id.nav_genres -> mStoreViewModel.insertAllGenres(page)
-            R.id.nav_new_books -> mStoreViewModel.insertAllNewBooks(page)
+            R.id.nav_authors -> {
+                val page = totalItemCount / Constants.AUTHOR_PAGE_THRESHOLD + 1
+                Log.i("tag", "Authors nextPage: $page  totalItemCount: $totalItemCount")
+                mStoreViewModel.loadAuthorsByPage(page)
+            }
+            R.id.nav_genres -> {
+                val page = totalItemCount / Constants.GENRE_PAGE_THRESHOLD + 1
+                Log.i("tag", "Genre nextPage page: $page  totalItemCount: $totalItemCount")
+                mStoreViewModel.loadGenresByPage(page)
+            }
+            R.id.nav_new_books -> {
+                val page = totalItemCount / Constants.BOOK_PAGE_THRESHOLD + 1
+                Log.i("tag", "NewBooks nextPage: $page  totalItemCount: $totalItemCount")
+                mStoreViewModel.loadNewBooksByPage(page)
+            }
         }
     }
 

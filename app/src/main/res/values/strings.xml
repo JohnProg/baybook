@@ -78,4 +78,10 @@
   <string name="front_page">Front page</string>
   <string name="you_might_like">You might like</string>
   <string name="search">Search</string>
+  <string name="image_description">Image</string>
+  <string name="dialog_logout_title">Log out confirmation</string>
+  <string name="dialog_loguot_message">Do you want to log out?</string>
+  <string name="no_network_connection">No network connection!</string>
+  <string name="please_wait">Please, wait</string>
+  <string name="phone_number">Phone number</string>
 </resources>

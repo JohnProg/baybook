@@ -3,6 +3,7 @@ package com.kitobim.ui.fragment
 import android.annotation.SuppressLint
 import android.graphics.Color
 import android.graphics.PorterDuff
+import android.os.Build
 import android.os.Bundle
 import android.support.design.widget.NavigationView
 import android.support.v4.app.Fragment
@@ -10,7 +11,13 @@ import android.support.v4.app.FragmentTransaction
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.SearchView
+import android.util.Log
 import android.view.*
+import android.widget.AutoCompleteTextView
+import android.widget.EditText
+import android.widget.ImageView
+import android.widget.TextView
 import com.kitobim.R
 import com.kitobim.data.local.database.entity.AuthorEntity
 import com.kitobim.data.local.database.entity.BookEntity
@@ -21,14 +28,13 @@ import com.kitobim.repository.FrontStoreRepository
 import com.kitobim.ui.adapter.AuthorAdapter
 import com.kitobim.ui.adapter.BookAdapter
 import com.kitobim.ui.adapter.GenreAdapter
+import com.kitobim.ui.custom.CircularRevealAnimation.circleReveal
 import com.kitobim.ui.custom.FrontStoreListener
 import com.kitobim.util.Constants.THEME
 import com.kitobim.util.Constants.THEME_LIGHT
 import kotlinx.android.synthetic.main.fragment_store.view.*
-
-
-
-
+import kotlinx.android.synthetic.main.toolbar_search_store.view.*
+import kotlinx.android.synthetic.main.toolbar_store.view.*
 
 
 class StoreFragment @SuppressLint("ValidFragment") private constructor() : Fragment(),
@@ -46,46 +52,52 @@ class StoreFragment @SuppressLint("ValidFragment") private constructor() : Fragm
     private lateinit var mGenreAdapter: GenreAdapter
 
     private var mFragment: Fragment = StoreInnerFragment.newInstance()
+    private lateinit var mSearchItem: MenuItem
     private var mCurrentNavId = 0
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, state: Bundle?): View? {
         mView = inflater.inflate(R.layout.fragment_store, container, false)
 
         initToolbar()
+        initSearchToolbar()
         initRecyclerViews()
         updateUi()
 
         return mView
     }
 
-    override fun onClick(v: View?) {
-
+    override fun onClick(v: View) {
+        when (v.id) {
+            R.id.btn_pinned_books -> mView.nav_view_store.menu.findItem(R.id.nav_recommended_books).isChecked = true
+            R.id.btn_most_authors -> mView.nav_view_store.menu.findItem(R.id.nav_authors).isChecked = true
+            R.id.btn_most_genres ->  mView.nav_view_store.menu.findItem(R.id.nav_genres).isChecked = true
+        }
     }
 
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        if (mCurrentNavId == item.itemId) {
-            mView.drawer_layout_store.closeDrawer(Gravity.START)
-            return false
-        }
+        if (mCurrentNavId != item.itemId) {
+            mCurrentNavId = item.itemId
+            mView.nav_view_store.setCheckedItem(item.itemId)
 
-        mCurrentNavId = item.itemId
-        mView.nav_view_store.setCheckedItem(item.itemId)
-
-        if (!mFragment.isVisible) {
-            val bundle = Bundle()
-            bundle.putInt("nav_id", mCurrentNavId)
-            mFragment.arguments = bundle
-            changeFragment {
-                replace(R.id.fragment_container_store, mFragment).addToBackStack(null)
+            if (!mFragment.isVisible) {
+                val bundle = Bundle()
+                bundle.putInt("nav_id", mCurrentNavId)
+                mFragment.arguments = bundle
+                changeFragment {
+                    replace(R.id.fragment_container_store, mFragment).addToBackStack(null)
+                }
+            } else {
+                (mFragment as StoreInnerFragment).changeDirection(mCurrentNavId)
             }
-        } else {
-            (mFragment as StoreInnerFragment).changeDirection(mCurrentNavId)
+            mView.toolbar_store.title = item.title
         }
 
-        mView.toolbar_store.title = item.title
-        mView.drawer_layout_store.closeDrawer(Gravity.START)
+        if (mView.drawer_layout_store.isDrawerOpen(Gravity.START)){
+            mView.drawer_layout_store.closeDrawer(Gravity.START)
+        }
         return true
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater) {
@@ -107,7 +119,16 @@ class StoreFragment @SuppressLint("ValidFragment") private constructor() : Fragm
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
+            R.id.action_search_store -> {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    circleReveal(context!!, mView.toolbar_search_store, 1, true, true)
+                } else {
+                    mView.toolbar_search_store.visibility = View.VISIBLE
+                }
 
+                mSearchItem.expandActionView()
+                return true
+            }
         }
         return super.onOptionsItemSelected(item)
     }
@@ -123,23 +144,23 @@ class StoreFragment @SuppressLint("ValidFragment") private constructor() : Fragm
 
             setStoreListener(object: FrontStoreListener{
                 override fun setPinnedBooks(list: List<BookEntity>) {
-                    mBookAdapter1.updateBooks(list)
+                    mBookAdapter1.updateData(list)
                 }
 
                 override fun setTopMonthBooks(list: List<BookEntity>) {
-                    mBookAdapter2.updateBooks(list)
+                    mBookAdapter2.updateData(list)
                 }
 
                 override fun setRandomBooks(list: List<BookEntity>) {
-                    mBookAdapter3.updateBooks(list)
+                    mBookAdapter3.updateData(list)
                 }
 
                 override fun setAuthors(list: List<AuthorEntity>) {
-                    mAuthorAdapter.updateAuthors(list)
+                    mAuthorAdapter.updateData(list)
                 }
 
                 override fun setGenres(list: List<GenreEntity>) {
-                    mGenreAdapter.updateGenres(list)
+                    mGenreAdapter.updateData(list)
                 }
             })
         }
@@ -166,9 +187,100 @@ class StoreFragment @SuppressLint("ValidFragment") private constructor() : Fragm
             mView.drawer_layout_store.openDrawer(Gravity.START)
         }
 
+
         mView.nav_view_store.setNavigationItemSelectedListener(this)
-        getButtons().forEach { it.setOnClickListener(this) }
+        getStoreButtons().forEach { it.setOnClickListener(this) }
         setHasOptionsMenu(true)
+    }
+
+    private fun initSearchToolbar() {
+        if (mView.toolbar_search_store != null) {
+            mView.toolbar_search_store.inflateMenu(R.menu.menu_search_toolbar)
+            val toolbarMenu = mView.toolbar_search_store.menu
+            mView.toolbar_search_store.setNavigationOnClickListener {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    circleReveal(context!!, mView.toolbar_search_store, 1, true, false)
+                } else {
+                    mView.toolbar_search_store.visibility = View.GONE
+                }
+            }
+
+            mSearchItem = toolbarMenu.findItem(R.id.action_filter_search)
+
+            mSearchItem.setOnActionExpandListener(object : MenuItem.OnActionExpandListener {
+                override fun onMenuItemActionCollapse(item: MenuItem): Boolean {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        circleReveal(context!!, mView.toolbar_search_store, 1, true, false)
+                    } else {
+                        mView.toolbar_search_store.visibility = View.GONE
+                    }
+                    return true
+                }
+
+                override fun onMenuItemActionExpand(item: MenuItem): Boolean {
+                    // Do something when expanded
+                    return true
+                }
+
+            })
+
+            initSearchView(toolbarMenu)
+        }
+    }
+
+    private fun initSearchView(search_menu: Menu) {
+        val searchView = search_menu.findItem(R.id.action_filter_search).actionView as SearchView
+
+        // Enable/Disable Submit button in the keyboard
+
+        searchView.isSubmitButtonEnabled = false
+
+        // Change search close button image
+
+        val closeButton = searchView.findViewById(R.id.search_close_btn) as ImageView
+        closeButton.setImageResource(R.drawable.ic_close)
+
+
+        // set hint and the text colors
+
+        val txtSearch = searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text) as EditText
+        txtSearch.hint = resources.getString(R.string.search)
+        txtSearch.setHintTextColor(ContextCompat.getColor(context!!, R.color.text_secondary_dark))
+        txtSearch.setTextColor(ContextCompat.getColor(context!!, R.color.text_primary_dark))
+
+
+        // set the cursor
+
+        val searchTextView = searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text) as AutoCompleteTextView
+        try {
+            val mCursorDrawableRes = TextView::class.java.getDeclaredField("mCursorDrawableRes")
+            mCursorDrawableRes.isAccessible = true
+            // TODO: if search cursor not visible create own
+//            mCursorDrawableRes.set(searchTextView, R.drawable.search_cursor) //This sets the cursor resource ID to 0 or @null which will make it visible on white background
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+
+
+        searchView.setOnQueryTextListener(object: SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(query: String): Boolean {
+                callSearch(query)
+                searchView.clearFocus()
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String): Boolean {
+                callSearch(newText)
+                return true
+            }
+
+            fun callSearch(query: String) {
+                //Do searching
+                Log.i("query", "" + query)
+
+            }
+
+        })
     }
 
     private fun initRecyclerViews() {
@@ -176,7 +288,7 @@ class StoreFragment @SuppressLint("ValidFragment") private constructor() : Fragm
         mBookAdapter2 = BookAdapter(context!!, true)
         mBookAdapter3 = BookAdapter(context!!, true)
         mAuthorAdapter = AuthorAdapter(context!!,true)
-        mGenreAdapter = GenreAdapter(context!!)
+        mGenreAdapter = GenreAdapter(context!!, true)
 
         mBookAdapter1.setItemClickListener(object : BookAdapter.OnItemClickListener {
             override fun onItemClick(id: Int) {
@@ -211,25 +323,26 @@ class StoreFragment @SuppressLint("ValidFragment") private constructor() : Fragm
             }
 
             when(it.id) {
-                R.id.rv_front1 -> it.adapter = mBookAdapter1
-                R.id.rv_front2 -> it.adapter = mAuthorAdapter
-                R.id.rv_front3 -> it.adapter = mBookAdapter2
-                R.id.rv_front4 -> it.adapter = mGenreAdapter
-                R.id.rv_front5 -> it.adapter = mBookAdapter3
+                R.id.rv_pinned_books -> it.adapter = mBookAdapter1
+                R.id.rv_most_authors -> it.adapter = mAuthorAdapter
+                R.id.rv_month_books -> it.adapter = mBookAdapter2
+                R.id.rv_most_genres -> it.adapter = mGenreAdapter
+                R.id.rv_random_books -> it.adapter = mBookAdapter3
             }
         }
     }
-
-    private fun getRecyclerViews() = arrayOf(mView.rv_front1, mView.rv_front2,
-            mView.rv_front3, mView.rv_front4, mView.rv_front5)
-
-    private fun getButtons() = arrayOf(mView.btn_front1, mView.btn_front2, mView.btn_front4)
 
     private inline fun changeFragment(code: FragmentTransaction.() -> Unit) {
         val transaction =  childFragmentManager.beginTransaction()
         transaction.code()
         transaction.commit()
     }
+
+    private fun getRecyclerViews() = arrayOf(mView.rv_pinned_books, mView.rv_most_authors,
+            mView.rv_month_books, mView.rv_most_genres, mView.rv_random_books)
+
+    private fun getStoreButtons() = arrayOf(mView.btn_pinned_books, mView.btn_most_authors, mView.btn_most_genres)
+
 }
 
 //private fun initRecyclerView() {

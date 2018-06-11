@@ -3,11 +3,9 @@
 <android.support.v4.widget.DrawerLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
-  xmlns:tools="http://schemas.android.com/tools"
   android:id="@+id/drawer_layout_store"
   android:layout_width="match_parent"
-  android:layout_height="match_parent"
-  tools:openDrawer="start">
+  android:layout_height="match_parent">
 
   <android.support.constraint.ConstraintLayout
     android:layout_width="match_parent"
@@ -15,17 +13,10 @@
     android:background="?attr/backgroundColor"
     android:orientation="vertical">
 
-    <android.support.v7.widget.Toolbar
-      android:id="@+id/toolbar_store"
-      android:layout_width="0dp"
-      android:layout_height="48dp"
-      app:title="@string/front_page"
-      android:background="?attr/toolbarColor"
-      android:elevation="@dimen/elevation_toolbar"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
-      tools:targetApi="lollipop"/>
+    <include layout="@layout/toolbar_store"/>
+
+    <include layout="@layout/toolbar_search_store"
+      android:visibility="gone"/>
 
     <android.support.v4.widget.NestedScrollView
       android:layout_width="0dp"
@@ -40,7 +31,7 @@
         android:layout_height="match_parent">
 
         <TextView
-          android:id="@+id/txt_front1"
+          android:id="@+id/txt_pinned_books"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_marginStart="@dimen/margin_normal"
@@ -53,27 +44,27 @@
           app:layout_constraintStart_toStartOf="parent"/>
 
         <Button
-          android:id="@+id/btn_front1"
+          android:id="@+id/btn_pinned_books"
           style="@style/Widget.AppCompat.Button.Borderless.Colored"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:text="@string/more"
           app:layout_constraintEnd_toEndOf="parent"
           android:layout_marginEnd="@dimen/margin_small"
-          app:layout_constraintBaseline_toBaselineOf="@id/txt_front1"/>
+          app:layout_constraintBaseline_toBaselineOf="@id/txt_pinned_books"/>
 
         <android.support.v7.widget.RecyclerView
-          android:id="@+id/rv_front1"
+          android:id="@+id/rv_pinned_books"
           android:layout_width="0dp"
           android:layout_height="wrap_content"
           android:minHeight="172dp"
           android:layout_marginTop="@dimen/margin_normal"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/txt_front1"/>
+          app:layout_constraintTop_toBottomOf="@id/txt_pinned_books"/>
 
         <TextView
-          android:id="@+id/txt_front2"
+          android:id="@+id/txt_most_authors"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_marginStart="@dimen/margin_normal"
@@ -82,31 +73,31 @@
           android:text="@string/authors"
           android:textSize="18sp"
           android:textColor="?attr/textColorPrimary"
-          app:layout_constraintTop_toBottomOf="@id/rv_front1"
+          app:layout_constraintTop_toBottomOf="@id/rv_pinned_books"
           app:layout_constraintStart_toStartOf="parent"/>
 
         <Button
-          android:id="@+id/btn_front2"
+          android:id="@+id/btn_most_authors"
           style="@style/Widget.AppCompat.Button.Borderless.Colored"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:text="@string/more"
           app:layout_constraintEnd_toEndOf="parent"
           android:layout_marginEnd="@dimen/margin_small"
-          app:layout_constraintBaseline_toBaselineOf="@id/txt_front2"/>
+          app:layout_constraintBaseline_toBaselineOf="@id/txt_most_authors"/>
 
         <android.support.v7.widget.RecyclerView
-          android:id="@+id/rv_front2"
+          android:id="@+id/rv_most_authors"
           android:layout_width="0dp"
           android:layout_height="wrap_content"
           android:minHeight="120dp"
           android:layout_marginTop="@dimen/margin_normal"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/txt_front2"/>
+          app:layout_constraintTop_toBottomOf="@id/txt_most_authors"/>
 
         <TextView
-          android:id="@+id/txt_front3"
+          android:id="@+id/txt_month_books"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_marginStart="@dimen/margin_normal"
@@ -115,21 +106,21 @@
           android:text="@string/picks_of_month"
           android:textSize="18sp"
           android:textColor="?attr/textColorPrimary"
-          app:layout_constraintTop_toBottomOf="@id/rv_front2"
+          app:layout_constraintTop_toBottomOf="@id/rv_most_authors"
           app:layout_constraintStart_toStartOf="parent"/>
 
         <android.support.v7.widget.RecyclerView
-          android:id="@+id/rv_front3"
+          android:id="@+id/rv_month_books"
           android:layout_width="0dp"
           android:layout_height="wrap_content"
           android:minHeight="172dp"
           android:layout_marginTop="@dimen/margin_normal"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/txt_front3"/>
+          app:layout_constraintTop_toBottomOf="@id/txt_month_books"/>
 
         <TextView
-          android:id="@+id/txt_front4"
+          android:id="@+id/txt_most_genres"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_marginStart="@dimen/margin_normal"
@@ -138,31 +129,31 @@
           android:text="@string/genres"
           android:textSize="18sp"
           android:textColor="?attr/textColorPrimary"
-          app:layout_constraintTop_toBottomOf="@id/rv_front3"
+          app:layout_constraintTop_toBottomOf="@id/rv_month_books"
           app:layout_constraintStart_toStartOf="parent"/>
 
         <Button
-          android:id="@+id/btn_front4"
+          android:id="@+id/btn_most_genres"
           style="@style/Widget.AppCompat.Button.Borderless.Colored"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           app:layout_constraintEnd_toEndOf="parent"
           android:text="@string/more"
           android:layout_marginEnd="@dimen/margin_small"
-          app:layout_constraintBaseline_toBaselineOf="@id/txt_front4"/>
+          app:layout_constraintBaseline_toBaselineOf="@id/txt_most_genres"/>
 
         <android.support.v7.widget.RecyclerView
-          android:id="@+id/rv_front4"
+          android:id="@+id/rv_most_genres"
           android:layout_width="0dp"
           android:layout_height="wrap_content"
           android:layout_marginTop="@dimen/margin_normal"
           android:minHeight="150dp"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/txt_front4"/>
+          app:layout_constraintTop_toBottomOf="@id/txt_most_genres"/>
 
         <TextView
-          android:id="@+id/txt_front5"
+          android:id="@+id/txt_random_books"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_marginStart="@dimen/margin_normal"
@@ -171,11 +162,11 @@
           android:text="@string/you_might_like"
           android:textSize="18sp"
           android:textColor="?attr/textColorPrimary"
-          app:layout_constraintTop_toBottomOf="@id/rv_front4"
+          app:layout_constraintTop_toBottomOf="@id/rv_most_genres"
           app:layout_constraintStart_toStartOf="parent"/>
 
         <android.support.v7.widget.RecyclerView
-          android:id="@+id/rv_front5"
+          android:id="@+id/rv_random_books"
           android:layout_width="0dp"
           android:layout_height="wrap_content"
           android:minHeight="172dp"
@@ -185,7 +176,7 @@
           app:layout_constraintBottom_toBottomOf="parent"
           app:layout_constraintStart_toStartOf="parent"
           app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintTop_toBottomOf="@id/txt_front5"/>
+          app:layout_constraintTop_toBottomOf="@id/txt_random_books"/>
 
       </android.support.constraint.ConstraintLayout>
     </android.support.v4.widget.NestedScrollView>

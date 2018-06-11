@@ -40,10 +40,16 @@ class PublisherAdapter()
 
     override fun getItemCount(): Int = mList.size
 
-    fun updatePublishers(list: List<PublisherEntity>) {
+    fun updateData(list: List<PublisherEntity>) {
         mList = list
         notifyDataSetChanged()
     }
+
+    fun clearData() {
+        mList = emptyList()
+        notifyDataSetChanged()
+    }
+
     fun setItemClickListener(listener: OnItemClickListener) {
         mClickListener = listener
     }

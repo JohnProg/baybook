@@ -23,4 +23,7 @@ interface AuthorListDao {
 
     @Query("SELECT id,name,thumbnail,books_count FROM authors INNER JOIN author_list ON author_list.author_id=authors.id ORDER BY authors.name ASC")
     fun loadAllAuthors(): LiveData<List<AuthorEntity>>
+
+    @Query("SELECT id,name,thumbnail,books_count FROM authors INNER JOIN author_list ON author_list.author_id=authors.id WHERE page=:page ORDER BY authors.name ASC ")
+    fun loadAuthorByPage(page: Int): LiveData<List<AuthorEntity>>
 }

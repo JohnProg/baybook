@@ -15,12 +15,18 @@ interface NewBooksDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(book: NewBooksEntity)
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertAll(books: List<NewBooksEntity>)
+
     @Query("DELETE FROM new_books")
     fun deleteAll()
 
     @Query("SELECT COUNT(*) FROM new_books WHERE new_books.page=:page")
     fun getRowCountOfPage(page: Int): Maybe<Int>
 
-    @Query("SELECT id,title,thumbnail,authors,price,rating,inwishlist,purchased FROM books INNER JOIN new_books ON new_books.book_id = books.id")
+    @Query("SELECT id,title,thumbnail,authors,price,rating,inwishlist,purchased FROM books INNER JOIN new_books ON new_books.book_id=books.id")
     fun loadAllBooks(): LiveData<List<BookEntity>>
+
+    @Query("SELECT id,title,thumbnail,authors,price,rating,inwishlist,purchased FROM books INNER JOIN new_books ON new_books.book_id=books.id WHERE page=:page")
+    fun loadBooksByPage(page: Int): LiveData<List<BookEntity>>
 }

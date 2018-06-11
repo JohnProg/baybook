@@ -8,11 +8,8 @@ import android.support.v4.view.GravityCompat
 import android.support.v7.app.AppCompatActivity
 import com.kitobim.R
 import com.kitobim.data.local.database.AppDatabase
-import com.kitobim.data.local.database.entity.AuthorEntity
-import com.kitobim.data.local.database.entity.BookEntity
 import com.kitobim.data.local.preference.PreferenceHelper
 import com.kitobim.data.local.preference.PreferenceHelper.get
-import com.kitobim.repository.BookRepository
 import com.kitobim.ui.fragment.MainFragment
 import com.kitobim.util.Constants
 import com.kitobim.util.Constants.THEME
@@ -25,15 +22,7 @@ import kotlinx.android.synthetic.main.fragment_store.*
 
 class MainActivity : AppCompatActivity() {
 
-
     private lateinit var mPreference: SharedPreferences
-
-    private val url = "http://development.baysoftware.ru/storage/thumbnails/0000910025-L.jpg"
-    private val book = BookEntity(id = 40001,
-            title =  "White Fang",
-            thumbnail = url,
-            authors = listOf(AuthorEntity(name = "Jack London")),
-            price = 5000)
 
     override fun attachBaseContext(base: Context) {
         super.attachBaseContext(LocaleHelper.setLocale(base))
@@ -47,9 +36,6 @@ class MainActivity : AppCompatActivity() {
         initTheme()
         setContentView(R.layout.activity_main)
         initViews(savedInstanceState)
-
-        val repo = BookRepository.getInstance(application)
-        repo.insert(book)
     }
 
     override fun onBackPressed() {

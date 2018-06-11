@@ -1,10 +1,12 @@
 package com.kitobim.repository
 
 import android.app.Application
+import android.arch.lifecycle.LiveData
 import android.os.AsyncTask
 import android.util.Log
 import com.kitobim.data.local.database.AppDatabase
 import com.kitobim.data.local.database.dao.RatedBooksDao
+import com.kitobim.data.local.database.entity.BookEntity
 import com.kitobim.data.local.database.entity.RatedBooksEntity
 import com.kitobim.data.remote.ApiService
 import com.kitobim.data.remote.RetrofitClient
@@ -34,46 +36,46 @@ class RatedBooksRepository private constructor(application: Application) {
         mBookRepo = BookRepository.getInstance(application)
     }
 
-    fun loadAllBooks() = mRatedBooksDao.loadAllBooks()
-
-    fun insertAll() {
+    fun loadAllBooks(): LiveData<List<BookEntity>> {
         val result = mRatedBooksDao.getRowCount()
 
-        result.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe {
-            rowCount -> if (rowCount < 25) {
-                mService.getTopRatedBooks()
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(
-                                { onSuccess ->
-                                    val list = onSuccess.data
-                                    for (item in list) {
-                                        mBookRepo.insert(item)
-                                        val book = RatedBooksEntity(item.id)
-                                        insert(book)
-                                    }
-                                },
-                                { onFailure ->
-                                    Log.i("tag", "Failure rated books ${onFailure.message}")
-                                }
-                        )
+        result.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe { rowCount ->
+            if (rowCount < 25) {
+                fetchData()
             }
         }
+        return mRatedBooksDao.loadAllBooks()
+    }
+
+    private fun fetchData() {
+        mService.getTopRatedBooks()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        { onSuccess ->
+                            val books = onSuccess.data
+                            mBookRepo.insertAll(books)
+                            insertAll(books.map { RatedBooksEntity(it.id) })
+                        },
+                        { onFailure ->
+                            Log.i("tag", "Failure rated books ${onFailure.message}")
+                        }
+                )
     }
 
     fun deleteAll() {
         mRatedBooksDao.deleteAll()
     }
 
-    private fun insert(book: RatedBooksEntity) {
-        InsertAsyncTask(mRatedBooksDao).execute(book)
+    private fun insertAll(books: List<RatedBooksEntity>) {
+        InsertAsyncTask(mRatedBooksDao).execute(books)
     }
 
     private class InsertAsyncTask internal constructor(private val mAsyncTaskDao: RatedBooksDao)
-        : AsyncTask<RatedBooksEntity, Void, Void>() {
+        : AsyncTask<List<RatedBooksEntity>, Void, Void>() {
 
-        override fun doInBackground(vararg params: RatedBooksEntity): Void? {
-            mAsyncTaskDao.insert(params[0])
+        override fun doInBackground(vararg params: List<RatedBooksEntity>): Void? {
+            mAsyncTaskDao.insertAll(params[0])
             return null
         }
     }

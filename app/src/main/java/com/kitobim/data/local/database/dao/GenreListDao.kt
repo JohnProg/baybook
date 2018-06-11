@@ -23,4 +23,7 @@ interface GenreListDao {
 
     @Query("SELECT id,name,image,books_count FROM genres INNER JOIN genre_list ON genre_list.genre_id=genres.id")
     fun loadAllGenres(): LiveData<List<GenreEntity>>
+
+    @Query("SELECT id,name,image,books_count FROM genres INNER JOIN genre_list ON genre_list.genre_id=genres.id WHERE page=:page")
+    fun loadGenresByPage(page: Int): LiveData<List<GenreEntity>>
 }

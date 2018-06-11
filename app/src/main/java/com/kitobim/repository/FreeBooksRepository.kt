@@ -1,10 +1,12 @@
 package com.kitobim.repository
 
 import android.app.Application
+import android.arch.lifecycle.LiveData
 import android.os.AsyncTask
 import android.util.Log
 import com.kitobim.data.local.database.AppDatabase
 import com.kitobim.data.local.database.dao.FreeBooksDao
+import com.kitobim.data.local.database.entity.BookEntity
 import com.kitobim.data.local.database.entity.FreeBooksEntity
 import com.kitobim.data.remote.ApiService
 import com.kitobim.data.remote.RetrofitClient
@@ -34,46 +36,46 @@ class FreeBooksRepository private constructor(application: Application) {
         mBookRepo = BookRepository.getInstance(application)
     }
 
-    fun loadAllBooks() = mFreeBooksDao.loadAllBooks()
-
-    fun insertAll() {
+    fun loadAllBooks(): LiveData<List<BookEntity>> {
         val result = mFreeBooksDao.getRowCount()
 
-        result.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe {
-            rowCount -> if (rowCount < 25) {
-                mService.getTopFreeBooks()
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(
-                                { onSuccess ->
-                                    val list = onSuccess.data
-                                    for (item in list) {
-                                        mBookRepo.insert(item)
-                                        val book = FreeBooksEntity(item.id)
-                                        insert(book)
-                                    }
-                                },
-                                { onFailure ->
-                                    Log.i("tag", "Failure free books ${onFailure.message}")
-                                }
-                        )
+        result.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe { rowCount ->
+            if (rowCount < 25) {
+                fetchData()
             }
         }
+        return mFreeBooksDao.loadAllBooks()
+    }
+
+    private fun fetchData() {
+        mService.getTopFreeBooks()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        { onSuccess ->
+                            val books = onSuccess.data
+                            mBookRepo.insertAll(books)
+                            insertAll(books.map { FreeBooksEntity(it.id) })
+                        },
+                        { onFailure ->
+                            Log.i("tag", "Failure free books ${onFailure.message}")
+                        }
+                )
     }
 
     fun deleteAll() {
         mFreeBooksDao.deleteAll()
     }
 
-    private fun insert(book: FreeBooksEntity) {
-        InsertAsyncTask(mFreeBooksDao).execute(book)
+    private fun insertAll(books: List<FreeBooksEntity>) {
+        InsertAsyncTask(mFreeBooksDao).execute(books)
     }
 
     private class InsertAsyncTask internal constructor(private val mAsyncTaskDao: FreeBooksDao)
-        : AsyncTask<FreeBooksEntity, Void, Void>() {
+        : AsyncTask<List<FreeBooksEntity>, Void, Void>() {
 
-        override fun doInBackground(vararg params: FreeBooksEntity): Void? {
-            mAsyncTaskDao.insert(params[0])
+        override fun doInBackground(vararg params: List<FreeBooksEntity>): Void? {
+            mAsyncTaskDao.insertAll(params[0])
             return null
         }
     }

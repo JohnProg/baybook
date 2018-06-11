@@ -27,15 +27,17 @@ class BookRepository private constructor(application: Application) {
         mBookDao = database.bookDao()
     }
 
-    fun insert(book: BookEntity) {
-        InsertAsyncTask(mBookDao).execute(book)
+    fun getBookById(id: Int) = mBookDao.getBookById(id)
+
+    fun insertAll(books: List<BookEntity>) {
+        InsertAsyncTask(mBookDao).execute(books)
     }
 
     private class InsertAsyncTask internal constructor(private val mAsyncTaskDao: BookDao)
-        : AsyncTask<BookEntity, Void, Void>() {
+        : AsyncTask<List<BookEntity>, Void, Void>() {
 
-        override fun doInBackground(vararg params: BookEntity): Void? {
-            mAsyncTaskDao.insert(params[0])
+        override fun doInBackground(vararg params: List<BookEntity>): Void? {
+            mAsyncTaskDao.insertAll(params[0])
             return null
         }
     }

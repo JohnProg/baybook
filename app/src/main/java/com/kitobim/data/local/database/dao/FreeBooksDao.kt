@@ -15,6 +15,9 @@ interface FreeBooksDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(book: FreeBooksEntity)
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertAll(books: List<FreeBooksEntity>)
+
     @Query("DELETE FROM free_books")
     fun deleteAll()
 

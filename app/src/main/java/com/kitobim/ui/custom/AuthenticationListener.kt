@@ -1,4 +1,4 @@
-package com.kitobim.data.remote
+package com.kitobim.ui.custom
 
 import com.kitobim.data.model.Login
 import com.kitobim.data.model.Register

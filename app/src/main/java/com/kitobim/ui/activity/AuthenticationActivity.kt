@@ -7,21 +7,19 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.View
-import com.kitobim.*
+import com.kitobim.R
 import com.kitobim.data.local.preference.PreferenceHelper
 import com.kitobim.data.local.preference.PreferenceHelper.set
 import com.kitobim.data.model.Login
 import com.kitobim.data.model.Register
-import com.kitobim.data.model.User
 import com.kitobim.data.remote.ApiService
-import com.kitobim.data.remote.AuthenticationListener
 import com.kitobim.data.remote.RetrofitClient
+import com.kitobim.ui.custom.AuthenticationListener
+import com.kitobim.ui.fragment.WelcomeFragment
 import com.kitobim.util.Constants
 import com.kitobim.util.LocaleHelper
-import com.kitobim.ui.fragment.WelcomeFragment
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 
 
 class AuthenticationActivity : AppCompatActivity(), AuthenticationListener {
@@ -54,58 +52,57 @@ class AuthenticationActivity : AppCompatActivity(), AuthenticationListener {
     }
 
     override fun onLogin(login: Login) {
-        val call = mService.login(login)
 
-        call.enqueue(object : Callback<User> {
-            override fun onResponse(call: Call<User>, response: Response<User>) {
-                Log.i("tag", "login response: ${response.code()}")
-                if (response.isSuccessful) {
-                    val token = response.body()?.token
-                    Log.i("tag", "login token: $token")
 
-                    mPreference[Constants.TOKEN] = token ?: ""
-                    mPreference[Constants.USERNAME] = login.email
-                    mPreference[Constants.PASSWORD] = login.password
-                    mPreference[Constants.IS_ACTIVE] = true
 
-                    val intent = Intent(this@AuthenticationActivity, MainActivity::class.java)
-                    startActivity(intent)
-
-                    finish()
-                }
-            }
-
-            override fun onFailure(call: Call<User>, t: Throwable) {
-                Log.i("tag", "login failure")
-            }
-        })
+//        call.enqueue(object : Callback<User> {
+//            override fun onResponse(call: Call<User>, response: Response<User>) {
+//                Log.i("tag", "login response: ${response.code()}")
+//                if (response.isSuccessful) {
+//
+//                }
+//            }
+//
+//            override fun onFailure(call: Call<User>, t: Throwable) {
+//                Log.i("tag", "login failure")
+//            }
+//        })
     }
 
     override fun onRegister(register: Register) {
-        val call = mService.register(register)
+        mService.register(register)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        { onSuccess ->
+                            val token = onSuccess.token
 
-        call.enqueue(object : Callback<User> {
-            override fun onResponse(call: Call<User>, response: Response<User>) {
-                Log.i("tag", "register response: ${response.code()}")
-                if (response.isSuccessful) {
-                    val token = response.body()?.token
-                    Log.i("tag", "register token: $token")
+                            mPreference[Constants.TOKEN] = token ?: ""
+                            mPreference[Constants.EMAIL_PHONE] = register.email
+                            mPreference[Constants.PASSWORD] = register.password
+                            mPreference[Constants.IS_ACTIVE] = true
 
-                    mPreference[Constants.TOKEN] = token ?: ""
-                    mPreference[Constants.USERNAME] = register.email
-                    mPreference[Constants.PASSWORD] = register.password
-                    mPreference[Constants.IS_ACTIVE] = true
+                            val intent = Intent(this@AuthenticationActivity, MainActivity::class.java)
+                            startActivity(intent)
 
-                    val intent = Intent(this@AuthenticationActivity, MainActivity::class.java)
-                    startActivity(intent)
+                            finish()
+                        },
+                        { onFailure ->
+                            Log.i("tag", "Failure recommended books ${onFailure.message}")
+                        }
+                )
 
-                    finish()
-                }
-            }
-
-            override fun onFailure(call: Call<User>, t: Throwable) {
-                Log.i("tag", "register failure")
-            }
-        })
+//        call.enqueue(object : Callback<User> {
+//            override fun onResponse(call: Call<User>, response: Response<User>) {
+//                Log.i("tag", "register response: ${response.code()}")
+//                if (response.isSuccessful) {
+//
+//                }
+//            }
+//
+//            override fun onFailure(call: Call<User>, t: Throwable) {
+//                Log.i("tag", "register failure")
+//            }
+//        })
     }
 }

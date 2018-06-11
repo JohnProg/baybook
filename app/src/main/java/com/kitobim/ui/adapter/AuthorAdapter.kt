@@ -55,7 +55,7 @@ class AuthorAdapter(private val context: Context, private val isGridLayout: Bool
 
     override fun getItemCount(): Int = mList.size
 
-    fun updateAuthors(list: List<AuthorEntity>) {
+    fun updateData(list: List<AuthorEntity>) {
         mList = list
         notifyDataSetChanged()
     }

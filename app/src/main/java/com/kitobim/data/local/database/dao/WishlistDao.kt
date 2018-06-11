@@ -15,6 +15,9 @@ interface WishlistDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(book: WishlistEntity)
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertAll(books: List<WishlistEntity>)
+
     @Query("DELETE FROM wishlist")
     fun deleteAll()
 

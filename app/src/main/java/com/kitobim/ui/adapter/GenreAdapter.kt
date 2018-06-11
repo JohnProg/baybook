@@ -11,47 +11,76 @@ import android.widget.TextView
 import com.kitobim.R
 import com.kitobim.data.local.database.entity.GenreEntity
 import com.kitobim.ui.custom.ImageHelper
+import kotlinx.android.synthetic.main.item_grid_genre.view.*
 import kotlinx.android.synthetic.main.item_list_genre.view.*
 
-
-class GenreAdapter(private val context: Context)
-    : RecyclerView.Adapter<GenreAdapter.ViewHolder>() {
+class GenreAdapter(private val context: Context, private val isGridLayout: Boolean = false)
+    : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var mList = emptyList<GenreEntity>()
     private lateinit var mClickListener: OnItemClickListener
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val layout = LayoutInflater.from(parent.context)
-                .inflate(R.layout.item_list_genre, parent, false) as ConstraintLayout
-
-        return ViewHolder(layout)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        return if (isGridLayout) {
+            GridViewHolder(LayoutInflater.from(parent.context)
+                    .inflate(R.layout.item_grid_genre, parent, false) as ConstraintLayout)
+        } else {
+            ListViewHolder(LayoutInflater.from(parent.context)
+                    .inflate(R.layout.item_list_genre, parent, false) as ConstraintLayout)
+        }
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    override fun onBindViewHolder(viewholder: RecyclerView.ViewHolder, position: Int) {
         val genre = mList[position]
 
-        holder.bind(mList[position].id, mClickListener)
-        holder.name.text = genre.name
+        if (isGridLayout) {
+            val holder = viewholder as GridViewHolder
+            holder.bind(mList[position].id, mClickListener)
+            holder.name.text = genre.name
 
-        if (genre.image != null) {
-            ImageHelper.setBookCover(holder.image, genre.image)
+            if (genre.image != null) {
+                ImageHelper.setBookCover(holder.thumbnail, genre.image)
+            }
+        } else {
+            val holder = viewholder as ListViewHolder
+            holder.bind(mList[position].id, mClickListener)
+            holder.name.text = genre.name
+
+            if (genre.image != null) {
+                ImageHelper.setBookCover(holder.thumbnail, genre.image)
+            }
         }
     }
 
     override fun getItemCount(): Int = mList.size
 
-    fun updateGenres(list: List<GenreEntity>) {
+    fun updateData(list: List<GenreEntity>) {
         mList = list
         notifyDataSetChanged()
     }
+
+    fun clearData() {
+        mList = emptyList()
+        notifyDataSetChanged()
+    }
+
     fun setItemClickListener(listener: OnItemClickListener) {
         mClickListener = listener
     }
 
-    inner class ViewHolder(val view: View) : RecyclerView.ViewHolder(view){
 
-        val name: TextView = view.txt_name_genre
-        val image: ImageView = view.img_genre
+    inner class ListViewHolder(val view: View) : RecyclerView.ViewHolder(view){
+        val name: TextView = view.txt_name_list_genre
+        val thumbnail: ImageView = view.img_list_genre
+
+        fun bind(item: Int, listener: OnItemClickListener) {
+            itemView.setOnClickListener { listener.onItemClick(item) }
+        }
+    }
+
+    inner class GridViewHolder(val view: View) : RecyclerView.ViewHolder(view){
+        val name: TextView = view.txt_name_grid_genre
+        val thumbnail: ImageView = view.img_grid_genre
 
         fun bind(item: Int, listener: OnItemClickListener) {
             itemView.setOnClickListener { listener.onItemClick(item) }

@@ -9,6 +9,9 @@ interface BookDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(book: BookEntity)
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertAll(books: List<BookEntity>)
+
     @Update(onConflict = OnConflictStrategy.REPLACE)
     fun update(book: BookEntity): Int
 

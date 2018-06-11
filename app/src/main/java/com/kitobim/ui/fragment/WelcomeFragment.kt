@@ -32,7 +32,7 @@ class WelcomeFragment @SuppressLint("ValidFragment") private constructor() : Fra
 
     override fun onClick(v: View) {
         mFragment = when (v.id){
-            R.id.btn_login_welcome -> LoginFragment.newInstance()
+            R.id.btn_login_welcome -> LoginPagerFragment.newInstance()
             R.id.btn_register_welcome -> RegisterFragment.newInstance()
             else -> null
         }

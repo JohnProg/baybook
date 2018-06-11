@@ -10,7 +10,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.kitobim.R
-import com.kitobim.data.local.database.entity.LibraryEntity
 import com.kitobim.repository.LibraryRepository
 import com.kitobim.ui.adapter.BookAdapter
 import com.kitobim.viewmodel.LibraryViewModel
@@ -38,7 +37,7 @@ class LibraryFragment @SuppressLint("ValidFragment") private constructor()
         mLibraryViewModel = ViewModelProviders.of(activity!!).get(LibraryViewModel::class.java)
 
         mLibraryViewModel.getAllBooks().observe(this, Observer {
-            mAdapter.updateBooks(it!!)
+            mAdapter.updateData(it!!)
             if (mAdapter.itemCount > 0) {
                 mView.btn_go_to_store.visibility = View.GONE
                 mView.txt_library_empty.visibility = View.GONE
@@ -79,10 +78,6 @@ class LibraryFragment @SuppressLint("ValidFragment") private constructor()
 
     private fun initToolbar() {
         mRepository = LibraryRepository.getInstance(activity!!.application)
-        mView.btn_add_library.setOnClickListener {
-
-            val book = LibraryEntity(40001,true)
-            mLibraryViewModel.insertBook(book)
-        }
+        mView.btn_add_library.setOnClickListener { }
     }
 }

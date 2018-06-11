@@ -8,6 +8,7 @@ import com.kitobim.data.local.database.dao.AuthorListDao
 import com.kitobim.data.local.database.entity.AuthorListEntity
 import com.kitobim.data.remote.ApiService
 import com.kitobim.data.remote.RetrofitClient
+import com.kitobim.util.Constants
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
@@ -16,7 +17,6 @@ class AuthorListRepository private constructor(application: Application) {
     private val mAuthorListDao: AuthorListDao
     private val mService: ApiService
     private val mAuthorRepo: AuthorRepository
-    private var mLastPage = 1
 
     companion object {
         private var sInstance: AuthorListRepository? = null
@@ -38,33 +38,33 @@ class AuthorListRepository private constructor(application: Application) {
 
     fun loadAllAuthors() = mAuthorListDao.loadAllAuthors()
 
-    fun insertAll(page: Int) {
+    fun loadAuthorsByPage(page: Int) {
         val result = mAuthorListDao.getRowCountOfPage(page)
 
-        if (mLastPage >= page) {
-            result.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe {
-                rowCount -> if (rowCount == 0) {
-                    mService.getAllAuthors(page)
-                            .subscribeOn(Schedulers.io())
-                            .observeOn(AndroidSchedulers.mainThread())
-                            .subscribe(
-                                    { onSuccess ->
-                                        val list = onSuccess.data
-                                        mLastPage = onSuccess.meta.last_page
-                                        for (item in list) {
-                                            mAuthorRepo.insert(item)
-                                            val author = AuthorListEntity(item.id, page)
-                                            insert(author)
-                                        }
-                                    },
-                                    { onFailure ->
-                                        Log.i("tag", "Failure author list ${onFailure.message}")
-                                    }
-                            )
-                }
-
+        result.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe { rowCount ->
+            if (rowCount < Constants.AUTHOR_PAGE_THRESHOLD) {
+                fetchData(page)
             }
         }
+    }
+
+    private fun fetchData(page: Int) {
+        mService.getAllAuthors(page)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        { onSuccess ->
+                            val list = onSuccess.data
+                            for (item in list) {
+                                mAuthorRepo.insert(item)
+                                val author = AuthorListEntity(item.id, page)
+                                insert(author)
+                            }
+                        },
+                        { onFailure ->
+                            Log.i("tag", "Failure author list ${onFailure.message}")
+                        }
+                )
     }
 
     fun deleteAll() {

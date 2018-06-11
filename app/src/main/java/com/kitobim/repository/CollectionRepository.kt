@@ -1,6 +1,7 @@
 package com.kitobim.repository
 
 import android.app.Application
+import android.arch.lifecycle.LiveData
 import android.os.AsyncTask
 import android.util.Log
 import com.kitobim.data.local.database.AppDatabase
@@ -32,29 +33,32 @@ class CollectionRepository private constructor(application: Application) {
         mService = RetrofitClient.getAuthService(application)
     }
 
-    fun loadAllCollections() = mCollectionDao.loadAllCollections()
-
-    fun insertAll() {
+    fun loadAllCollections():LiveData<List<CollectionEntity>>  {
         val result = mCollectionDao.getRowCount()
 
-        result.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe {
-            rowCount -> if (rowCount == 0) {
-            mService.getAllCollections()
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(
-                            { onSuccess ->
-                                val list = onSuccess.data
-                                for (item in list) {
-                                    insert(item)
-                                }
-                            },
-                            { onFailure ->
-                                Log.i("tag", "Failure collections ${onFailure.message}")
-                            }
-                    )
+        result.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe { rowCount ->
+            if (rowCount == 0) {
+                fetchData()
             }
         }
+        return mCollectionDao.loadAllCollections()
+    }
+
+    private fun fetchData() {
+        mService.getAllCollections()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        { onSuccess ->
+                            val list = onSuccess.data
+                            for (item in list) {
+                                insert(item)
+                            }
+                        },
+                        { onFailure ->
+                            Log.i("tag", "Failure collections ${onFailure.message}")
+                        }
+                )
     }
 
     fun deleteAll() {

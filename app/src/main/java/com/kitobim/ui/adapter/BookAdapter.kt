@@ -68,7 +68,7 @@ class BookAdapter(private val context: Context, private val isGridLayout: Boolea
 
     override fun getItemCount(): Int = mList.size
 
-    fun updateBooks(list: List<BookEntity>) {
+    fun updateData(list: List<BookEntity>) {
         mList = list
         notifyDataSetChanged()
     }

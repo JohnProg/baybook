@@ -15,6 +15,9 @@ interface RatedBooksDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(book: RatedBooksEntity)
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertAll(books: List<RatedBooksEntity>)
+
     @Query("DELETE FROM rated_books")
     fun deleteAll()
 

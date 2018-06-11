@@ -25,7 +25,6 @@ import com.kitobim.data.remote.ApiUtils.TOP_PAID_BOOKS
 import com.kitobim.data.remote.ApiUtils.TOP_RATED_BOOKS
 import com.kitobim.data.remote.ApiUtils.WISHLIST
 import io.reactivex.Flowable
-import retrofit2.Call
 import retrofit2.http.*
 
 
@@ -37,9 +36,9 @@ interface ApiService {
 //    @POST(ApiUtils.SIGN_IN)
 //    fun login(@Body login: Login): Call<User>
 
-    @POST(REGISTER) fun register(@Body register: Register): Call<User>
+    @POST(REGISTER) fun register(@Body register: Register): Flowable<User>
 
-    @POST(LOGIN) fun login(@Body login: Login): Call<User>
+    @POST(LOGIN) fun login(@Body login: Login): Flowable<User>
 
     @GET(BOOK_INFO) fun getBook(@Path("id") id: Int): Flowable<Books>
 

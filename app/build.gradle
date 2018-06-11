@@ -32,7 +32,7 @@ dependencies {
     // Android support
     implementation 'com.android.support:appcompat-v7:27.1.1'
     implementation 'com.android.support:design:27.1.1'
-    implementation 'com.android.support.constraint:constraint-layout:1.1.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.1'
     implementation 'com.android.support:cardview-v7:27.1.1'
     implementation 'com.android.support:recyclerview-v7:27.1.1'
     implementation 'com.android.support:exifinterface:27.1.1'
@@ -52,4 +52,7 @@ dependencies {
     kapt "android.arch.persistence.room:compiler:1.1.0"
     implementation "android.arch.persistence.room:rxjava2:1.1.0"
     implementation "android.arch.lifecycle:extensions:1.1.1"
+    implementation "android.arch.lifecycle:livedata:1.1.1"
+    //Masked edit text
+    implementation 'ru.egslava:MaskedEditText:1.0.5'
 }

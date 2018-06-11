@@ -33,10 +33,16 @@ class CollectionAdapter()
 
     override fun getItemCount(): Int = mList.size
 
-    fun updateCollections(list: List<CollectionEntity>) {
+    fun updateData(list: List<CollectionEntity>) {
         mList = list
         notifyDataSetChanged()
     }
+
+    fun clearData() {
+        mList = emptyList()
+        notifyDataSetChanged()
+    }
+
     fun setItemClickListener(listener: OnItemClickListener) {
         mClickListener = listener
     }
