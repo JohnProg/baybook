@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:id="@+id/layout_parent_confirm_phone"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:background="@drawable/img_bg_auth"
+  android:paddingTop="@dimen/height_status_bar"
+  android:fitsSystemWindows="true"
+  android:clickable="true"
+  android:focusable="true">
+
+  <ImageView
+    android:id="@+id/imageView"
+    android:layout_width="48dp"
+    android:layout_height="48dp"
+    android:layout_marginTop="72dp"
+    android:src="@drawable/ic_kitobim_white"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"/>
+  <TextView
+    android:id="@+id/txt_title_confirm_email"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="8dp"
+    android:layout_marginStart="@dimen/margin_micro"
+    android:text="@string/title_confirm_email"
+    android:textColor="@color/text_primary_dark"
+    android:textSize="20sp"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/imageView"/>
+
+  <TextView
+    android:id="@+id/subtitle_confirm_email"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/margin_normal"
+    android:layout_marginStart="32dp"
+    android:layout_marginEnd="32dp"
+    android:textColor="@color/text_secondary_dark"
+    android:textSize="16sp"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="0.0"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/txt_title_confirm_email"/>
+
+  <android.support.design.widget.FloatingActionButton
+    android:id="@+id/fab_confirm_email"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="16dp"
+    android:layout_marginEnd="16dp"
+    android:src="@drawable/ic_chevron_right"
+    app:backgroundTint="@color/icon_active_dark"
+    app:elevation="@dimen/no_elevation"
+    app:fabSize="mini"
+    app:borderWidth="0dp"
+    app:pressedTranslationZ="@dimen/no_elevation"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"/>
+
+</android.support.constraint.ConstraintLayout>

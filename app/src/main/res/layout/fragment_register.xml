@@ -3,10 +3,14 @@
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/layout_parent_register"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
   android:paddingTop="@dimen/height_status_bar"
-  android:background="@drawable/img_bg_auth">
+  android:background="@drawable/img_bg_auth"
+  android:clickable="true"
+  android:focusable="true"
+  android:fitsSystemWindows="true">
 
   <android.support.v7.widget.Toolbar
     android:id="@+id/toolbar_register"
@@ -14,11 +18,11 @@
     android:layout_height="@dimen/height_toolbar"
     android:background="@color/transparent"
     android:elevation="@dimen/no_elevation"
-    app:navigationIcon="@drawable/ic_arrow_white"
-    tools:targetApi="lollipop"
-    app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintTop_toTopOf="parent"/>
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:navigationIcon="@drawable/ic_arrow_white"
+    tools:targetApi="lollipop"/>
 
   <TextView
     android:id="@+id/title_register"
@@ -35,23 +39,23 @@
     android:id="@+id/label_username_register"
     android:layout_width="0dp"
     android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/margin_small"
     app:layout_constraintTop_toBottomOf="@id/title_register"
-    app:layout_constraintBottom_toTopOf="@id/label_email_register"
+    app:layout_constraintBottom_toTopOf="@id/label_email_phone_register"
     app:layout_constraintEnd_toStartOf="@id/guideline_end_register"
-    app:layout_constraintStart_toEndOf="@id/guideline_begin_register"
-    >
+    app:layout_constraintStart_toEndOf="@id/guideline_begin_register">
     <android.support.v7.widget.AppCompatEditText
       android:id="@+id/field_username_register"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:hint="@string/username"
       android:imeOptions="actionNext"
-      android:inputType="text"
-      android:nextFocusDown="@id/field_email_register"/>
+      android:inputType="textPersonName"
+      android:nextFocusDown="@id/field_email_phone_register"/>
   </android.support.design.widget.TextInputLayout>
 
   <android.support.design.widget.TextInputLayout
-    android:id="@+id/label_email_register"
+    android:id="@+id/label_email_phone_register"
     android:layout_width="0dp"
     android:layout_height="wrap_content"
     app:layout_constraintBottom_toTopOf="@id/label_password_register"
@@ -59,11 +63,11 @@
     app:layout_constraintStart_toEndOf="@id/guideline_begin_register"
     app:layout_constraintTop_toBottomOf="@id/label_username_register">
     <android.support.v7.widget.AppCompatEditText
-      android:id="@+id/field_email_register"
+      android:id="@+id/field_email_phone_register"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:hint="@string/email"
-      android:inputType="textEmailAddress"
+      android:hint="@string/email_or_phone"
+      android:inputType="text"
       android:nextFocusDown="@id/field_password_register"
       android:imeOptions="actionNext"/>
   </android.support.design.widget.TextInputLayout>
@@ -74,7 +78,7 @@
     android:layout_height="wrap_content"
     app:layout_constraintEnd_toStartOf="@id/guideline_end_register"
     app:layout_constraintStart_toEndOf="@id/guideline_begin_register"
-    app:layout_constraintTop_toBottomOf="@id/label_email_register"
+    app:layout_constraintTop_toBottomOf="@id/label_email_phone_register"
     app:passwordToggleDrawable="@drawable/asl_password_visibility"
     app:passwordToggleEnabled="true"
     app:passwordToggleTint="@color/icon_inactive_dark">
@@ -115,7 +119,6 @@
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toBottomOf="@id/label_password_register"/>
-
 
   <TextView
     android:id="@+id/txt_warning_register"

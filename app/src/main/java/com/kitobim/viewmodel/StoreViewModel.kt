@@ -6,6 +6,7 @@ import com.kitobim.repository.*
 
 class StoreViewModel(application: Application) : AndroidViewModel(application) {
 
+
     private val authorsRepo = AuthorListRepository.getInstance(application)
     private val genresRepo = GenreListRepository.getInstance(application)
     private val publishersRepo = PublisherRepository.getInstance(application)
@@ -16,6 +17,7 @@ class StoreViewModel(application: Application) : AndroidViewModel(application) {
     private val paidBooksRepo = PaidBooksRepository.getInstance(application)
     private val freeBooksRepo = FreeBooksRepository.getInstance(application)
     private val ratedBooksRepo = RatedBooksRepository.getInstance(application)
+
 
     fun loadAllAuthors() = authorsRepo.loadAllAuthors()
     fun loadAuthorsByPage(page: Int) = authorsRepo.loadAuthorsByPage(page)

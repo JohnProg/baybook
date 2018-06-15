@@ -91,9 +91,8 @@
                           <map>
                             <entry key="assetSourceType" value="FILE" />
                             <entry key="color" value="ffffff" />
-                            <entry key="opacityPercent" value="54" />
-                            <entry key="outputName" value="ic_email" />
-                            <entry key="sourceFile" value="C:\Users\sulto\Desktop\baseline-alternate_email-24px.svg" />
+                            <entry key="outputName" value="ic_library" />
+                            <entry key="sourceFile" value="C:\Users\sulto\Desktop\outline-local_library-24px.svg" />
                           </map>
                         </option>
                       </PersistentState>

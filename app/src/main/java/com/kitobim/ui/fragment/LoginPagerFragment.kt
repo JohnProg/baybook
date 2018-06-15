@@ -3,7 +3,6 @@ package com.kitobim.ui.fragment
 import android.annotation.SuppressLint
 import android.arch.lifecycle.Observer
 import android.content.Context
-import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -12,23 +11,19 @@ import android.support.v4.app.FragmentStatePagerAdapter
 import android.support.v4.app.FragmentTransaction
 import android.support.v4.content.ContextCompat
 import android.support.v4.view.ViewPager
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
-import android.widget.Toast
+import android.widget.EditText
 import com.kitobim.R
 import com.kitobim.data.local.preference.PreferenceHelper
-import com.kitobim.data.local.preference.PreferenceHelper.set
 import com.kitobim.data.model.Login
 import com.kitobim.data.remote.ApiService
 import com.kitobim.data.remote.RetrofitClient
-import com.kitobim.ui.activity.MainActivity
+import com.kitobim.ui.custom.AuthenticationListener
 import com.kitobim.util.Constants
 import com.kitobim.viewmodel.ConnectionLiveData
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_login.view.*
 
 
@@ -51,7 +46,7 @@ class LoginPagerFragment @SuppressLint("ValidFragment") private constructor() : 
 
     private var mEmail = ""
     private var mPhone = ""
-    private var mPasswordNumber = ""
+    private var mPasswordPhone = ""
     private var mPasswordEmail = ""
 
     private var isValidEmail = false
@@ -67,6 +62,7 @@ class LoginPagerFragment @SuppressLint("ValidFragment") private constructor() : 
         mService = RetrofitClient.getService()
         mPreference = PreferenceHelper.defaultPrefs(context!!)
 
+        setupUi(mView.layout_parent_login_pager)
         initViews()
 
         val connectionObserver = ConnectionLiveData(context!!)
@@ -90,7 +86,12 @@ class LoginPagerFragment @SuppressLint("ValidFragment") private constructor() : 
         hideSoftKeyboard()
         when (v.id) {
             R.id.btn_forgot_password -> {
-                mFragment = ChangePasswordFragment.newInstance()
+                val emailOrPhone = if (mCurrentPage == 0) mEmail else "${mPhone.substring(4)}"
+                mFragment = ForgotPasswordFragment.newInstance()
+                val bundle = Bundle()
+                bundle.putBoolean("is_email", mCurrentPage == 0)
+                bundle.putString(Constants.EMAIL_OR_PHONE, emailOrPhone)
+                mFragment!!.arguments = bundle
                 changeFragment {
                     add(R.id.fragment_container_auth, mFragment).addToBackStack(null)
                 }
@@ -102,18 +103,18 @@ class LoginPagerFragment @SuppressLint("ValidFragment") private constructor() : 
         }
     }
 
-    fun onTextChanged(username: String, password: String, isValidUsername: Boolean, isValidPassword: Boolean) {
+    fun onTextChanged(email_or_phone: String, password: String, isValidUsername: Boolean, isValidPassword: Boolean) {
         when (mView.vp_login.currentItem) {
             0 -> {
-                mEmail = username
+                mEmail = email_or_phone
                 mPasswordEmail = password
                 isValidEmail = isValidUsername
                 isValidPasswordEmail = isValidPassword
                 changeFabState()
             }
             1 -> {
-                mPhone = username
-                mPasswordNumber = password
+                mPhone = email_or_phone
+                mPasswordPhone = password
                 isValidNumber = isValidUsername
                 isValidPasswordNumber = isValidPassword
                 changeFabState()
@@ -123,6 +124,24 @@ class LoginPagerFragment @SuppressLint("ValidFragment") private constructor() : 
 
     fun changeCurrentPage(item: Int) {
         mView.vp_login.currentItem = item
+    }
+
+    private fun setupUi(view: View) {
+        // Set up touch listener for non-text box views to hide keyboard.
+        if (view !is EditText) {
+            view.setOnTouchListener { _, _ ->
+                hideSoftKeyboard()
+                false
+            }
+        }
+
+        //If a layout container, iterate over children and seed recursion.
+        if (view is ViewGroup) {
+            for (i in 0 until view.childCount) {
+                val innerView = view.getChildAt(i)
+                setupUi(innerView)
+            }
+        }
     }
 
     private fun initViews() {
@@ -161,42 +180,45 @@ class LoginPagerFragment @SuppressLint("ValidFragment") private constructor() : 
     fun login() {
         if (isValidEmail && isValidPasswordEmail && mCurrentPage == 0 && hasNetwork ||
                 isValidNumber && isValidPasswordNumber && mCurrentPage == 1 && hasNetwork) {
-//            val listener: AuthenticationListener = activity!! as AuthenticationListener
-//            listener.onLogin(login)
             mView.progress_bar_login.visibility = View.VISIBLE
             mView.txt_progress_login.visibility = View.VISIBLE
 
-            val emailOrPhone = if (mCurrentPage == 0) mEmail else mPhone
-            val login = Login(emailOrPhone, mPasswordEmail)
+            val login = if (mCurrentPage == 0) {
+                Login(mEmail, mPasswordEmail)
+            } else {
+                Login(mPhone, mPasswordPhone)
+            }
 
-            mService.login(login)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(
-                            { onSuccess ->
-                                mView.progress_bar_login.visibility = View.GONE
-                                mView.txt_progress_login.visibility = View.GONE
+            val listener: AuthenticationListener = activity!! as AuthenticationListener
+            listener.onLogin(login)
 
-                                val token = onSuccess.token
-                                Log.i("tag", "login token: $token")
-
-                                mPreference[Constants.TOKEN] = token ?: ""
-                                mPreference[Constants.EMAIL_PHONE] = login.email
-                                mPreference[Constants.PASSWORD] = login.password
-                                mPreference[Constants.IS_ACTIVE] = true
-
-                                val intent = Intent(activity, MainActivity::class.java)
-                                startActivity(intent)
-
-                                activity?.finish()
-                            },
-                            { onFailure ->
-                                mView.progress_bar_login.visibility = View.GONE
-                                mView.txt_progress_login.visibility = View.GONE
-                                Toast.makeText(context!!, "Invalid email or password", Toast.LENGTH_SHORT)
-                                Log.i("tag", "Failure recommended books ${onFailure.message}")
-                            }
-                    )
+//            mService.login(login)
+//                    .subscribeOn(Schedulers.io())
+//                    .observeOn(AndroidSchedulers.mainThread())
+//                    .subscribe(
+//                            { onSuccess ->
+//                                mView.progress_bar_login.visibility = View.GONE
+//                                mView.txt_progress_login.visibility = View.GONE
+//                                val token = onSuccess.token
+//                                Log.i("tag", "login token: $token")
+//
+//                                mPreference[Constants.TOKEN] = token ?: ""
+//                                mPreference[Constants.EMAIL_OR_PHONE] = login.email_or_phone
+//                                mPreference[Constants.PASSWORD] = login.password
+//                                mPreference[Constants.IS_ACTIVE] = true
+//
+//                                val intent = Intent(activity!!, MainActivity::class.java)
+//                                startActivity(intent)
+//
+//                                activity?.finish()
+//                            },
+//                            { onFailure ->
+//                                mView.progress_bar_login.visibility = View.GONE
+//                                mView.txt_progress_login.visibility = View.GONE
+//                                Toast.makeText(context!!, "Invalid email_or_phone or password", Toast.LENGTH_SHORT)
+//                                Log.i("tag", "Failure login ${onFailure.message}")
+//                            }
+//                    )
         }
     }
 

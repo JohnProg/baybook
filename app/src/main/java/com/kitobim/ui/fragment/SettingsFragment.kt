@@ -39,7 +39,7 @@ class SettingsFragment @SuppressLint("ValidFragment") private constructor() : Fr
         }
 
         changeFragment {
-            add(R.id.fragment_container, mFragment).addToBackStack(null)
+            add(R.id.fragment_container_full, mFragment).addToBackStack(null)
         }
 
         return true
@@ -47,7 +47,7 @@ class SettingsFragment @SuppressLint("ValidFragment") private constructor() : Fr
 
     private inline fun changeFragment(code: FragmentTransaction.() -> Unit) {
         if (mFragment != null) {
-            val transaction =  parentFragment!!.fragmentManager!!.beginTransaction()
+            val transaction =  fragmentManager!!.beginTransaction()
             transaction.code()
             transaction.commit()
         }

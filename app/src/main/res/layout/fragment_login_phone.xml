@@ -2,7 +2,7 @@
 <android.support.constraint.ConstraintLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
-  xmlns:tools="http://schemas.android.com/tools"
+  xmlns:mask="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
   android:background="@color/transparent">
@@ -29,15 +29,17 @@
     app:layout_constraintStart_toEndOf="@id/guideline_begin_login"
     app:layout_constraintTop_toBottomOf="@+id/btn_go_email">
 
-    <android.support.v7.widget.AppCompatEditText
+    <br.com.sapereaude.maskedEditText.MaskedEditText
       android:id="@+id/field_phone_login"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:imeOptions="actionNext"
-      android:inputType="phone"
-      android:maxLength="12"
       android:nextFocusDown="@id/field_password_phone_login"
-      android:typeface="monospace"/>
+      app:allowed_chars="1234567890"
+      app:mask="+998 (##) ### ## ##"
+      android:hint="@string/hint_phone"
+      android:inputType="phone"
+      app:keep_hint="true" />
   </android.support.design.widget.TextInputLayout>
 
   <android.support.design.widget.TextInputLayout

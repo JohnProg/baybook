@@ -5,17 +5,23 @@ import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import com.kitobim.R
 import com.kitobim.ui.adapter.*
 import com.kitobim.ui.custom.EndlessScrollListener
+import com.kitobim.ui.custom.RecyclerItemClickListener
 import com.kitobim.util.Constants
 import com.kitobim.viewmodel.StoreViewModel
+import kotlinx.android.synthetic.main.fragment_store_inner.*
 import kotlinx.android.synthetic.main.fragment_store_inner.view.*
+
+
 
 
 class StoreInnerFragment @SuppressLint("ValidFragment") private constructor() : Fragment() {
@@ -43,7 +49,23 @@ class StoreInnerFragment @SuppressLint("ValidFragment") private constructor() : 
         mStoreViewModel= ViewModelProviders.of(this).get(StoreViewModel::class.java)
         initViews()
 
+        setHasOptionsMenu(true)
         return mView
+    }
+
+    override fun onResume() {
+        super.onResume()
+        (activity as AppCompatActivity).setSupportActionBar(toolbar_store_inner)
+        (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                activity?.onBackPressed()
+                true
+            } else -> super.onOptionsItemSelected(item)
+        }
     }
 
     fun changeDirection(id: Int) {
@@ -69,51 +91,68 @@ class StoreInnerFragment @SuppressLint("ValidFragment") private constructor() : 
 
         when (id) {
             R.id.nav_authors -> {
+                mView.toolbar_store_inner.setTitle(R.string.authors)
                 mStoreViewModel.loadAllAuthors().observe(this, Observer {
                     mAuthorAdapter.updateData(it!!)
                 })
                 loadPage(1)
             }
             R.id.nav_genres -> {
+                mView.toolbar_store_inner.setTitle(R.string.genres)
                 mStoreViewModel.loadAllGenres().observe(this, Observer {
                     mGenreAdapter.updateData(it!!)
                 })
                 loadPage(1)
             }
             R.id.nav_new_books -> {
+                mView.toolbar_store_inner.setTitle(R.string.new_released_books)
                 mStoreViewModel.loadAllNewBooks().observe(this, Observer {
                     mBookAdapter.updateData(it!!)
                 })
                 loadPage(1)
             }
-            R.id.nav_publishers ->
+            R.id.nav_publishers -> {
+                mView.toolbar_store_inner.setTitle(R.string.publishers)
                 mStoreViewModel.loadAllPublishers().observe(this@StoreInnerFragment, Observer {
-                        mPublisherAdapter.updateData(it!!)
-                    })
-            R.id.nav_collections ->
+                    mPublisherAdapter.updateData(it!!)
+                })
+            }
+            R.id.nav_collections -> {
+                mView.toolbar_store_inner.setTitle(R.string.collections)
                 mStoreViewModel.loadAllCollections().observe(this@StoreInnerFragment, Observer {
-                        mCollectionAdapter.updateData(it!!)
-                    })
-            R.id.nav_wishlist ->
+                    mCollectionAdapter.updateData(it!!)
+                })
+            }
+            R.id.nav_wishlist -> {
+                mView.toolbar_store_inner.setTitle(R.string.wishlist)
                 mStoreViewModel.loadAllWishlist().observe(this@StoreInnerFragment, Observer {
-                        mBookAdapter.updateData(it!!)
-                    })
-            R.id.nav_recommended_books ->
+                    mBookAdapter.updateData(it!!)
+                })
+            }
+            R.id.nav_recommended_books -> {
+                mView.toolbar_store_inner.setTitle(R.string.recommended_books)
                 mStoreViewModel.loadRecommendedBooks().observe(this@StoreInnerFragment, Observer {
-                        mBookAdapter.updateData(it!!)
-                    })
-            R.id.nav_paid_books ->
+                    mBookAdapter.updateData(it!!)
+                })
+            }
+            R.id.nav_paid_books -> {
+                mView.toolbar_store_inner.setTitle(R.string.top_paid_books)
                 mStoreViewModel.loadAllPaidBooks().observe(this@StoreInnerFragment, Observer {
-                        mBookAdapter.updateData(it!!)
-                    })
-            R.id.nav_rated_books ->
+                    mBookAdapter.updateData(it!!)
+                })
+            }
+            R.id.nav_rated_books -> {
+                mView.toolbar_store_inner.setTitle(R.string.top_rated_books)
                 mStoreViewModel.loadAllRatedBooks().observe(this@StoreInnerFragment, Observer {
-                        mBookAdapter.updateData(it!!)
-                    })
-            R.id.nav_free_books ->
+                    mBookAdapter.updateData(it!!)
+                })
+            }
+            R.id.nav_free_books -> {
+                mView.toolbar_store_inner.setTitle(R.string.top_free_books)
                 mStoreViewModel.loadAllFreeBooks().observe(this@StoreInnerFragment, Observer {
                     mBookAdapter.updateData(it!!)
                 })
+            }
         }
     }
 
@@ -132,6 +171,21 @@ class StoreInnerFragment @SuppressLint("ValidFragment") private constructor() : 
             }
         }
 
+        mView.rv_inner_store.addOnItemTouchListener(
+                RecyclerItemClickListener(context!!, mView.rv_inner_store,
+                        object : RecyclerItemClickListener.OnItemClickListener {
+
+                    override fun onItemClick(view: View, position: Int) {
+                        val book = mBookAdapter.getItem(position)
+                        Log.i("tag", "Item click pos: $position and title: ${book.title}")
+                    }
+
+                    override fun onLongItemClick(view: View?, position: Int) {
+                        val book = mBookAdapter.getItem(position)
+                        Log.i("tag", "Item long click pos: $position and title: ${book.title}")
+                    }
+                })
+        )
         mView.rv_inner_store.apply {
             hasFixedSize()
             layoutManager = mLinearLayoutManager
@@ -140,35 +194,6 @@ class StoreInnerFragment @SuppressLint("ValidFragment") private constructor() : 
 
         val navId = arguments!!.getInt("nav_id")
         changeDirection(navId)
-
-        mBookAdapter.setItemClickListener(object : BookAdapter.OnItemClickListener{
-            override fun onItemClick(id: Int) {
-
-            }
-        })
-
-        mAuthorAdapter.setItemClickListener(object : AuthorAdapter.OnItemClickListener{
-            override fun onItemClick(id: Int) {
-
-            }
-        })
-
-        mGenreAdapter.setItemClickListener(object : GenreAdapter.OnItemClickListener{
-            override fun onItemClick(id: Int) {
-
-            }
-        })
-
-        mPublisherAdapter.setItemClickListener(object : PublisherAdapter.OnItemClickListener{
-            override fun onItemClick(id: Int) {
-
-            }
-        })
-        mCollectionAdapter.setItemClickListener(object : CollectionAdapter.OnItemClickListener{
-            override fun onItemClick(id: Int) {
-
-            }
-        })
     }
 
     private fun loadPage(totalItemCount: Int) {

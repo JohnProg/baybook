@@ -1,13 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<LinearLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
   android:background="?attr/backgroundColor"
+  android:orientation="vertical"
   android:clickable="true"
   android:focusable="true">
+
+  <android.support.v7.widget.Toolbar
+    android:id="@+id/toolbar_store_inner"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/height_toolbar"
+    android:background="?attr/toolbarColor"
+    app:titleTextColor="?attr/textColorPrimary"/>
+
+  <View
+    android:layout_width="match_parent"
+    android:layout_height="0.5dp"
+    android:background="?attr/dividerColor"/>
+
   <android.support.v7.widget.RecyclerView
     android:id="@+id/rv_inner_store"
     android:layout_width="match_parent"
     android:layout_height="match_parent"/>
-</FrameLayout>
+
+</LinearLayout>

@@ -40,6 +40,8 @@ class ThemeFragment @SuppressLint("ValidFragment") private constructor() : Fragm
 
         mView.btn_theme_light.setOnClickListener(this)
         mView.btn_theme_dark.setOnClickListener(this)
+        mView.img_theme_light.setOnClickListener(this)
+        mView.img_theme_dark.setOnClickListener(this)
 
         setHasOptionsMenu(true)
         return mView
@@ -64,10 +66,10 @@ class ThemeFragment @SuppressLint("ValidFragment") private constructor() : Fragm
         val oldTheme = mPreferences[THEME, THEME_LIGHT]
 
         val newTheme = when (v.id) {
-            R.id.btn_theme_light -> {
+            R.id.btn_theme_light, R.id.img_theme_light -> {
                 mPreferences[THEME] = THEME_LIGHT
                 THEME_LIGHT
-            } R.id.btn_theme_dark -> {
+            } R.id.btn_theme_dark, R.id.img_theme_dark -> {
                 mPreferences[THEME] = THEME_DARK
                 THEME_DARK
             } else -> THEME_LIGHT

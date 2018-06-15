@@ -4,10 +4,12 @@ import android.content.Context
 import android.support.constraint.ConstraintLayout
 import android.support.v7.widget.AppCompatRatingBar
 import android.support.v7.widget.RecyclerView
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import com.kitobim.R
 import com.kitobim.data.local.database.entity.BookEntity
@@ -20,12 +22,11 @@ class BookAdapter(private val context: Context, private val isGridLayout: Boolea
     : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var mList = emptyList<BookEntity>()
-    private lateinit var mClickListener: OnItemClickListener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return if (isGridLayout) {
             GridViewHolder(LayoutInflater.from(parent.context)
-                    .inflate(R.layout.item_grid_book, parent, false) as ConstraintLayout)
+                    .inflate(R.layout.item_grid_book, parent, false) as LinearLayout)
 
         } else {
             ListViewHolder(LayoutInflater.from(parent.context)
@@ -48,12 +49,12 @@ class BookAdapter(private val context: Context, private val isGridLayout: Boolea
             val currency = context.resources.getString(R.string.sum)
 
             holder.title.text = book.title
-            holder.author.text = book.authors[0].name
+            holder.author.text = TextUtils.join(", ", book.authors.map { it.name })
             if (book.rating != null && book.rating >= 0 && book.rating <= 5) {
                 holder.rateBar.rating = book.rating
                 holder.rateText.text = book.rating.toString()
             }
-            holder.price.text = if (book.price == 0) {
+            holder.price.text = if (book.price > 0) {
                 "${(book.price)} $currency"
             } else {
                 context.resources.getString(R.string.free)
@@ -77,9 +78,8 @@ class BookAdapter(private val context: Context, private val isGridLayout: Boolea
         mList = emptyList()
         notifyDataSetChanged()
     }
-    fun setItemClickListener(listener: OnItemClickListener) {
-        mClickListener = listener
-    }
+
+    fun getItem(position: Int) = mList[position]
 
     inner class ListViewHolder(val view: View) : RecyclerView.ViewHolder(view){
         val title: TextView = view.title_list_book
@@ -88,23 +88,12 @@ class BookAdapter(private val context: Context, private val isGridLayout: Boolea
         val coverImage: ImageView = view.img_list_book
         val rateBar: AppCompatRatingBar = view.rating_bar_list
         val rateText: TextView = view.txt_rating_list
-
-        fun bind(item: Int, listener: OnItemClickListener) {
-            itemView.setOnClickListener { listener.onItemClick(item) }
-        }
     }
 
     inner class GridViewHolder(val view: View) : RecyclerView.ViewHolder(view){
         val title: TextView = view.title_grid_book
         val coverImage: ImageView = view.img_grid_book
-
-        fun bind(item: Int, listener: OnItemClickListener) {
-            itemView.setOnClickListener { listener.onItemClick(item) }
-        }
     }
 
-    interface OnItemClickListener {
-        fun onItemClick(id: Int)
-    }
 
 }

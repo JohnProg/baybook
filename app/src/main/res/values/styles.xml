@@ -80,4 +80,16 @@
     <item name="android:overScrollMode">never</item>
   </style>
 
+  <style name="SearchView">
+    <item name="floatingSearch_backgroundColor">?attr/viewColor</item>
+    <item name="floatingSearch_viewSearchInputTextColor">?attr/textColorPrimary</item>
+    <item name="floatingSearch_viewSuggestionItemTextColor">?attr/textColorSecondary</item>
+    <item name="floatingSearch_hintTextColor">?attr/textColorSecondary</item>
+    <item name="floatingSearch_dividerColor">?attr/dividerColor</item>
+    <item name="floatingSearch_clearBtnColor">?attr/iconColorActive</item>
+    <item name="floatingSearch_leftActionColor">?attr/iconColorActive</item>
+    <item name="floatingSearch_menuItemIconColor">?attr/iconColorActive</item>
+    <item name="floatingSearch_suggestionRightIconColor">?attr/iconColorInactive</item>
+    <item name="floatingSearch_actionMenuOverflowColor">?attr/iconColorActive</item>
+  </style>
 </resources>

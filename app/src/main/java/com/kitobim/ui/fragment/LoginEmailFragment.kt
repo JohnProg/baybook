@@ -34,10 +34,8 @@ class LoginEmailFragment @SuppressLint("ValidFragment") private constructor() : 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, state: Bundle?): View? {
         mView = inflater.inflate(R.layout.fragment_login_email, container, false)
 
-        mPagerFragment = fragmentManager!!
-                .findFragmentById(R.id.fragment_container_auth) as LoginPagerFragment
-
         initViews()
+
         return mView
     }
 
@@ -71,17 +69,12 @@ class LoginEmailFragment @SuppressLint("ValidFragment") private constructor() : 
     }
 
     private fun initViews() {
-        mView.btn_go_phone.setOnClickListener{
-            mPagerFragment.changeCurrentPage(1)
-        }
+        mPagerFragment = fragmentManager!!
+                .findFragmentById(R.id.fragment_container_auth) as LoginPagerFragment
 
         mView.field_email_login.addTextChangedListener(this)
         mView.field_password_email_login.addTextChangedListener(this)
-
-        mView.field_password_email_login.setOnEditorActionListener { _, actionId, _ ->
-            if (actionId == EditorInfo.IME_ACTION_GO) mPagerFragment.login()
-            EditorInfo.IME_ACTION_GO == actionId
-        }
+        mView.btn_go_phone.setOnClickListener{ mPagerFragment.changeCurrentPage(1) }
 
         mView.field_email_login.setOnFocusChangeListener { _, hasFocus ->
             if (hasFocus || isValidEmail) {
@@ -93,6 +86,14 @@ class LoginEmailFragment @SuppressLint("ValidFragment") private constructor() : 
                 mView.field_email_login.setTextColor(ContextCompat
                         .getColor(context!!, R.color.error))
             }
+        }
+
+        mView.field_password_email_login.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_GO) {
+                mPagerFragment.login()
+                return@setOnEditorActionListener true
+            }
+            return@setOnEditorActionListener false
         }
     }
 }

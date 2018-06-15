@@ -4,23 +4,36 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.support.design.widget.BottomNavigationView
+import android.support.v4.app.Fragment
+import android.support.v4.app.FragmentTransaction
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.AppCompatActivity
+import android.view.MenuItem
 import com.kitobim.R
 import com.kitobim.data.local.database.AppDatabase
 import com.kitobim.data.local.preference.PreferenceHelper
 import com.kitobim.data.local.preference.PreferenceHelper.get
-import com.kitobim.ui.fragment.MainFragment
+import com.kitobim.ui.custom.BottomNavigationViewHelper
+import com.kitobim.ui.custom.ImageHelper
+import com.kitobim.ui.fragment.LibraryFragment
+import com.kitobim.ui.fragment.ProfileFragment
+import com.kitobim.ui.fragment.SettingsFragment
+import com.kitobim.ui.fragment.StoreFragment
 import com.kitobim.util.Constants
 import com.kitobim.util.Constants.THEME
 import com.kitobim.util.Constants.THEME_LIGHT
 import com.kitobim.util.LocaleHelper
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_store.*
 
 
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
+
+    private var mFragment: Fragment? = null
+    private val url = "http://development.baysoftware.ru/storage/thumbnails/0000910025-L.jpg"
 
     private lateinit var mPreference: SharedPreferences
 
@@ -32,10 +45,39 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         mPreference = PreferenceHelper.defaultPrefs(this)
+        val isNewbie = mPreference[Constants.IS_NEWBIE, true]
+        val isActive = mPreference[Constants.IS_ACTIVE, false]
+        if (!isActive || isNewbie) {
+            val intent = Intent(this, AuthenticationActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
 
-        initTheme()
+        val theme = if (mPreference[THEME, THEME_LIGHT] == THEME_LIGHT) {
+            R.style.AppTheme_Light
+        } else {
+            R.style.AppTheme_Dark
+        }
+        setTheme(theme)
         setContentView(R.layout.activity_main)
-        initViews(savedInstanceState)
+
+        initViews()
+    }
+
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        mFragment = when (item.itemId) {
+            R.id.nav_library -> LibraryFragment.newInstance()
+            R.id.nav_store -> StoreFragment.newInstance()
+            R.id.nav_settings -> SettingsFragment.newInstance()
+            R.id.nav_profile -> ProfileFragment.newInstance()
+            else -> null
+        }
+
+        changeFragment {
+            replace(R.id.fragment_container_inner, mFragment)
+        }
+
+        return true
     }
 
     override fun onBackPressed() {
@@ -52,28 +94,24 @@ class MainActivity : AppCompatActivity() {
         AppDatabase.destroyInstance()
     }
 
-
-    private fun initTheme() {
-        val theme = if (mPreference[THEME, THEME_LIGHT] == THEME_LIGHT) {
-            R.style.AppTheme_Light
-        } else {
-            R.style.AppTheme_Dark
-        }
-        setTheme(theme)
+    fun goToStore() {
+        bottom_navigation.selectedItemId = R.id.nav_store
     }
 
-    private fun initViews(bundle: Bundle?){
-        val isNewbie = mPreference[Constants.IS_NEWBIE, true]
-        val isActive = mPreference[Constants.IS_ACTIVE, false]
 
-        if (!isActive || isNewbie) {
-            val intent = Intent(this, AuthenticationActivity::class.java)
-            startActivity(intent)
-            finish()
-        } else if (bundle == null) {
-            val fragment = MainFragment.newInstance()
+    private fun initViews(){
+        BottomNavigationViewHelper.disableShiftMode(bottom_navigation)
+        bottom_navigation.setOnNavigationItemSelectedListener(this)
+        bottom_navigation.selectedItemId = R.id.nav_library
+
+        ImageHelper.setBookCover(recent_book, url)
+    }
+
+    private inline fun changeFragment(code: FragmentTransaction.() -> Unit) {
+        if (mFragment != null) {
             val transaction = supportFragmentManager.beginTransaction()
-            transaction.replace(R.id.fragment_container, fragment).commit()
+            transaction.code()
+            transaction.commit()
         }
     }
 }

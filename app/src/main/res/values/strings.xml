@@ -44,7 +44,7 @@
   <string name="error_empty_field">Field is empty</string>
   <string name="empty_profile">In order get full access you should log in</string>
   <string name="link_to_login">Let\'s log in</string>
-  <string name="subtitle_restore_password">Enter your mail to find your account</string>
+  <string name="subtitle_email_forgot_password">Enter your mail to find your account</string>
   <string name="error_password">At least 6 characters</string>
   <string name="title_welcome">Welcome to Kitobim</string>
   <string name="continue_with_facebook">Continue with Facebook</string>
@@ -65,7 +65,6 @@
   <string name="authors">Authors</string>
   <string name="publishers">Publishers</string>
   <string name="collections">Collections</string>
-  <string name="new_books">New released books</string>
   <string name="recommended_books">Recommended books</string>
   <string name="my_wishlist">My wishlist</string>
   <string name="available_books">Available books count:</string>
@@ -84,4 +83,18 @@
   <string name="no_network_connection">No network connection!</string>
   <string name="please_wait">Please, wait</string>
   <string name="phone_number">Phone number</string>
+  <string name="kitobim_store">Kitobim Store</string>
+  <string name="email_or_phone">Email or phone</string>
+  <string name="field_is_empty">Field is empty</string>
+  <string name="error_username">At least 3 characters</string>
+  <string name="error_email_or_phone">Field is not correct</string>
+  <string name="title_confirm_phone">Confirm your phone number</string>
+  <string name="code">Code</string>
+  <string name="error_phone">Incorrect phone number</string>
+  <string name="subtitle_confirm_phone">Confirmation message sent to %1$s</string>
+  <string name="title_confirm_email">Account successfully created</string>
+  <string name="subtitle_confirm_email">Confirmation message sent to %1$s\n
+  Please, confirm your email address and log in</string>
+  <string name="hint_phone" translatable="false">123456789</string>
+  <string name="subtitle_phone_forgot_password">Enter your phone number to find your account</string>
 </resources>

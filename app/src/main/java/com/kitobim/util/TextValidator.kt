@@ -1,17 +1,43 @@
 package com.kitobim.util
 
+import android.text.TextUtils
+import android.util.Patterns
+import java.util.regex.Pattern
+
 object TextValidator {
+    fun isUsername(username: String): Boolean {
+        return  !TextUtils.isEmpty(username) && username.length >= Constants.USERNAME_MIN_LENGTH
+    }
 
-    fun isEmail(email: String) =
-        android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
+    fun isEmail(email: String) : Boolean {
+        if (!TextUtils.isEmpty(email)) {
+            return Patterns.EMAIL_ADDRESS.matcher(email).matches()
+        }
+        return false
+    }
 
-    fun isPassword(password: String) =
-            password.isNotEmpty() && password.length >= Constants.PASSWORD_MIN_LENGTH
+    fun isPhone(phone: String): Boolean {
+        if (!TextUtils.isEmpty(phone)) {
+            return Pattern.compile("^[+]?(998)[0-9]{9}").matcher(phone).matches()
+        }
+        return false
+    }
 
-    fun isUsername(username: String) =
-            username.isNotEmpty() && username.length >= Constants.USERNAME_MIN_LENGTH
+    fun isPassword(password: String): Boolean {
+        return !TextUtils.isEmpty(password) && password.length >= Constants.PASSWORD_MIN_LENGTH
+    }
 
-    fun isPhoneNumber(phoneNumber: String)
-        = phoneNumber.length == 12
+    fun isEmailOrPhone(emailOrPhone: String): Boolean {
+        return isEmail(emailOrPhone) || isPhone(emailOrPhone)
+    }
 
+    fun isVerificationCode(code: String): Boolean {
+        if (code.length == Constants.VERIFICATION_CODE_LENGTH) {
+            for (char in code) {
+                if (!char.isDigit()) return false
+            }
+            return true
+        }
+        return false
+    }
 }

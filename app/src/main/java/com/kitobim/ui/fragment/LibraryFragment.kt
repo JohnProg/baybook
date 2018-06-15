@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.kitobim.R
 import com.kitobim.repository.LibraryRepository
+import com.kitobim.ui.activity.MainActivity
 import com.kitobim.ui.adapter.BookAdapter
 import com.kitobim.viewmodel.LibraryViewModel
 import kotlinx.android.synthetic.main.fragment_library.*
@@ -34,6 +35,7 @@ class LibraryFragment @SuppressLint("ValidFragment") private constructor()
 
         initToolbar()
         initRecyclerView()
+
         mLibraryViewModel = ViewModelProviders.of(activity!!).get(LibraryViewModel::class.java)
 
         mLibraryViewModel.getAllBooks().observe(this, Observer {
@@ -45,29 +47,21 @@ class LibraryFragment @SuppressLint("ValidFragment") private constructor()
             }
         })
 
+        mView.btn_go_to_store.setOnClickListener(this)
+
         return mView
     }
 
     override fun onClick(v: View) {
         when (v) {
             btn_go_to_store -> {
-                val fragment = StoreFragment.newInstance()
-
-                fragmentManager!!
-                        .beginTransaction()
-                        .replace(R.id.fragment_container_child, fragment)
-                        .commit()
+                (activity as MainActivity).goToStore()
             }
         }
     }
 
     private fun initRecyclerView() {
         mAdapter = BookAdapter(context!!)
-        mAdapter.setItemClickListener(object : BookAdapter.OnItemClickListener {
-            override fun onItemClick(id: Int) {
-
-            }
-        })
 
         mView.recycler_view_library.apply {
             setHasFixedSize(true)

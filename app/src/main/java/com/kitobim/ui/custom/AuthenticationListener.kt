@@ -6,5 +6,6 @@ import com.kitobim.data.model.Register
 interface AuthenticationListener {
     fun onLogin(login: Login)
     fun onRegister(register: Register)
+    fun onConfirm(phone: String, code: String)
 }
 

@@ -47,6 +47,7 @@ object RetrofitClient {
         if (apiService == null) {
             val retrofit = Retrofit.Builder()
                     .baseUrl(ApiUtils.BASE_URL)
+                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                     .addConverterFactory(GsonConverterFactory.create())
                     .build()
 

@@ -11,6 +11,7 @@ object ApiUtils {
 
     const val REGISTER = "register"
     const val LOGIN = "login"
+    const val CONFIRM_PHONE = "register/confirm"
 
     const val AUTHORS = "authors"
     const val AUTHOR_INFO = "authors/{id}"
@@ -28,6 +29,8 @@ object ApiUtils {
     const val COLLECTION_BOOKS = "collections/{id}/books"
 
     const val BOOK_INFO = "books/{id}"
+    const val BOOK_FILE = "books/{id}/download"
+
     const val WISHLIST = "wishlist"
     const val NEW_BOOKS = "books/filter/new"
     const val RECOMMENDED_BOOKS = "books/filter/recommended"

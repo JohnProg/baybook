@@ -25,8 +25,8 @@ class LoginPhoneFragment @SuppressLint("ValidFragment") private constructor() : 
     private lateinit var mPagerFragment: LoginPagerFragment
 
     private var mPassword = ""
-    private var mNumber = ""
-    private var isValidNumber = false
+    private var mPhone = ""
+    private var isValidPhone = false
     private var isValidPassword = false
 
 
@@ -44,11 +44,9 @@ class LoginPhoneFragment @SuppressLint("ValidFragment") private constructor() : 
 
     override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
         if (mView.field_phone_login.isFocused) {
-            mNumber = s.toString()
-            isValidNumber = TextValidator.isPhoneNumber(mPassword)
-        }
-
-        else if (mView.field_password_phone_login.isFocused) {
+            mPhone = "+998${mView.field_phone_login.rawText}"
+            isValidPhone = TextValidator.isPhone(mPhone)
+        } else if (mView.field_password_phone_login.isFocused) {
             mPassword = s.toString()
             isValidPassword = TextValidator.isPassword(mPassword)
 
@@ -63,7 +61,7 @@ class LoginPhoneFragment @SuppressLint("ValidFragment") private constructor() : 
                         .getColor(context!!,R.color.error))
             }
         }
-        mPagerFragment.onTextChanged(mNumber, mPassword, isValidNumber, isValidPassword)
+        mPagerFragment.onTextChanged(mPhone, mPassword, isValidPhone, isValidPassword)
     }
 
     private fun initViews() {
@@ -75,18 +73,22 @@ class LoginPhoneFragment @SuppressLint("ValidFragment") private constructor() : 
         mView.field_password_phone_login.addTextChangedListener(this)
 
         mView.field_password_phone_login.setOnEditorActionListener { _, actionId, _ ->
-            if (actionId == EditorInfo.IME_ACTION_GO) mPagerFragment.login()
+            if (TextValidator.isPassword(mPassword)) {
+                mView.label_phone_login.error = resources.getString(R.string.field_is_empty)
+            } else if (actionId == EditorInfo.IME_ACTION_GO) {
+                mPagerFragment.login()
+            }
             EditorInfo.IME_ACTION_GO == actionId
         }
 
         mView.field_phone_login.setOnFocusChangeListener{ _, hasFocus ->
-            if (hasFocus || isValidNumber) {
+            if (hasFocus) {
                 mView.label_phone_login.error = null
                 mView.field_phone_login.setTextColor(ContextCompat
                         .getColor(context!!, R.color.text_primary_dark))
             }
-            else {
-                mView.label_phone_login.error = resources.getString(R.string.error_invalid_email)
+            else if (!isValidPhone){
+                mView.label_phone_login.error = resources.getString(R.string.error_phone)
                 mView.field_phone_login.setTextColor(ContextCompat
                         .getColor(context!!, R.color.error))
             }

@@ -2,22 +2,21 @@
 <android.support.constraint.ConstraintLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
-  xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  android:background="?attr/backgroundColor">
+  android:background="?attr/backgroundColor"
+  android:clickable="true"
+  android:focusable="true">
 
   <android.support.v7.widget.Toolbar
     android:id="@+id/toolbar_library"
     android:layout_width="0dp"
     android:layout_height="48dp"
-    app:contentInsetStart="0dp"
     android:background="?attr/toolbarColor"
-    android:elevation="@dimen/elevation_toolbar"
-    app:layout_constraintTop_toTopOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
+    app:contentInsetStart="0dp"
     app:layout_constraintEnd_toEndOf="parent"
-    tools:targetApi="lollipop">
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent">
 
     <android.support.constraint.ConstraintLayout
       android:layout_width="match_parent"
@@ -111,5 +110,13 @@
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toBottomOf="@id/toolbar_library"/>
+
+  <View
+    android:layout_width="0dp"
+    android:layout_height=".5dp"
+    android:background="?attr/dividerColor"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintBottom_toBottomOf="@id/toolbar_library"/>
 
 </android.support.constraint.ConstraintLayout>

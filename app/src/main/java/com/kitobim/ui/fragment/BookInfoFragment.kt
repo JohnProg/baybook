@@ -3,61 +3,80 @@ package com.kitobim.ui.fragment
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.app.AppCompatActivity
 import android.text.TextUtils
-import android.util.Log
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import com.kitobim.R
 import com.kitobim.data.local.database.entity.BookEntity
-import com.kitobim.data.remote.ApiService
-import com.kitobim.data.remote.RetrofitClient
+import com.kitobim.repository.BookRepository
 import com.kitobim.ui.custom.ImageHelper
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
+import kotlinx.android.synthetic.main.fragment_book_info.*
 import kotlinx.android.synthetic.main.fragment_book_info.view.*
 
 
-class BookInfoFragment @SuppressLint("ValidFragment") private constructor(): Fragment() {
+class BookInfoFragment @SuppressLint("ValidFragment") private constructor(): Fragment(), View.OnClickListener {
 
     companion object {
         fun newInstance(): Fragment = BookInfoFragment()
     }
 
     private lateinit var mView: View
-    private lateinit var mService: ApiService
+    private var mBookId: Int = 0
+    private lateinit var mBookRepo: BookRepository
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, state: Bundle?): View? {
         mView = inflater.inflate(R.layout.fragment_book_info, container, false)
 
-        mService = RetrofitClient.getAuthService(context!!)
-        val id = arguments!!.getInt("id")
-        Log.i("tag", "id: $id")
-        val call = mService.getBook(id)
+        mBookId = arguments!!.getInt("book_id")
+        initViews()
 
-        call.subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({
-                    onSuccess ->
-                    Log.i("tag", "onSuccess")
-                    initViews(onSuccess.data[0])
-                },
-                {
-                    onFailure -> Log.i("tag", "Failure ${onFailure.message}")
-                })
+        mBookRepo = BookRepository.getInstance(activity!!.application)
 
         return mView
     }
 
+    override fun onResume() {
+        super.onResume()
+        (activity as AppCompatActivity).setSupportActionBar(toolbar_book_info)
+        (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    }
+
+    override fun onClick(v: View) {
+        when (v.id) {
+            R.id.btn_purchase_book_info -> mBookRepo.downloadBook(mBookId)
+        }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                activity?.onBackPressed()
+                true
+            } else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    private fun initViews() {
+        mView.btn_purchase_book_info.setOnClickListener(this)
+        setHasOptionsMenu(true)
+    }
     @SuppressLint("SetTextI18n")
-    private fun initViews(book: BookEntity) {
+    private fun updateUi(book: BookEntity) {
         if (book.thumbnail != null) ImageHelper.setBookCover(mView.cover_book_info, book.thumbnail)
 
         if (book.price == 0) mView.price_book_info.text = getString(R.string.free)
         else mView.price_book_info.text = "Price: ${book.price} ${getString(R.string.sum)}"
 
         mView.title_book_info.text = book.title
-        mView.author_book_info.text = TextUtils.join(", ", book.authors)
+        mView.author_book_info.text = TextUtils.join(", ", book.authors.map { it.name })
+    }
+
+
+
+    private fun downloadCover() {
 
     }
 }

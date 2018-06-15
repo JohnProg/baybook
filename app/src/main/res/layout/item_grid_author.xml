@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<LinearLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   android:layout_width="wrap_content"
-  android:layout_height="wrap_content">
+  android:layout_height="wrap_content"
+  android:orientation="vertical">
 
   <ImageView
     android:id="@+id/img_grid_author"
@@ -13,28 +14,20 @@
     android:layout_marginEnd="@dimen/margin_small"
     android:background="@drawable/circle_view_bg"
     app:layout_constraintDimensionRatio="w,1:1.5"
-    app:layout_constraintHorizontal_bias="0.5"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintBottom_toTopOf="@id/txt_name_grid_author"
-    app:layout_constraintTop_toTopOf="parent"/>
+    android:contentDescription="@string/image_description"/>
 
   <TextView
     android:id="@+id/txt_name_grid_author"
-    android:layout_width="0dp"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="@dimen/margin_small"
     android:layout_marginStart="@dimen/margin_small"
     android:layout_marginEnd="@dimen/margin_small"
-    android:ellipsize="end"
-    android:gravity="center"
     android:includeFontPadding="false"
-    android:maxLines="2"
+    android:gravity="center"
+    android:ellipsize="end"
+    android:lines="2"
     android:textColor="?attr/textColorPrimary"
-    android:textSize="14sp"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@id/img_grid_author"/>
+    android:textSize="14sp"/>
 
-</android.support.constraint.ConstraintLayout>
+</LinearLayout>

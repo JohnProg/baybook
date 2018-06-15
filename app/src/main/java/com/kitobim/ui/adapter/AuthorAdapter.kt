@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import com.kitobim.R
 import com.kitobim.data.local.database.entity.AuthorEntity
@@ -19,12 +20,11 @@ class AuthorAdapter(private val context: Context, private val isGridLayout: Bool
     : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var mList = emptyList<AuthorEntity>()
-    private lateinit var mClickListener: OnItemClickListener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return if (isGridLayout) {
             GridViewHolder(LayoutInflater.from(parent.context)
-                    .inflate(R.layout.item_grid_author, parent, false) as ConstraintLayout)
+                    .inflate(R.layout.item_grid_author, parent, false) as LinearLayout)
         } else {
             ListViewHolder(LayoutInflater.from(parent.context)
                     .inflate(R.layout.item_list_author, parent, false) as ConstraintLayout)
@@ -36,7 +36,6 @@ class AuthorAdapter(private val context: Context, private val isGridLayout: Bool
 
         if (isGridLayout) {
             val holder = viewholder as GridViewHolder
-            holder.bind(mList[position].id, mClickListener)
             holder.name.text = author.name
 
             if (author.thumbnail != null) {
@@ -44,7 +43,6 @@ class AuthorAdapter(private val context: Context, private val isGridLayout: Bool
             }
         } else {
             val holder = viewholder as ListViewHolder
-            holder.bind(mList[position].id, mClickListener)
             holder.name.text = author.name
 
             if (author.thumbnail != null) {
@@ -65,31 +63,15 @@ class AuthorAdapter(private val context: Context, private val isGridLayout: Bool
         notifyDataSetChanged()
     }
 
-    fun setItemClickListener(listener: OnItemClickListener) {
-        mClickListener = listener
-    }
-
+    fun getItem(position: Int) = mList[position]
 
     inner class ListViewHolder(val view: View) : RecyclerView.ViewHolder(view){
         val name: TextView = view.txt_name_list_author
         val thumbnail: ImageView = view.img_list_author
-
-        fun bind(item: Int, listener: OnItemClickListener) {
-            itemView.setOnClickListener { listener.onItemClick(item) }
-        }
     }
 
     inner class GridViewHolder(val view: View) : RecyclerView.ViewHolder(view){
         val name: TextView = view.txt_name_grid_author
         val thumbnail: ImageView = view.img_grid_author
-
-        fun bind(item: Int, listener: OnItemClickListener) {
-            itemView.setOnClickListener { listener.onItemClick(item) }
-        }
     }
-
-    interface OnItemClickListener {
-        fun onItemClick(id: Int)
-    }
-
 }

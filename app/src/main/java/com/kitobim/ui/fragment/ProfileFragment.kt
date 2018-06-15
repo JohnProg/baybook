@@ -39,11 +39,10 @@ class ProfileFragment @SuppressLint("ValidFragment") private constructor() : Fra
         mPreference = PreferenceHelper.defaultPrefs(context!!)
         val isActive = mPreference[IS_ACTIVE, false]
         val username = mPreference[Constants.USERNAME, ""]
+        val emailOrPhone = mPreference[Constants.EMAIL_OR_PHONE, ""]
 
-        if (username.isNotEmpty()) {
-            mView.txt_username_profile.text = username
-            mView.txt_email_phone_profile.text = username
-        }
+        mView.txt_username_profile.text = username
+        mView.txt_email_phone_profile.text = emailOrPhone
 
         if (isActive) {
             mView.nav_view_profile.visibility = View.VISIBLE
@@ -74,7 +73,7 @@ class ProfileFragment @SuppressLint("ValidFragment") private constructor() : Fra
             else -> null
         }
         changeFragment {
-            add(R.id.fragment_container, mFragment).addToBackStack(null)
+            add(R.id.fragment_container_full, mFragment).addToBackStack(null)
         }
 
         return true
@@ -82,7 +81,7 @@ class ProfileFragment @SuppressLint("ValidFragment") private constructor() : Fra
 
     private inline fun changeFragment(code: FragmentTransaction.() -> Unit) {
         if (mFragment != null) {
-            val transaction = parentFragment!!.fragmentManager!!.beginTransaction()
+            val transaction = fragmentManager!!.beginTransaction()
             transaction.code()
             transaction.commit()
         }

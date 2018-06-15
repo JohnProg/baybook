@@ -1,13 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.Toolbar
-  android:id="@+id/toolbar_store"
+<com.arlib.floatingsearchview.FloatingSearchView
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:android="http://schemas.android.com/apk/res/android"
-  android:layout_width="0dp"
-  android:layout_height="48dp"
-  android:background="?attr/toolbarColor"
-  app:title="@string/front_page"
-  app:titleTextColor="?attr/textColorPrimary"
-  app:layout_constraintStart_toStartOf="parent"
-  app:layout_constraintEnd_toEndOf="parent"
-  app:layout_constraintTop_toTopOf="parent"/>
+  android:theme="@style/SearchView"
+  android:id="@+id/floating_search_view"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  app:floatingSearch_leftActionMode="showHamburger"
+  app:floatingSearch_searchBarMarginLeft="@dimen/margin_micro"
+  app:floatingSearch_searchBarMarginRight="@dimen/margin_micro"
+  app:floatingSearch_searchBarMarginTop="@dimen/margin_micro"
+  app:floatingSearch_searchHint="@string/kitobim_store"
+  app:floatingSearch_close_search_on_keyboard_dismiss="true"
+  app:floatingSearch_dimBackground="true"
+  app:floatingSearch_dismissOnOutsideTouch="true"
+  app:floatingSearch_dismissFocusOnItemSelection="true"
+  app:floatingSearch_showSearchKey="true"
+  app:floatingSearch_suggestionsListAnimDuration="250"/>

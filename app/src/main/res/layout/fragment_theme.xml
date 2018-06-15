@@ -2,7 +2,6 @@
 <android.support.constraint.ConstraintLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
-  xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
   android:background="?attr/backgroundColor"
@@ -14,12 +13,10 @@
     android:layout_width="0dp"
     android:layout_height="@dimen/height_toolbar"
     android:background="@color/transparent"
-    android:elevation="0dp"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent"
-    app:title="@string/theme_color"
-    tools:targetApi="lollipop"/>
+    app:title="@string/theme_color"/>
 
   <ImageView
     android:id="@+id/img_theme_light"
