@@ -9,5 +9,5 @@ class PublisherEntity (
     val id: Int,
     val name: String,
     val logo: String?,
-    val books: Int
+    val books_count: Int
 )

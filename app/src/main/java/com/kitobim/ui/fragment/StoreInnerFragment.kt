@@ -12,7 +12,10 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.kitobim.R
+import com.kitobim.data.remote.ApiService
+import com.kitobim.data.remote.RetrofitClient
 import com.kitobim.ui.adapter.*
 import com.kitobim.ui.custom.EndlessScrollListener
 import com.kitobim.ui.custom.RecyclerItemClickListener
@@ -40,14 +43,19 @@ class StoreInnerFragment @SuppressLint("ValidFragment") private constructor() : 
     private lateinit var mPublisherAdapter: PublisherAdapter
     private lateinit var mCollectionAdapter: CollectionAdapter
     private lateinit var mLinearLayoutManager: LinearLayoutManager
+    private lateinit var mService: ApiService
 
     private var mCurrentPageId = 0
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, state: Bundle?): View? {
         mView = inflater.inflate(R.layout.fragment_store_inner, container, false)
 
+        mService = RetrofitClient.getAuthService(context!!)
         mStoreViewModel= ViewModelProviders.of(this).get(StoreViewModel::class.java)
+        mCurrentPageId = arguments!!.getInt("nav_id")
+
         initViews()
+        clearAll()
 
         setHasOptionsMenu(true)
         return mView
@@ -68,14 +76,13 @@ class StoreInnerFragment @SuppressLint("ValidFragment") private constructor() : 
         }
     }
 
-    fun changeDirection(id: Int) {
-        mCurrentPageId = id
+    private fun clearAll() {
         mScrollListener.resetState()
         mAuthorAdapter.clearData()
         mGenreAdapter.clearData()
         mBookAdapter.clearData()
 
-        when (id) {
+        when (mCurrentPageId) {
             R.id.nav_authors -> mView.rv_inner_store.adapter = mAuthorAdapter
             R.id.nav_genres -> mView.rv_inner_store.adapter = mGenreAdapter
             R.id.nav_publishers -> mView.rv_inner_store.adapter = mPublisherAdapter
@@ -89,7 +96,7 @@ class StoreInnerFragment @SuppressLint("ValidFragment") private constructor() : 
             R.id.nav_free_books -> mView.rv_inner_store.adapter = mBookAdapter
         }
 
-        when (id) {
+        when (mCurrentPageId) {
             R.id.nav_authors -> {
                 mView.toolbar_store_inner.setTitle(R.string.authors)
                 mStoreViewModel.loadAllAuthors().observe(this, Observer {
@@ -171,29 +178,25 @@ class StoreInnerFragment @SuppressLint("ValidFragment") private constructor() : 
             }
         }
 
-        mView.rv_inner_store.addOnItemTouchListener(
-                RecyclerItemClickListener(context!!, mView.rv_inner_store,
-                        object : RecyclerItemClickListener.OnItemClickListener {
-
-                    override fun onItemClick(view: View, position: Int) {
-                        val book = mBookAdapter.getItem(position)
-                        Log.i("tag", "Item click pos: $position and title: ${book.title}")
-                    }
-
-                    override fun onLongItemClick(view: View?, position: Int) {
-                        val book = mBookAdapter.getItem(position)
-                        Log.i("tag", "Item long click pos: $position and title: ${book.title}")
-                    }
-                })
-        )
         mView.rv_inner_store.apply {
-            hasFixedSize()
+            setHasFixedSize(true)
             layoutManager = mLinearLayoutManager
             addOnScrollListener(mScrollListener)
         }
 
-        val navId = arguments!!.getInt("nav_id")
-        changeDirection(navId)
+
+        mView.rv_inner_store.addOnItemTouchListener(
+                RecyclerItemClickListener(context!!, mView.rv_inner_store,
+                        object : RecyclerItemClickListener.OnItemClickListener {
+                            override fun onItemClick(view: View, position: Int) {
+                                selectRvItem(position)
+                            }
+
+                            override fun onLongItemClick(view: View?, position: Int) {
+                                selectRvItem(position)
+                            }
+                        })
+        )
     }
 
     private fun loadPage(totalItemCount: Int) {
@@ -214,6 +217,94 @@ class StoreInnerFragment @SuppressLint("ValidFragment") private constructor() : 
                 mStoreViewModel.loadNewBooksByPage(page)
             }
         }
+    }
+
+    private fun selectRvItem(position: Int) {
+        when (mCurrentPageId) {
+            R.id.nav_wishlist,
+            R.id.nav_new_books,
+            R.id.nav_recommended_books,
+            R.id.nav_paid_books,
+            R.id.nav_rated_books,
+            R.id.nav_free_books -> {
+                val book = mBookAdapter.getItem(position)
+                val bundle = Bundle()
+                bundle.putInt("id", book.id)
+                bundle.putString("title", book.title)
+
+                val fragment = BookInfoFragment.newInstance()
+                fragment.arguments = bundle
+
+                fragmentManager!!.beginTransaction()
+                        .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_right,
+                                R.anim.enter_from_right, R.anim.exit_to_right)
+                        .add(R.id.fragment_container_full, fragment)
+                        .addToBackStack(null)
+                        .commit()
+            }
+            R.id.nav_authors -> {
+                val author = mAuthorAdapter.getItem(position)
+                val bundle = Bundle()
+                bundle.putInt("id", author.id)
+                bundle.putString("title", author.name)
+
+                val fragment = AuthorInfoFragment.newInstance()
+                fragment.arguments = bundle
+
+                fragmentManager!!.beginTransaction()
+                        .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_right,
+                                R.anim.enter_from_right, R.anim.exit_to_right)
+                        .add(R.id.fragment_container_full, fragment)
+                        .addToBackStack(null)
+                        .commit()
+
+            }
+            R.id.nav_genres -> {
+                val genre = mGenreAdapter.getItem(position)
+                if (genre.books_count == 0) {
+                    Toast.makeText(activity, R.string.no_books, Toast.LENGTH_SHORT).show()
+
+                } else {
+                    loadBooks("genre", genre.name, genre.id)
+                }
+            }
+            R.id.nav_publishers -> {
+                val publisher = mPublisherAdapter.getItem(position)
+                if (publisher.books_count == 0) {
+                    Toast.makeText(activity, R.string.no_books, Toast.LENGTH_SHORT).show()
+                } else {
+                    loadBooks("publisher", publisher.name, publisher.id)
+                }
+
+            }
+            R.id.nav_collections -> {
+                val collection = mCollectionAdapter.getItem(position)
+                if (collection.books_count == 0) {
+                    Toast.makeText(activity, R.string.no_books, Toast.LENGTH_SHORT).show()
+                } else {
+                    loadBooks("collection", collection.name, collection.id)
+                }
+
+            }
+        }
+    }
+
+    private fun loadBooks(type: String, title: String, id: Int) {
+        val fragment = StoreBooksFragment.newInstance()
+        val bundle = Bundle()
+        bundle.putString("title", title)
+        bundle.putString("type", type)
+        bundle.putInt("id",id)
+
+        fragment.arguments = bundle
+
+
+        fragmentManager!!.beginTransaction()
+                .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_right,
+                        R.anim.enter_from_right, R.anim.exit_to_right)
+                .add(R.id.fragment_container_full, fragment)
+                .addToBackStack(null)
+                .commit()
     }
 
 }

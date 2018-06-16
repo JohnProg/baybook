@@ -21,11 +21,11 @@ object PreferenceHelper {
 
     operator fun SharedPreferences.set(key: String, value: Any?) {
         when (value) {
-            is Int -> edit({ it.putInt(key, value) })
-            is Long -> edit({ it.putLong(key, value) })
-            is Float -> edit({ it.putFloat(key, value) })
-            is String -> edit({ it.putString(key, value) })
-            is Boolean -> edit({ it.putBoolean(key, value) })
+            is Int -> edit { it.putInt(key, value) }
+            is Long -> edit { it.putLong(key, value) }
+            is Float -> edit { it.putFloat(key, value) }
+            is String -> edit { it.putString(key, value) }
+            is Boolean -> edit { it.putBoolean(key, value) }
             else -> throw UnsupportedOperationException("Not implemented type")
         }
     }

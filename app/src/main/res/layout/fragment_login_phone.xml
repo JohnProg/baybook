@@ -34,12 +34,12 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:imeOptions="actionNext"
+      android:inputType="phone"
       android:nextFocusDown="@id/field_password_phone_login"
+      android:hint="@string/hint_phone"
       app:allowed_chars="1234567890"
       app:mask="+998 (##) ### ## ##"
-      android:hint="@string/hint_phone"
-      android:inputType="phone"
-      app:keep_hint="true" />
+      app:keep_hint="true"/>
   </android.support.design.widget.TextInputLayout>
 
   <android.support.design.widget.TextInputLayout

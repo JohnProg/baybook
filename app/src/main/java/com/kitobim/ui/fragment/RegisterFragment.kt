@@ -14,8 +14,11 @@ import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
+import android.widget.Toast
 import com.kitobim.R
 import com.kitobim.data.model.Register
+import com.kitobim.ui.activity.AuthenticationActivity
+import com.kitobim.ui.custom.AuthResponseListener
 import com.kitobim.ui.custom.AuthenticationListener
 import com.kitobim.util.TextValidator
 import kotlinx.android.synthetic.main.fragment_register.view.*
@@ -82,6 +85,20 @@ class RegisterFragment @SuppressLint("ValidFragment") private constructor() : Fr
             if (actionId == EditorInfo.IME_ACTION_GO) register()
             EditorInfo.IME_ACTION_GO == actionId
         }
+
+        (activity as AuthenticationActivity).setResponseListener(object: AuthResponseListener {
+            override fun onError() {
+                mView.progress_bar_register.visibility = View.GONE
+                mView.txt_progress_register.visibility = View.GONE
+                Toast.makeText(activity, "User already exists", Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onSuccess() {
+                mView.progress_bar_register.visibility = View.GONE
+                mView.txt_progress_register.visibility = View.GONE
+            }
+
+        })
 
         return mView
     }
@@ -156,7 +173,8 @@ class RegisterFragment @SuppressLint("ValidFragment") private constructor() : Fr
 
     private fun register() {
         if (isValidUsername && isValidEmailOrPhone && isValidPassword) {
-
+            mView.progress_bar_register.visibility = View.VISIBLE
+            mView.txt_progress_register.visibility = View.VISIBLE
             val register = Register(mUsername, mEmailOrPhone, mPassword)
             (activity as AuthenticationListener).onRegister(register)
         }

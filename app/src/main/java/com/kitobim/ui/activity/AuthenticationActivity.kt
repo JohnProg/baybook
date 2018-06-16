@@ -18,6 +18,7 @@ import com.kitobim.data.model.Login
 import com.kitobim.data.model.Register
 import com.kitobim.data.remote.ApiService
 import com.kitobim.data.remote.RetrofitClient
+import com.kitobim.ui.custom.AuthResponseListener
 import com.kitobim.ui.custom.AuthenticationListener
 import com.kitobim.ui.fragment.ConfirmEmailFragment
 import com.kitobim.ui.fragment.ConfirmPhoneFragment
@@ -34,6 +35,7 @@ class AuthenticationActivity : AppCompatActivity(), AuthenticationListener {
     private lateinit var mService: ApiService
     private lateinit var mPreference: SharedPreferences
     private var mFragment: Fragment? = null
+    private lateinit var responseListener: AuthResponseListener
 
     override fun attachBaseContext(base: Context) {
         super.attachBaseContext(LocaleHelper.setLocale(base))
@@ -43,10 +45,12 @@ class AuthenticationActivity : AppCompatActivity(), AuthenticationListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_auth)
 
+
         mService = RetrofitClient.getService()
         mPreference = PreferenceHelper.defaultPrefs(this)
 
         mPreference[Constants.IS_NEWBIE] = false
+
 
         window.decorView.systemUiVisibility =
                 View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
@@ -59,6 +63,9 @@ class AuthenticationActivity : AppCompatActivity(), AuthenticationListener {
         }
     }
 
+    fun setResponseListener(listener: AuthResponseListener) {
+        responseListener = listener
+    }
     @SuppressLint("ShowToast")
     override fun onLogin(login: Login) {
         val emailOrPhone = login.email_or_phone
@@ -70,20 +77,22 @@ class AuthenticationActivity : AppCompatActivity(), AuthenticationListener {
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(
                             { response ->
-                                Log.i("tag", "phone: $emailOrPhone success: ${response.username}")
-                                if (response.token.isNotEmpty()) {
-                                    mPreference[Constants.TOKEN] = response.token
-                                    mPreference[Constants.EMAIL_OR_PHONE] = login.email_or_phone
-                                    mPreference[Constants.PASSWORD] = login.password
-                                    mPreference[Constants.IS_ACTIVE] = true
+                                Log.i("tag", "phone: $emailOrPhone token: ${response.token}")
+                                mPreference[Constants.TOKEN] = response.token
+                                mPreference[Constants.USERNAME] = response.username
+                                mPreference[Constants.EMAIL_OR_PHONE] = login.email_or_phone
+                                mPreference[Constants.PASSWORD] = login.password
+                                mPreference[Constants.IS_ACTIVE] = true
 
-                                    val intent = Intent(this, MainActivity::class.java)
-                                    startActivity(intent)
+                                val intent = Intent(this, MainActivity::class.java)
+                                startActivity(intent)
 
-                                    finish()
-                                }
+                                responseListener.onSuccess()
+                                supportFragmentManager.findFragmentByTag("login")
+                                finish()
                             },
                             { onFailure ->
+                                responseListener.onError()
                                 Toast.makeText(this, "Invalid email_or_phone or password", Toast.LENGTH_SHORT)
                                 Log.i("tag", "Failure login ${onFailure.message}")
                             }
@@ -96,12 +105,14 @@ class AuthenticationActivity : AppCompatActivity(), AuthenticationListener {
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(
                             { response ->
-                                Log.i("tag", "phone: $phone success: ${response.username}")
+                                responseListener.onSuccess()
+                                Log.i("tag", "phone: $phone token: ${response.token}")
                                 mPreference[Constants.TOKEN] = response.token
                                 mPreference[Constants.USERNAME] = response.username
                                 mPreference[Constants.EMAIL_OR_PHONE] = login.email_or_phone
                                 mPreference[Constants.PASSWORD] = login.password
                                 mPreference[Constants.IS_ACTIVE] = true
+
 
                                 val intent = Intent(this, MainActivity::class.java)
                                 startActivity(intent)
@@ -109,6 +120,7 @@ class AuthenticationActivity : AppCompatActivity(), AuthenticationListener {
                                 finish()
                             },
                             { onFailure ->
+                                responseListener.onError()
                                 Toast.makeText(this, "Invalid email_or_phone or password", Toast.LENGTH_SHORT)
                                 Log.i("tag", "Failure phone: $phone ${onFailure.message}")
                             }
@@ -141,6 +153,7 @@ class AuthenticationActivity : AppCompatActivity(), AuthenticationListener {
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(
                             { response ->
+                                responseListener.onSuccess()
                                 Log.i("tag", "phone: $emailOrPhone error: ${response.error} success: ${response.success}")
                                 mPreference[Constants.EMAIL_OR_PHONE] = emailOrPhone
                                 mPreference[Constants.PASSWORD] = password
@@ -150,6 +163,7 @@ class AuthenticationActivity : AppCompatActivity(), AuthenticationListener {
                                 }
                             },
                             { onFailure ->
+                                responseListener.onError()
                                 Log.i("tag", "Failure register with email ${onFailure.message}")
                             }
                     )
@@ -165,6 +179,7 @@ class AuthenticationActivity : AppCompatActivity(), AuthenticationListener {
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(
                             { response ->
+                                responseListener.onSuccess()
                                 Log.i("tag", "phone: $phone error: ${response.error} success: ${response.success}")
                                 mPreference[Constants.EMAIL_OR_PHONE] = phone
                                 mPreference[Constants.PASSWORD] = password
@@ -177,6 +192,7 @@ class AuthenticationActivity : AppCompatActivity(), AuthenticationListener {
                                 }
                             },
                             { onFailure ->
+                                responseListener.onError()
                                 Log.i("tag", "Failure register with phone ${onFailure.message}")
                             }
                     )

@@ -10,6 +10,9 @@ interface AuthorDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(author: AuthorEntity)
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertAll(author: List<AuthorEntity>)
+
     @Update(onConflict = OnConflictStrategy.REPLACE)
     fun update(author: AuthorEntity): Int
 

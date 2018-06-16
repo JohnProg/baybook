@@ -3,7 +3,7 @@ package com.kitobim.data.local.database.entity
 import android.arch.persistence.room.*
 
 @Entity(tableName = "genre_list",
-        indices = [(Index(value = ["genre_id"], unique = true))],
+        indices = [Index(value = ["genre_id"])],
         foreignKeys = [(ForeignKey(entity = GenreEntity::class,
                 parentColumns = arrayOf("id"),
                 childColumns = arrayOf("genre_id"),

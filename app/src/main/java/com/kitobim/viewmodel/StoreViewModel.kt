@@ -18,7 +18,6 @@ class StoreViewModel(application: Application) : AndroidViewModel(application) {
     private val freeBooksRepo = FreeBooksRepository.getInstance(application)
     private val ratedBooksRepo = RatedBooksRepository.getInstance(application)
 
-
     fun loadAllAuthors() = authorsRepo.loadAllAuthors()
     fun loadAuthorsByPage(page: Int) = authorsRepo.loadAuthorsByPage(page)
     fun loadAllGenres() = genresRepo.loadAllGenres()

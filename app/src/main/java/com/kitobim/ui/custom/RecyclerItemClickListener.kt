@@ -12,16 +12,21 @@ class RecyclerItemClickListener(context: Context, recyclerView: RecyclerView,
     : RecyclerView.OnItemTouchListener {
 
     private var mGestureDetector: GestureDetector
+    private var isSingleTap = false
 
     interface OnItemClickListener {
         fun onItemClick(view: View, position: Int)
-
         fun onLongItemClick(view: View?, position: Int)
     }
 
     init {
         mGestureDetector = GestureDetector(context, object : GestureDetector.SimpleOnGestureListener() {
-            override fun onSingleTapUp(e: MotionEvent): Boolean {
+
+            override fun onSingleTapConfirmed(e: MotionEvent): Boolean {
+                val child = recyclerView.findChildViewUnder(e.x, e.y)
+                if (child != null && mListener != null) {
+                    mListener.onItemClick(child, recyclerView.getChildAdapterPosition(child))
+                }
                 return true
             }
 
@@ -35,12 +40,9 @@ class RecyclerItemClickListener(context: Context, recyclerView: RecyclerView,
     }
 
     override fun onInterceptTouchEvent(view: RecyclerView, e: MotionEvent): Boolean {
-        val childView = view.findChildViewUnder(e.x, e.y)
-        if (childView != null && mListener != null && mGestureDetector.onTouchEvent(e)) {
-            mListener.onItemClick(childView, view.getChildAdapterPosition(childView))
-            return true
-        }
+        mGestureDetector.onTouchEvent(e)
         return false
+
     }
 
     override fun onTouchEvent(view: RecyclerView, motionEvent: MotionEvent) {}

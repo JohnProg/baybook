@@ -150,7 +150,6 @@ class StoreFragment @SuppressLint("ValidFragment") private constructor() : Fragm
         mView.rv_pinned_books.addOnItemTouchListener(
                 RecyclerItemClickListener(context!!, mView.rv_pinned_books,
                         object : RecyclerItemClickListener.OnItemClickListener {
-
                             override fun onItemClick(view: View, position: Int) {
                                 val book = mBookAdapter1.getItem(position)
                                 selectBook(book)
@@ -166,13 +165,13 @@ class StoreFragment @SuppressLint("ValidFragment") private constructor() : Fragm
         mView.rv_most_authors.addOnItemTouchListener(
                 RecyclerItemClickListener(context!!, mView.rv_most_authors,
                         object : RecyclerItemClickListener.OnItemClickListener {
-
                             override fun onItemClick(view: View, position: Int) {
                                 val author = mAuthorAdapter.getItem(position)
+                                selectAuthor(author)
                             }
-
                             override fun onLongItemClick(view: View?, position: Int) {
                                 val author = mAuthorAdapter.getItem(position)
+                                selectAuthor(author)
                             }
                         })
         )
@@ -180,12 +179,10 @@ class StoreFragment @SuppressLint("ValidFragment") private constructor() : Fragm
         mView.rv_month_books.addOnItemTouchListener(
                 RecyclerItemClickListener(context!!, mView.rv_month_books,
                         object : RecyclerItemClickListener.OnItemClickListener {
-
                             override fun onItemClick(view: View, position: Int) {
                                 val book = mBookAdapter2.getItem(position)
                                 selectBook(book)
                             }
-
                             override fun onLongItemClick(view: View?, position: Int) {
                                 val book = mBookAdapter2.getItem(position)
                                 selectBook(book)
@@ -196,13 +193,13 @@ class StoreFragment @SuppressLint("ValidFragment") private constructor() : Fragm
         mView.rv_most_genres.addOnItemTouchListener(
                 RecyclerItemClickListener(context!!, mView.rv_most_genres,
                         object : RecyclerItemClickListener.OnItemClickListener {
-
                             override fun onItemClick(view: View, position: Int) {
                                 val genre = mGenreAdapter.getItem(position)
+                                selectGenre(genre)
                             }
-
                             override fun onLongItemClick(view: View?, position: Int) {
                                 val genre = mGenreAdapter.getItem(position)
+                                selectGenre(genre)
                             }
                         })
         )
@@ -210,12 +207,10 @@ class StoreFragment @SuppressLint("ValidFragment") private constructor() : Fragm
         mView.rv_random_books.addOnItemTouchListener(
                 RecyclerItemClickListener(context!!, mView.rv_random_books,
                         object : RecyclerItemClickListener.OnItemClickListener {
-
                             override fun onItemClick(view: View, position: Int) {
                                 val book = mBookAdapter3.getItem(position)
                                 selectBook(book)
                             }
-
                             override fun onLongItemClick(view: View?, position: Int) {
                                 val book = mBookAdapter3.getItem(position)
                                 selectBook(book)
@@ -227,7 +222,7 @@ class StoreFragment @SuppressLint("ValidFragment") private constructor() : Fragm
     private fun initSearchBar() {
         mView.floating_search_view.attachNavigationDrawerToMenuButton(mView.drawer_layout_store)
 
-        mView.floating_search_view.setOnQueryChangeListener({ oldQuery, newQuery ->
+        mView.floating_search_view.setOnQueryChangeListener { oldQuery, newQuery ->
             mLastQuery = newQuery
             if (oldQuery != "" && newQuery == "") {
                 mView.floating_search_view.clearSuggestions()
@@ -240,7 +235,7 @@ class StoreFragment @SuppressLint("ValidFragment") private constructor() : Fragm
                 mView.floating_search_view.showProgress()
             }
             Log.d("tag", "onSearchTextChanged()")
-        })
+        }
 
         mView.floating_search_view.setOnSearchListener(object : FloatingSearchView.OnSearchListener {
             override fun onSuggestionClicked(searchSuggestion: SearchSuggestion) {
@@ -281,17 +276,58 @@ class StoreFragment @SuppressLint("ValidFragment") private constructor() : Fragm
     }
 
     private fun selectBook(book: BookEntity) {
-        Log.i("tag", "book title: ${book.title}")
         val bundle = Bundle()
-        bundle.putInt("book_id", book.id)
+        bundle.putInt("id", book.id)
+        bundle.putString("title", book.title)
+
         mBookFragment.arguments = bundle
-        val transaction = fragmentManager!!.beginTransaction()
-        transaction.add(R.id.fragment_container_full, mBookFragment).addToBackStack(null)
-        transaction.commit()
+
+        fragmentManager!!.beginTransaction()
+                .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_right,
+                        R.anim.enter_from_right, R.anim.exit_to_right)
+                .add(R.id.fragment_container_full, mBookFragment)
+                .addToBackStack(null)
+                .commit()
+    }
+
+    private fun selectAuthor(author: AuthorEntity) {
+        val bundle = Bundle()
+        val fragment = AuthorInfoFragment.newInstance()
+        bundle.putInt("id", author.id)
+        bundle.putString("title", author.name)
+
+        fragment.arguments = bundle
+
+        fragmentManager!!.beginTransaction()
+                .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_right,
+                        R.anim.enter_from_right, R.anim.exit_to_right)
+                .add(R.id.fragment_container_full, fragment)
+                .addToBackStack(null)
+                .commit()
+    }
+
+    private fun selectGenre(genre: GenreEntity) {
+        val fragment = StoreBooksFragment.newInstance()
+        val bundle = Bundle()
+        bundle.putString("title", genre.name)
+        bundle.putString("type", "genre")
+        bundle.putInt("id", genre.id)
+
+        fragment.arguments = bundle
+
+
+        fragmentManager!!.beginTransaction()
+                .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_right,
+                        R.anim.enter_from_right, R.anim.exit_to_right)
+                .add(R.id.fragment_container_full, fragment)
+                .addToBackStack(null)
+                .commit()
     }
 
     private inline fun changeFragment(code: FragmentTransaction.() -> Unit) {
         val transaction = fragmentManager!!.beginTransaction()
+        transaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_right,
+                R.anim.enter_from_right, R.anim.exit_to_right)
         transaction.code()
         transaction.commit()
     }

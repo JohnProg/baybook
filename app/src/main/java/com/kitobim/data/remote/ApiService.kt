@@ -121,7 +121,7 @@ interface ApiService {
     fun getAuthorsFront(): Flowable<Authors>
 
     @GET(AUTHOR_INFO)
-    fun getAuthor(@Path("id") id: Int): Flowable<Authors>
+    fun getAuthor(@Path("id") id: Int): Flowable<Author>
 
     @GET(AUTHOR_BOOKS)
     fun getAuthorBooks(@Path("id") id: Int): Flowable<Books>

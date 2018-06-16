@@ -16,11 +16,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
+import android.widget.Toast
 import com.kitobim.R
 import com.kitobim.data.local.preference.PreferenceHelper
 import com.kitobim.data.model.Login
 import com.kitobim.data.remote.ApiService
 import com.kitobim.data.remote.RetrofitClient
+import com.kitobim.ui.activity.AuthenticationActivity
+import com.kitobim.ui.custom.AuthResponseListener
 import com.kitobim.ui.custom.AuthenticationListener
 import com.kitobim.util.Constants
 import com.kitobim.viewmodel.ConnectionLiveData
@@ -55,7 +58,6 @@ class LoginPagerFragment @SuppressLint("ValidFragment") private constructor() : 
     private var isValidPasswordNumber = false
     private var hasNetwork = true
 
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, state: Bundle?): View? {
         mView = inflater.inflate(R.layout.fragment_login, container, false)
 
@@ -78,7 +80,19 @@ class LoginPagerFragment @SuppressLint("ValidFragment") private constructor() : 
                 changeFabState()
             }
         })
+        (activity as AuthenticationActivity).setResponseListener(object: AuthResponseListener{
+            override fun onError() {
+                mView.progress_bar_login.visibility = View.GONE
+                mView.txt_progress_login.visibility = View.GONE
+                Toast.makeText(activity, "User not found", Toast.LENGTH_SHORT).show()
+            }
 
+            override fun onSuccess() {
+                mView.progress_bar_login.visibility = View.GONE
+                mView.txt_progress_login.visibility = View.GONE
+            }
+
+        })
         return mView
     }
 

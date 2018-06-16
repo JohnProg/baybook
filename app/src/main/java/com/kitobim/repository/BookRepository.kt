@@ -39,6 +39,7 @@ class BookRepository private constructor(private val application: Application) {
     }
 
     fun getBookById(id: Int):LiveData<BookEntity> {
+        Log.i("tag", "fetch book id: $id")
         fetchData(id)
         return mBookDao.getBookById(id)
     }

@@ -1,10 +1,9 @@
 package com.kitobim.ui.adapter
 
 import android.content.Context
-import android.support.constraint.ConstraintLayout
 import android.support.v7.widget.AppCompatRatingBar
+import android.support.v7.widget.CardView
 import android.support.v7.widget.RecyclerView
-import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,7 +29,7 @@ class BookAdapter(private val context: Context, private val isGridLayout: Boolea
 
         } else {
             ListViewHolder(LayoutInflater.from(parent.context)
-                    .inflate(R.layout.item_list_book, parent, false) as ConstraintLayout)
+                    .inflate(R.layout.item_list_book, parent, false) as CardView)
         }
     }
 
@@ -49,11 +48,16 @@ class BookAdapter(private val context: Context, private val isGridLayout: Boolea
             val currency = context.resources.getString(R.string.sum)
 
             holder.title.text = book.title
-            holder.author.text = TextUtils.join(", ", book.authors.map { it.name })
+
+//            if (book.authors.isNotEmpty()) {
+//                holder.author.text = TextUtils.join(", ", book.authors.map { it.name })
+//            }
+//
             if (book.rating != null && book.rating >= 0 && book.rating <= 5) {
                 holder.rateBar.rating = book.rating
                 holder.rateText.text = book.rating.toString()
             }
+
             holder.price.text = if (book.price > 0) {
                 "${(book.price)} $currency"
             } else {
@@ -64,7 +68,6 @@ class BookAdapter(private val context: Context, private val isGridLayout: Boolea
                 ImageHelper.setBookCover(holder.coverImage, book.thumbnail)
             }
         }
-
     }
 
     override fun getItemCount(): Int = mList.size
@@ -78,6 +81,7 @@ class BookAdapter(private val context: Context, private val isGridLayout: Boolea
         mList = emptyList()
         notifyDataSetChanged()
     }
+
 
     fun getItem(position: Int) = mList[position]
 
@@ -94,6 +98,4 @@ class BookAdapter(private val context: Context, private val isGridLayout: Boolea
         val title: TextView = view.title_grid_book
         val coverImage: ImageView = view.img_grid_book
     }
-
-
 }

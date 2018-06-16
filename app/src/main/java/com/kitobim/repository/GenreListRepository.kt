@@ -50,8 +50,6 @@ class GenreListRepository private constructor(application: Application) {
         return mGenreListDao.loadAllGenres()
     }
 
-
-
     private fun fetchData(page: Int) {
         mService.getAllGenres(page)
                 .subscribeOn(Schedulers.io())

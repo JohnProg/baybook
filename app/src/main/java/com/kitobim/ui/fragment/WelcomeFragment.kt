@@ -37,7 +37,7 @@ class WelcomeFragment @SuppressLint("ValidFragment") private constructor() : Fra
             else -> null
         }
         changeFragment {
-            replace(R.id.fragment_container_auth, mFragment).addToBackStack(null)
+            replace(R.id.fragment_container_auth, mFragment,"login").addToBackStack(null)
         }
     }
 

@@ -8,5 +8,5 @@ class CollectionEntity (
     @PrimaryKey
     val id: Int,
     val name: String,
-    val books: Int
+    val books_count: Int
 )

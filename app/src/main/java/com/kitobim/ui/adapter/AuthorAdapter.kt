@@ -16,6 +16,10 @@ import kotlinx.android.synthetic.main.item_grid_author.view.*
 import kotlinx.android.synthetic.main.item_list_author.view.*
 
 
+
+
+
+
 class AuthorAdapter(private val context: Context, private val isGridLayout: Boolean = false)
     : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -65,12 +69,12 @@ class AuthorAdapter(private val context: Context, private val isGridLayout: Bool
 
     fun getItem(position: Int) = mList[position]
 
-    inner class ListViewHolder(val view: View) : RecyclerView.ViewHolder(view){
+    inner class ListViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
         val name: TextView = view.txt_name_list_author
         val thumbnail: ImageView = view.img_list_author
     }
 
-    inner class GridViewHolder(val view: View) : RecyclerView.ViewHolder(view){
+    inner class GridViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
         val name: TextView = view.txt_name_grid_author
         val thumbnail: ImageView = view.img_grid_author
     }

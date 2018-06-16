@@ -97,4 +97,8 @@
   Please, confirm your email address and log in</string>
   <string name="hint_phone" translatable="false">123456789</string>
   <string name="subtitle_phone_forgot_password">Enter your phone number to find your account</string>
+  <string name="download">Download</string>
+  <string name="error_cofirm_code">Code is incorrect</string>
+  <string name="no_books">No books</string>
+  <string name="books">Books</string>
 </resources>
