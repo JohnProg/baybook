@@ -62,7 +62,7 @@ interface ApiService {
     @POST(LOGIN)
     @FormUrlEncoded
     fun loginWithPhone(@Field("phone") phone: String,
-              @Field("password") email: String)
+                       @Field("password") email: String)
             : Flowable<LoginResponse>
 
     @GET(BOOK_INFO)

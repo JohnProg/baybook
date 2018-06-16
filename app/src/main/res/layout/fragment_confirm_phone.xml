@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:id="@+id/layout_parent_confirm_phone"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:background="@drawable/img_bg_auth"
+  android:paddingTop="@dimen/height_status_bar"
+  android:fitsSystemWindows="true"
+  android:clickable="true"
+  android:focusable="true">
+
+  <android.support.v7.widget.Toolbar
+    android:id="@+id/toolbar_confirm_phone"
+    android:layout_width="0dp"
+    android:layout_height="@dimen/height_toolbar"
+    android:background="@color/transparent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintTop_toTopOf="parent"/>
+
+  <TextView
+    android:id="@+id/txt_title_confirm_phone"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="16dp"
+    android:layout_marginStart="@dimen/margin_micro"
+    android:text="@string/title_confirm_phone"
+    android:textColor="@color/text_primary_dark"
+    android:textSize="20sp"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/toolbar_confirm_phone"/>
+
+  <android.support.design.widget.TextInputLayout
+    android:id="@+id/label_code_confirm_phone"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="8dp"
+    app:layout_constraintEnd_toStartOf="@id/guideline_end_password"
+    app:layout_constraintStart_toEndOf="@id/guideline_begin_password"
+    app:layout_constraintTop_toBottomOf="@id/txt_title_confirm_phone">
+    <android.support.v7.widget.AppCompatEditText
+      android:id="@+id/field_code_confirm_phone"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:hint="@string/code"
+      android:imeOptions="actionGo"
+      android:inputType="number"
+      android:selectAllOnFocus="true"/>
+  </android.support.design.widget.TextInputLayout>
+
+  <TextView
+    android:id="@+id/subtitle_confirm_phone"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="4dp"
+    android:textColor="@color/text_secondary_dark"
+    android:textSize="14sp"
+    app:layout_constraintStart_toStartOf="@+id/guideline_begin_password"
+    app:layout_constraintTop_toBottomOf="@+id/label_code_confirm_phone"/>
+
+  <ImageView
+    android:id="@+id/img_warning_login"
+    android:layout_width="48dp"
+    android:layout_height="48dp"
+    android:layout_marginTop="216dp"
+    android:contentDescription="@string/image_description"
+    android:src="@drawable/ic_warning"
+    android:visibility="gone"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"/>
+
+  <TextView
+    android:id="@+id/txt_warning_login"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="4dp"
+    android:text="@string/no_network_connection"
+    android:textColor="@color/orange500"
+    android:textSize="16sp"
+    android:visibility="gone"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/img_warning_login"/>
+
+  <ProgressBar
+    android:id="@+id/progress_bar_confirm"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="216dp"
+    android:theme="@style/CircularProgress"
+    android:visibility="gone"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"/>
+
+  <TextView
+    android:id="@+id/txt_progress_confirm"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="8dp"
+    android:text="@string/please_wait"
+    android:textColor="@color/white"
+    android:textSize="16sp"
+    android:visibility="gone"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/progress_bar_confirm"/>
+
+  <android.support.design.widget.FloatingActionButton
+    android:id="@+id/fab_confirm_phone"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="16dp"
+    android:layout_marginEnd="16dp"
+    android:src="@drawable/ic_chevron_right"
+    app:backgroundTint="@color/icon_inactive_dark"
+    app:elevation="@dimen/no_elevation"
+    app:fabSize="mini"
+    app:borderWidth="0dp"
+    app:pressedTranslationZ="@dimen/no_elevation"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"/>
+
+  <android.support.constraint.Guideline
+    android:id="@+id/guideline_begin_password"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    app:layout_constraintGuide_begin="@dimen/margin_guideline_auth"/>
+
+  <android.support.constraint.Guideline
+    android:id="@+id/guideline_end_password"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    app:layout_constraintGuide_end="@dimen/margin_guideline_auth"/>
+
+</android.support.constraint.ConstraintLayout>
